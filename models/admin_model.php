@@ -1,0 +1,238 @@
+<?php 
+require_once 'function.php';
+
+class admin_model {
+	public function adlogin() {
+		$sql = 'SELECT * FROM user WHERE role = 0';
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function fullsp() {
+		$sql = 'SELECT * FROM product ORDER BY id DESC';
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function fulldm() {
+		$sql = 'SELECT * FROM catalog';
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function pldm() {
+		$sql = 'SELECT * FROM phanloai';
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function fullus() {
+		$sql = 'SELECT * FROM user';
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function fullth() {
+		$sql = 'SELECT * FROM brand';
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function shd() {
+		$sql = "SELECT * FROM hoadon WHERE id > 0 ORDER BY id DESC";
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function hdup($id=null, $stt=null, $boloc=null) {
+		if (isset($id)) {
+			$date = date("Y-m-d",time());
+			$sql = "SELECT * FROM hoadon WHERE id = $id";
+			$ketqua = getdata($sql);
+			if($ketqua[0]['submited'] == "0000-00-00") {
+				$sql = "UPDATE hoadon SET trangthai = '$stt', submited = '$date' WHERE id = $id";
+				iuddata($sql);
+			}
+			else {
+				$sql = "UPDATE hoadon SET trangthai = '$stt' WHERE id = $id";
+				iuddata($sql);
+			}
+		}
+		else if (isset($boloc)) {
+			if ($boloc == 1) $sql = "SELECT * FROM hoadon ORDER BY id DESC";
+			else if ($boloc == 2) $sql = "SELECT * FROM hoadon WHERE trangthai = 'Chưa Xong' OR trangthai = 'Chờ Xác Nhận' ORDER BY id DESC";
+			else if ($boloc == 3) $sql = "SELECT * FROM hoadon WHERE trangthai = 'Chuẩn Bị' ORDER BY id DESC";
+			else if ($boloc == 4) $sql = "SELECT * FROM hoadon WHERE trangthai = 'Hoàn Thành' ORDER BY id DESC";
+			else if ($boloc == 5) $sql = "SELECT * FROM hoadon WHERE trangthai = 'Đã Hủy' ORDER BY id DESC";
+			$ketqua = getdata($sql);
+			return $ketqua;
+		}
+	}
+	/*-----------------------------------------*/
+	public function thunhap() {
+		$sql = "
+			SELECT SUM(thanhtien) as dutinh, tb.thunhap 
+			FROM hoadon INNER JOIN 
+			(SELECT SUM(thanhtien) as thunhap FROM hoadon WHERE trangthai = \"Hoàn Thành\") 
+			as tb
+		";
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function donhang() {
+		$sql = "
+			SELECT COUNT(id) as tonghd, tb.hdht 
+			FROM hoadon INNER JOIN 
+			(SELECT COUNT(id) as hdht FROM hoadon WHERE trangthai = \"Hoàn Thành\")
+			 as tb
+		";
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function member() {
+		$sql = "
+			SELECT COUNT(us.user) as ddk, cdk
+			FROM user us, (
+				SELECT COUNT(name) as cdk FROM (
+					SELECT name FROM hoadon WHERE name NOT IN (SELECT user FROM user) GROUP BY name
+				) as tb
+			) as tb
+			WHERE us.role = 1
+		";
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function access() {
+		$sql = "SELECT * FROM accessed";
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	/*-----------------------------------------*/
+	public function tksp() {
+		$sql = "
+			SELECT dm.name, COUNT(pd.id) as soluong
+			FROM catalog dm LEFT JOIN product pd ON dm.id = pd.id_cata
+			GROUP BY dm.name";
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function checksp($name) {
+		$sql = "SELECT * FROM product WHERE name = \"$name\"";
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function addpro($name,$duongdan,$price,$sale,$salef,$salet,$catalog,$brand,$info,$infoct) {
+		$sql = "INSERT INTO product VALUES('','$name','$duongdan','$info','$infoct','','$catalog','$brand','$price','$sale','$salef','$salet','')";
+		iuddata($sql);
+	}
+	public function fixpro($id,$name,$duongdan,$price,$sale,$salef,$salet,$catalog,$brand,$info,$infoct) {
+		$sql = "UPDATE product SET 
+			name = '$name', 
+			img = '$duongdan', 
+			detail = '$info', 
+			mdetail = '$infoct', 
+			id_cata = '$catalog', 
+			id_brand = '$brand', 
+			price = '$price', 
+			price_sale = '$sale', 
+			from_date = '$salef', 
+			to_date = '$salet' 
+			WHERE id = $id";
+		iuddata($sql);
+	}
+	public function delpro($id) {
+		$sql = "DELETE FROM product WHERE id = $id";
+		iuddata($sql);
+	}
+	/*-----------------------------------------*/
+	public function checkdm($name) {
+		$sql = "SELECT * FROM catalog WHERE name = \"$name\"";
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function addcat($name, $phanloai, $duongdan = "") {
+		$sql = "INSERT INTO catalog VALUES('','$name','$duongdan')";
+		iuddata($sql);
+	}
+	public function fixcat($id,$name, $phanloai, $duongdan) {
+		$sql = "UPDATE catalog SET 
+			name = '$name', 
+			img = '$duongdan'
+			WHERE id = $id";
+		iuddata($sql);
+	}
+	public function delcat($id) {
+		$sql = "DELETE FROM catalog WHERE id = $id";
+		iuddata($sql);
+	}
+	/*-----------------------------------------*/
+	public function checkpl($name) {
+		$sql = "SELECT * FROM phanloai WHERE name = \"$name\"";
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function addpl($name) {
+		$sql = "INSERT INTO phanloai VALUES('','$name')";
+		iuddata($sql);
+	}
+	public function fixpl($id,$name) {
+		$sql = "UPDATE phanloai SET 
+			name = '$name'
+			WHERE id = $id";
+		iuddata($sql);
+	}
+	public function delpl($id) {
+		$sql = "DELETE FROM phanloai WHERE id = $id";
+		iuddata($sql);
+	}
+	/*-----------------------------------------*/
+	public function checkus($name) {
+		$sql = "SELECT * FROM user WHERE user = \"$name\"";
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function addus($name,$pass,$ho,$ten,$phone,$email,$diachi,$role) {
+		$sql = "INSERT INTO user VALUES('','$name','$pass','$ho','$ten','$phone','$email','$diachi','$role','','')";
+		iuddata($sql);
+	}
+	public function fixus($id,$name,$pass,$ho,$ten,$phone,$email,$diachi,$role) {
+		$sql = "UPDATE user SET 
+			user = '$name', 
+				pass = '$pass',
+			ho = '$ho',
+				ten = '$ten',
+			sdt = '$phone',
+				email = '$email',
+			diachi = '$diachi',
+				role = '$role'
+			WHERE id = $id";
+		iuddata($sql);
+	}
+	public function delus($id) {
+		$sql = "DELETE FROM user WHERE id = $id";
+		iuddata($sql);
+	}
+	public function banus($id,$ban=null) {
+		if (isset($ban)) {
+			$sql = "UPDATE user SET ban = '$ban' WHERE id = $id";
+			iuddata($sql);
+		}
+		else {
+			$sql = "SELECT * FROM user WHERE id = $id";
+			$ketqua = getdata($sql);
+			return $ketqua;
+		}
+	}
+	/*-----------------------------------------*/
+	public function dsbl() {
+		$sql = "
+		SELECT id, name, SUM(luot) as cmts, COUNT(id_user) as users FROM (
+			SELECT id, name, COUNT(id_pd) as luot, id_user
+			FROM product pd INNER JOIN comments cmt ON pd.id = cmt.id_pd
+			GROUP BY id_pd, id_user) 
+		AS TB GROUP BY name";
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function delbl($id) {
+		$sql = "DELETE FROM comments WHERE id_cmt = $id";
+		iuddata($sql);
+	}
+	public function infobl($idsp) {
+		$sql = "SELECT * FROM comments WHERE id_pd = $idsp";
+		return getdata($sql);
+	}
+} ?>

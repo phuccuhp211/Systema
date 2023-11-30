@@ -1,0 +1,499 @@
+*{padding: 0;margin: 0;font-family: Segoe UI, sans-serif; transition: all ease 0.3s;}
+
+body {
+    padding: 130px 0 0 !important;
+}
+
+.ttgh {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    background: #00000075;
+}
+
+.ttgh-hide {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.ttgh > div {
+    width: 400px;
+    background: white;
+    text-align: center;
+    border-radius: 15px;
+    color: #6246A8;
+}
+
+.ttgh > div > i {
+    margin: 30px;
+    font-size: 100px;
+}
+
+.ttgh > div > h2 {
+    margin: 0 0 30px;
+}
+
+.menu-thucap {
+    position: relative;
+}
+
+ol.carousel-indicators li::marker {
+  content: none !important;
+}
+
+.span-popup a {
+    color: #ffb600;
+}
+
+.tongcong {
+    color: #745caf;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.soluong {
+    width: 70px;
+    text-align: center;
+}
+.gia_sp {
+    color: #745CAF;
+}
+.md-tongcong {
+    color: #745CAF;
+    font-weight: bold;
+}
+.ten_sp {
+    color: ;
+}
+.sp_s{
+    position: absolute;
+    padding: 0;
+    margin: auto;
+    background: center;
+    width: 60px;
+}
+.thanhtoan_b{
+    background: none !important;
+    border: 1px solid;
+    border-color: #745CAF;
+    color: #745CAF;
+}
+.thanhtoan_b:hover{
+    background: #745CAF !important;
+    border-color: #745CAF!important; 
+    color: white;        
+}
+.nut_dn{
+    border-color: #745CAF;
+    color: #745CAF;
+}
+.nut_dn:hover{
+    border-color: #745CAF;
+    background: #745CAF;
+}
+.nut_dk{
+    border-color: #745CAF;
+    color: #745CAF;
+}
+.nut_dk:hover{
+    border-color: #745CAF;
+    background: #745CAF;
+}
+.menu-khungtk {
+    position: relative;
+    width: 100%;
+}
+
+.menu-khungtk input {
+    border-radius: 10px;
+    height: 40px;
+}
+
+.menu-nuttk {
+    background: black;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+.menu-chinh-li {
+    color: white;
+    font-size: 18px;
+    border-radius: 10px;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+.second-menu .menu-chinh-li {
+    text-decoration: none;
+    padding: 8px 15px;
+    margin: 10px;
+}
+
+.menu-chinh-li:hover {
+    background: #392b5c;
+    color: white;
+    margin: 0;
+}
+
+.second-menu .menu-chinh-li:hover {
+    padding: 18px 25px;
+}
+
+.menu-logo-chinh img {height: 40px;}
+
+.menu-chinh {
+    background-color: #745caf;
+    padding: 15px;
+}
+
+.menu-chinh .row:first-child {
+    align-items: center;
+}
+
+.ft_nho1 {
+    color: white;
+    margin: 0;
+}
+
+.ft_nho {
+    background: black;
+    padding: 5px 0;
+}
+
+.icon_size {
+    font-size: 30px;
+    color: black;
+}
+
+.icon_size:hover {
+    font-size: 40px;
+}
+
+.ft-chinh .logo_ft {
+    color: #212529;
+    text-decoration: none;
+}
+
+.ft-chinh {
+    background: #c7c8ca;
+    padding: 2% 0;
+}
+
+.tdft_to {
+    margin: 5% 0;
+    cursor: context-menu;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 30px;
+    color: #212529;
+}
+
+.ft-chinh-v2 .tdft_to {
+    margin: 5% 0 2%;
+}
+
+.ft-chinh .footer-list .nav-link {
+    color: black;
+    margin: 0;
+    padding: 3% 0;
+    font-size: 18px;
+}
+
+.ft-chinh.ft-chinh-v2  .footer-list .nav-link {
+    font-size: 20px;
+}
+
+.ft-chinh .footer-list a.nav-link:hover {
+    font-weight: 600;
+}
+
+.a-pt {
+    text-decoration: none;
+    border: 1px solid gray;
+    border-radius: 7px;
+    padding: 10px 15px;
+    display: block;
+    width: fit-content;
+    color: #745caf;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 10px;
+}
+.a-pt:hover {
+    background: #745caf;
+    color: white;
+}
+.nutsp {
+    color: white;
+    border-radius: 10px;
+    background: #745caf;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    padding: 7px;
+}
+
+button.nutsp {
+    background: white;
+    width: 40px;
+    text-align: center;
+    color: #745caf;
+    border: 1px solid #745caf;
+}
+
+a.nutsp {
+    width: 175px;
+}
+
+a.nutsp:hover {
+    color: white;
+    background: #2c175f;
+}
+
+button.nutsp:hover {
+    background: #745caf;
+    color: white;
+}
+
+.anhsp {
+    width: 100%;
+}
+
+.khungxam{
+    display: flex;
+    border-radius: 9px;
+    height: 100px;
+    width: 185px;
+    margin: auto;
+    padding: 0 15%;
+    align-items: center;
+    overflow: hidden;
+}
+
+.khungxam .nav-link {
+    padding: 0;
+    margin: 0;
+}
+
+.khungsp {
+    border: 1px solid #745caf;
+    border-radius: 4%;
+    height: max-content;
+    margin: 0 0 15px;
+    padding: 15px;
+}
+.khungsp:hover{box-shadow: 0px 0px 10px #745caf;border: 1px solid white;}
+.tt {
+    margin: 3% 0;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: left;
+    padding: 0 15px;
+}
+.giasp {color: red;font-size: 20px;text-align: center;display: flex;justify-content: space-around;}
+
+.giasp span {
+    text-decoration: line-through;
+    width: auto;
+    font-size: 14px;
+    color: gray;
+}
+.tensp {
+    display: flex;
+    align-items: center;
+    background: #f1ecff;
+    border-radius: 10px;
+    color: black;
+}
+
+.dndk, .dndk2, .dndk-err, .dmk {
+    background: #2c3e50;
+    color: white;
+    padding: 30px;
+    border-radius: 30px;
+    width: 660px;
+}
+
+.dndk input, .dndk2 input, .dmk input {
+    border-radius: 8px;
+    width: 100%;
+    height: 40px;
+    padding: 0 15px;
+    border: none;
+}
+
+.dmk input:focus-visible, .dmk select:focus-visible, .dmk textarea:focus-visible,
+.dndk input:focus-visible, .dndk select:focus-visible, .dndk textarea:focus-visible,
+.dndk2 input:focus-visible, .dndk2 select:focus-visible, .dndk2 textarea:focus-visible {
+    outline-color: #927ec4;
+}
+
+
+.dndk label, .dndk2 label, .dmk label {
+    width: 100%;
+    font-size: 18px;
+    margin: 0 0 5px;
+}
+.dndk button, .dndk2 button, .dmk button {
+    width: 100%;
+    font-size: 18px;
+    height: 40px;
+    font-weight: 700;
+    border-radius: 10px;
+}
+.bg-dndk, .bg-dndk2, .bg-dndk-err, .bg-dmk {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000000bb;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    z-index: 100;
+}
+.hide-bg-dndk, .hide-bg-dndk2, .hide-bg-dndk-err, .hide-bg-dmk {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.quaylai-dndk {
+    width: 100%;
+}
+
+.db-field-add {
+    display: flex;
+    justify-content: space-between;
+}
+
+.db-field-add .field-add {width: 48%;}
+
+.field-add {
+    margin: 0 0 15px;
+}
+
+.span-popup {
+    position: absolute;
+    right: 0;
+    padding: 0 10px;
+    color: white;
+    font-size: 20px;
+}
+
+.span-popup a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.span-popup a:hover {
+    background: #483771;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #dfdfdf;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.second-menu {
+    background: #6246A8;
+    position: relative;
+    padding: 0;
+}
+
+.second-menu .col-12 {display: flex;justify-content: space-between;}
+
+.menu-cap2 hr {
+    margin: 0;
+}
+
+.a-mnc2, .a-mnc3 {
+    padding: 0 15px;
+    font-size: 20px;
+    height: 40px;
+    display: block;
+    line-height: 40px;
+    color: black;
+    width: 275px;
+    margin: 0;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.menu-cap2 a:hover {
+    color: white;
+    box-shadow: inset 275px 0px 0 0px #745caf;
+}
+
+.menu-cap3 {
+    top: 0;
+    left: 100%;
+}
+
+.menu-cap2 {
+    width: auto;
+    z-index: 2;
+    top: 0;
+}
+
+.menu-cap2, .menu-cap3 {
+    padding: 10px 0;
+    position: absolute;
+    border-color: #6246a8;
+    border-style: solid;
+    border-width: 0 1px 1px 1px;
+    background: white;
+    display: none;
+}
+
+.thirt-menu:hover .menu-cap3 {
+    display: block !important;
+}
+
+.show-mnmn {
+    display: block !important;
+}
+
+.a-mnmn-hv {
+    color: white;
+    box-shadow: inset 275px 0px 0 0px #745caf;
+}
+
+.li-mnmn {
+    padding: 0 10px;
+    list-style: none;
+}
+
+.nut_sp {display: flex;justify-content: space-between;}
+
+.full-menu {
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+    top: 0;
+}
