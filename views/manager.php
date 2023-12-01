@@ -8,7 +8,7 @@
 	<script style="text/javascript" src="<?php echo urlv ?>lib/js/plotly.min.js" referrerpolicy="origin"></script>
 	<title>Trang Quản Trị</title>
 </head>
-<body>
+<body style="padding: 0 !important;">
 	<div class="container menu">
 		<div class="row">
 			<div class="col-4"><a class="btn w-100 btn-info" href="<?php echo urlmd ?>/manager/">Trang Quản Trị</a></div>

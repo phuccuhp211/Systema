@@ -1,7 +1,10 @@
 $(function() {
 	var ccmh = $(window).height();
 	var cdmh = $(window).width();
-	var duongdan = window.location.href;
+	//var duongdan = window.location.href;
+	var duongdan = window.location.origin;
+	var url_sub = "/DA1/systema"; 
+	//var duongdan_fix = duongdan.replace(/(\/systema\/).*/, "$1"+"ktbh/");
 
 	tinymce.init({
         selector: '#ttct-sp',
@@ -20,29 +23,20 @@ $(function() {
 	$('.bg-admin-log').height(ccmh);
 
 /*-------------------- BACK --------------------*/
-	$('.them').on('click', function() {
-		$('.bg-add').removeClass('hide-bg-add');
-	})
-	$('.sua').on('click', function() {
-		$('.bg-fix').removeClass('hide-bg-fix');
-	})
-	$('.xoa').on('click', function() {
-		$('.bg-del').removeClass('hide-bg-del');
-	})
-
+	$('.them').on('click', function() { $('.bg-add').removeClass('hide-bg-add'); })
+	$('.sua').on('click', function() { $('.bg-fix').removeClass('hide-bg-fix'); })
+	$('.xoa').on('click', function() { $('.bg-del').removeClass('hide-bg-del'); })
+	$('.qlai').on('click', function() { $('.bg-inf').addClass('hide-bg-inf'); })
 	$('.quaylai').on('click', function() {
 		$('.bg-add').addClass('hide-bg-add');
 		$('.bg-fix').addClass('hide-bg-fix');
 		$('.bg-del').addClass('hide-bg-del');
 		$('.bg-err').addClass('hide-bg-add-err');
 	})
-	$('.qlai').on('click', function() {
-		$('.bg-inf').addClass('hide-bg-inf');
-	})
 	$('.chitiet').on('click', function() {
 		var id_sp_cmt = $(this).data('idbl');
 		var duongdan = window.location.href;
-		var duongdan_fix = duongdan.replace(/manager\/.*/,"inf_cmt/");
+		var duongdan_fix = duongdan+url_sub+"/inf_cmt/";
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
@@ -72,7 +66,7 @@ $(function() {
 
 	$('.suasp').on('click', function() {
 		id_sp_fix = $(this).data('idsp');
-		var duongdan_fix = duongdan.replace(/manager\/.*/,"fixpro/"+id_sp_fix+"/");
+		var duongdan_fix = duongdan+url_sub+"/fixpro/"+id_sp_fix+"/";
 		var ae_td = $(this).parent().siblings("td:has(img)");
 
 		var old_name = $(this).parent().siblings("#tensp").text();
@@ -96,13 +90,13 @@ $(function() {
 	})
 	$('.xoasp').on('click', function() {
 		id_sp_del = $(this).data('idsp');
-		var duongdan_del = duongdan.replace(/manager\/.*/,"delpro/"+id_sp_del+"/");
+		var duongdan_del = duongdan+url_sub+"/delpro/"+id_sp_del+"/";
 		$('#acp-del').attr("href", duongdan_del);
 		console.log(id_sp_del);
 	})
 	$('.suadm').on('click', function() {
 		id_dm_fix = $(this).data('iddm');
-		var duongdan_fix = duongdan.replace(/manager\/.*/,"fixcat/"+id_dm_fix+"/");
+		var duongdan_fix = duongdan+url_sub+"/fixcat/"+id_dm_fix+"/";
 		var ae_td = $(this).parent().siblings("td:has(img)");
 		var pldm = $(this).parent().siblings("#pldm").text();
 		var old_name = $(this).parent().siblings("#tendm").text();
@@ -117,13 +111,13 @@ $(function() {
 	})
 	$('.xoadm').on('click', function() {
 		id_dm_del = $(this).data('iddm');
-		var duongdan_del = duongdan.replace(/manager\/.*/,"delcat/"+id_dm_del+"/");
+		var duongdan_del = duongdan+url_sub+"/delcat/"+id_dm_del+"/";
 		$('#acp-del').attr("href", duongdan_del);
 		console.log(id_sp_del);
 	})
 	$('.suapl').on('click', function() {
 		id_pl_fix = $(this).data('idpl');
-		var duongdan_fix = duongdan.replace(/manager\/.*/,"fixpl/"+id_pl_fix+"/");
+		var duongdan_fix = duongdan+url_sub+"/fixpl/"+id_pl_fix+"/";
 
 		var old_name = $(this).parent().siblings("#tenpl").text();
 
@@ -135,13 +129,13 @@ $(function() {
 	})
 	$('.xoapl').on('click', function() {
 		id_pl_del = $(this).data('idpl');
-		var duongdan_del = duongdan.replace(/manager\/.*/,"delpl/"+id_pl_del+"/");
+		var duongdan_del = duongdan+url_sub+"/delpl/"+id_pl_del+"/";
 		$('#acp-del').attr("href", duongdan_del);
 		console.log(id_sp_del);
 	})
 	$('.suaus').on('click', function() {
 		id_us_fix = $(this).data('idus');
-		var duongdan_fix = duongdan.replace(/manager\/.*/,"fixus/"+id_us_fix+"/");
+		var duongdan_fix = duongdan+url_sub+"/fixus/"+id_us_fix+"/";
 
 		var old_name = $(this).parent().siblings("#tenus").text();
 		var old_sdt = $(this).parent().siblings("#sdtus").text();
@@ -164,7 +158,7 @@ $(function() {
 	})
 	$('.xoaus').on('click', function() {
 		id_us_del = $(this).data('idus');
-		var duongdan_del = duongdan.replace(/manager\/.*/,"delus/"+id_us_del+"/");
+		var duongdan_del = duongdan+url_sub+"/delus/"+id_us_del+"/";
 		$('#acp-del').attr("href", duongdan_del);
 		console.log(id_sp_del);
 	})
@@ -185,7 +179,7 @@ $(function() {
 		}
 
 		var idtk = $(this).data('idus');
-		var duongdan_fix = duongdan.replace(/manager\/.*/,"banus/"+idtk+"/");
+		var duongdan_fix = duongdan+url_sub+"/banus/"+idtk+"/";
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
@@ -205,7 +199,7 @@ $(function() {
 	$(document).on('click', '.hd-update', function() {
 		var trangthai = $(this).siblings("select").val();
 		var id = $(this).parent().siblings(".id-hd").text();
-		var duongdan_fix = duongdan.replace(/manager\/.*/,"hdup/");
+		var duongdan_fix = duongdan+url_sub+"/hdup/";
 
 		$(this).parent().siblings(".stt-hd").text(trangthai);
 		console.log(trangthai+" "+id);
@@ -223,7 +217,7 @@ $(function() {
 	})
 	$('.boloc').on('click', '.btn-boloc', function() {
 		var boloc = $(this).attr("boloc");
-		var duongdan_fix = duongdan.replace(/manager\/.*/,"hdup/");
+		var duongdan_fix = duongdan+url_sub+"/hdup/";
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
@@ -240,8 +234,7 @@ $(function() {
 	$(document).on('click', '.xoabl', function() {
 		$('.bg-del').removeClass('hide-bg-del');
 		id_bl_del = $(this).data('idbl');
-		var duongdan = window.location.href;
-		var duongdan_del = duongdan.replace(/manager\/.*/,"delbl/"+id_bl_del+"/");
+		var duongdan_del = duongdan+url_sub+"/delbl/"+id_bl_del+"/";
 		$('#acp-del').attr("href", duongdan_del);
 		console.log(id_sp_del);
 	})

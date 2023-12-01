@@ -38,10 +38,10 @@
                         </tr>
                 <?php }} ?>
                 <?php 
-                    if (!isset($_SESSION['giohang'][0])) { 
+                    if (!isset($_SESSION['giohang'][0]) || count($_SESSION['giohang']) == 0) { 
                         echo '<tr id="emptycart"><th colspan="7">Bạn không có sản phẩm nào trong giỏ hàng</th></tr>';
                     }
-                    if (isset($_SESSION['giohang'][0])) {
+                    else {
                         echo '
                         <tr>
                             <td colspan="5" style="color: red; font-weight: bold; text-align : center;">Tổng tiền :</td>
@@ -51,7 +51,7 @@
                   ?>
             </table>
         </div>
-        <?php if (isset($_SESSION['giohang'][0])) { ?>
+        <?php if (isset($_SESSION['giohang']) && count($_SESSION['giohang']) != 0) { ?>
             <div class="row" style="margin: 15px 0 0;"><div class="col-4 offset-4"><a href="<?php echo urlmd ?>/thanhtoan/" class="w-100 btn btn-success">Bắt Đầu Thanh Toán</a></div></div>
         <?php } ?>
         <div class="row" style="margin: 15px 0 0;"><div class="col-4 offset-4"><button class="w-100 btn btn-danger delallcart">Xóa Giỏ Hàng</button></div></div>

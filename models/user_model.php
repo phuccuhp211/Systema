@@ -44,7 +44,7 @@ class user_model {
 		return $ketqua;
 	}
 	public function gethd($name) {
-		$sql = "SELECT * FROM hoadon WHERE name = '$name'";
+		$sql = "SELECT * FROM hoadon WHERE name = '$name' ORDER BY id DESC";
 		$ketqua = getdata($sql);
 		return $ketqua;
 	}

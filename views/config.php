@@ -87,42 +87,59 @@
             </div>
             <div class="cf-trans box-lsmh">
                 <div class="row">
-                    <div class="col-3">
-                        <button class="btn-status btn-stt-act">Tất Cả</button>
-                        <button class="btn-status">Chờ Xác Nhận</button>
-                        <button class="btn-status">Đang Chuẩn Bị</button>
-                        <button class="btn-status">Đang Giao</button>
-                        <button class="btn-status">Đã Giao</button>
-                    </div>
-                    <div class="col-9">
-                        <table>
-                            <tr>
-                                <th style="width: 20%;">Mã Hóa Đơn</th>
-                                <th style="width: 20%;">Ngày Lập</th>
-                                <th style="width: 20%;">Ngày Xác Nhận</th>
-                                <th style="width: 20%;">Tổng Tiền</th>
-                                <th style="width: 20%;">Trạng Thái</th>
-                            </tr>
+                    <div class="col-12">    
                             <?php 
                                 if (!isset($list_hd[0])) echo "<tr><th colspan=\"5\">Không có hóa đơn mua hàng</th></tr>"; 
                                 else {
-                                    foreach ($list_hd as $value => $item) { ?>
-                                        <tr>
-                                            <td><?php echo $item['SHD']; ?></td>
-                                            <td><?php echo $item['created']; ?></td>
-                                            <td><?php echo $item['submited']; ?></td>
-                                            <td><?php echo number_format($item['thanhtien'],0,",","."); ?></td>
-                                            <td><?php echo $item['trangthai']; ?></td>
-                                        </tr>
+                                    foreach ($list_hd as $value => $item) { 
+                                        $dssp = json_decode($item['dssp'],true);
+                                        $tc = number_format($item['thanhtien'],0,'','.');
+                                    ?>
+                                        <table class="mb-5">
+                                            <tr>
+                                                <th style="width: 20%;">Mã Hóa Đơn</th>
+                                                <th style="width: 20%;">Ngày Lập Hóa Đơn</th>
+                                                <th style="width: 20%;">Ngày Xác Nhận</th>
+                                                <th style="width: 20%;">Tổng Tiền</th>
+                                                <th style="width: 20%;">Trạng Thái</th>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center"><?php echo $item['SHD']; ?></td>
+                                                <td class="text-center"><?php echo $item['created']; ?></td>
+                                                <td class="text-center"><?php echo $item['submited']; ?></td>
+                                                <td class="text-center" style="color: red;"><?php echo number_format($item['thanhtien'],0,",","."); ?></td>
+                                                <td class="text-center"><?php echo $item['trangthai']; ?></td>
+                                            </tr>
+                                            <tr class="h-list-sp">
+                                                <td colspan="5">Danh Sách Sản Phẩm</td>
+                                            </tr>
+                                            <tr class="h-list-sp">
+                                                <td colspan="2">Tên Sản Phẩm</td>
+                                                <td>Đơn Giá</td>
+                                                <td>Số Lượng</td>
+                                                <td>Thành Tiền</td>
+                                            </tr>
+                                            <?php foreach ($dssp as $value2 => $item2) { ?>
+                                                <tr class="list-sp">
+                                                    <td colspan="2"><?php echo $item2['name'] ?></td>
+                                                    <td>
+                                                        <?php 
+                                                            if ($item2['price_sale'] != 0) echo number_format($item2['price_sale'],0,'','.');
+                                                            else echo number_format($item2['price'],0,'','.')
+                                                        ?>
+                                                    </td>
+                                                    <td><?php echo $item2['soluong'] ?></td>
+                                                    <td style="color: red;"><?php echo number_format($item2['thanhtien'],0,'','.') ?></td>
+                                                </tr>
+                                            <?php } ?>
+                                        </table>
                                     <?php }
                                 }
-                            ?>
-                        </table>    
+                            ?>      
                     </div>
                 </div>
             </div>
         </div>
-            
     </div>
         
 

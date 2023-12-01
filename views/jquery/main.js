@@ -1,10 +1,10 @@
 $(function() {
 	var chieucao=0;
 	var chieucao_cu = 0;
-	var duongdan = window.location.href;
-	var url_sub = "systema"; 
-
-	//var duongdan_fix1 = duongdan.replace(/(\/systema\/).*/, "$1"+"ktbh/");
+	//var duongdan = window.location.href;
+	var duongdan = window.location.origin;
+	var url_sub = "/DA1/systema";
+	//var duongdan_fix = duongdan.replace(/(\/systema\/).*/, "$1"+"ktbh/");
 
 	$(document).ready(function () {
 	  $('#carousel-id').carousel();
@@ -50,7 +50,7 @@ $(function() {
 
 		console.log(time);
 
-		var duongdan_fix = duongdan.replace(/systema\/.*/,"systema/comments/");
+		var duongdan_fix = duongdan+url_sub+"/comments/";
 
 		$.ajax({
 			type: "POST",
@@ -95,7 +95,7 @@ $(function() {
 		ttgh();
 		var idsp = $(this).data('idsp');
 		console.log(idsp);
-		var duongdan_fix = duongdan.replace(/systema\/.*/,"systema/addcart/");
+		var duongdan_fix = duongdan+url_sub+"/addcart/";
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
@@ -113,7 +113,7 @@ $(function() {
 		var idsp = $(this).data('idsp');
 		var sl = $('.ctsp-sl').val();
 		console.log(idsp);
-		var duongdan_fix = duongdan.replace(/systema\/.*/,"systema/addcart/");
+		var duongdan_fix = duongdan+url_sub+"/addcart/";
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
@@ -131,7 +131,7 @@ $(function() {
 	$(window).on('load' ,function() {
 		slsp = document.getElementsByName('slsp');
 		full_sldssp = document.getElementsByName('sanpham');
-		var duongdan_fix = duongdan.replace(/systema\/.*/,"systema/updatecart/");
+		var duongdan_fix = duongdan+url_sub+"/updatecart/";
 		for (var j=0; j<slsp.length; j++) {
 			var quantity = parseInt($(slsp)[j].value);
 			var price = parseInt($(slsp[j]).parent().siblings("#giasp").text().replace(/\./g, ''));
@@ -153,7 +153,7 @@ $(function() {
 	})
 	for (var j=0; j<slsp.length; j++) {
 		slsp[j].addEventListener('change', function() {
-			var duongdan_fix = duongdan.replace(/systema\/.*/,"systema/updatecart/");
+			var duongdan_fix = duongdan+url_sub+"/updatecart/";
 			quantity = parseInt(this.value);
 			keysp = parseInt($(this).parent().siblings("#keysp").text());
 			price = parseInt($(this).parent().siblings("#giasp").text().replace(/\./g, ''));
@@ -176,7 +176,7 @@ $(function() {
 	}
 	function updateCart() {
 		var totalp = updateTT();
-		var duongdan_fix = duongdan.replace(/systema\/.*/,"systema/updatecart/");
+		var duongdan_fix = duongdan+url_sub+"/updatecart/";
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
@@ -202,12 +202,12 @@ $(function() {
 		$('.ttgh').removeClass('ttgh-hide');
 		setTimeout(function() {
 	    	$('.ttgh').addClass('ttgh-hide');
-	  	}, 2000);
+	  	}, 1000);
 	}
 	var xoasp = document.getElementsByName('xoasp');
   	for (var k=0; k<xoasp.length; k++) {
 	    xoasp[k].addEventListener('click', function() {
-	    	var duongdan_fix = duongdan.replace(/systema\/.*/,"systema/delcart/");
+	    	var duongdan_fix = duongdan+url_sub+"/delcart/";
 	    	$(this).closest('tr').remove();
 	    	var delspcart = $(this).data('idsp');
 	    	updateTT();
@@ -231,7 +231,7 @@ $(function() {
 			$('#listcart').append(emtycart);	
 		}
 
-		var duongdan_fix = duongdan.replace(/systema\/.*/,"systema/delallcart/");
+		var duongdan_fix = duongdan+url_sub+"/delallcart/";
 
 		$.ajax({
 			type: "POST",
@@ -256,7 +256,7 @@ $(function() {
 		var dulieu = $(this).attr("data");
 		var phanloai = $(this).attr("data-phanloai");
 
-		var duongdan_fix = duongdan.replace(/systema\/.*/, `systema/${data_type}${dulieu ? `=${dulieu}` : ''}/`);
+		var duongdan_fix = duongdan+url_sub+`/${data_type}${dulieu ? `=${dulieu}` : ''}/`;
 		var data_trave = {
 			xacthuc2: randomParam,
 	        type: data_type,
@@ -290,7 +290,7 @@ $(function() {
 		var page = $(this).attr('page');
 		var phanloai = $(this).attr('type');
 
-		var duongdan_fix = duongdan.replace(/systema\/.*/, `systema/${data_type}${data ? `=${data}` : ''}/page=${page}/`);
+		var duongdan_fix = duongdanduongdan+url_sub+`/${data_type}${data ? `=${data}` : ''}/page=${page}/`;
 
 		var requestData = { type: data_type };
 		
@@ -403,8 +403,8 @@ $(function() {
 		    else $('.cf-update').removeClass('disabled');
 		}
 
-		var duongdan_fix1 = duongdan.replace(/systema\/.*/,"systema/updatetk/");
-		var duongdan_fix2 = duongdan.replace(/systema\/.*/,"systema/config/");
+		var duongdan_fix1 = duongdan+url_sub+"/updatetk/";
+		var duongdan_fix2 = duongdan+url_sub+"/config/";
 
 		$('.cf-update').on('click',function() {
 
@@ -433,15 +433,24 @@ $(function() {
 	$('.box-qltk').width(cd_slide);
 	$('.box-lsmh').width(cd_slide);
 
+	var cr_slide = $('.box-qltk').height();
+	$('.cf-slide').css({"height":cr_slide});
+
 	$('.his-mh').on('click', function() {
 		$(this).addClass('btn-hidden');
 		$('.box-qltk').addClass('cf-left');
 		$('.cf-acc').removeClass('btn-hidden');
+
+		var cr_slide2 = $('.box-lsmh').height();
+		$('.cf-slide').css({"height":"auto"});
 	})
 	$('.cf-acc').on('click', function() {
 		$(this).addClass('btn-hidden');
 		$('.box-qltk').removeClass('cf-left');
 		$('.his-mh').removeClass('btn-hidden');
+
+		var cr_slide2 = $('.box-qltk').height();
+		$('.cf-slide').css({"height":cr_slide2});
 	})
 	/* -------------------------- */
 
@@ -476,20 +485,19 @@ $(function() {
 			$('#dckh').val() == "") {
 			alert("vui lòng điển đầy đủ thông tin khách hàng!");
 		}
-		if ($('#tenkh').val() != "" &&
-			$('#emailkh').val() != "" &&
-			$('#sdtkh').val() != "" &&
-			$('#dckh').val() != "") {
-
+		else if ($('#sdtkh').val().length != 10) {
+			alert("Số điện thoại không hợp lệ");
+		}
+		else if ($('#tenkh').val() != "" && $('#emailkh').val() != "" && $('#sdtkh').val() != "" && $('#dckh').val() != "" && $('#sdtkh').val().length == 10) {
 			var tenkh = $('#tenkh').val();
 			var emailkh = $('#emailkh').val();
 			var sdtkh = $('#sdtkh').val();
 			var dckh = $('#dckh').val();
 			var randomParam = Math.random().toString(36).substring(7);
 
-			var duongdan_fix1 = duongdan.replace(/systema\/.*/,"systema/sendmail/");
-			var duongdan_fix2 = duongdan.replace(/systema\/.*/,"systema/hoadon/");
-			var duongdan_fix3 = duongdan.replace(/systema\/.*/,"systema/hoantat/");
+			var duongdan_fix1 = duongdan+url_sub+"/sendmail/";
+			var duongdan_fix2 = duongdan+url_sub+"/hoadon/";
+			var duongdan_fix3 = duongdan+url_sub+"/hoantat/";
 
 			var d = new Date();
 			var gio1 = String((d.getHours()));
@@ -497,9 +505,12 @@ $(function() {
 			var giay1 = String((d.getSeconds()));
 
 			if (gio1.length == 1) var gio2 = "0"+gio1;
-			if (phut1.length == 1) var phut2 = "0"+phut1;
-			if (giay1.length == 1) var giay2 = "0"+giay1;
 			else gio2 = gio1;
+			if (phut1.length == 1) var phut2 = "0"+phut1;
+			else phut2 = phut1;
+			if (giay1.length == 1) var giay2 = "0"+giay1;
+			else giay2 = giay1;
+
 			var mxn = String((sdtkh.substring(4, 10)))+gio2+phut2+giay2;
 			var time = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
 
@@ -526,13 +537,12 @@ $(function() {
 					console.log("Có lỗi xảy ra.");
 				}
 			});
-
 		}
 	})
 
 	$('#reset-session').on('click', function() {
-		var duongdan_fix = duongdan.replace(/systema\/.*/,"systema/reset/");
-		var duongdan_fix2 = duongdan.replace(/systema\/.*/,"systema/");
+		var duongdan_fix = duongdan+url_sub+"/reset/";
+		var duongdan_fix2 = duongdan+url_sub+"/";
 
 		$.ajax({
 			type: "POST",
@@ -551,7 +561,6 @@ $(function() {
 	})
 
 	$('.check-bh').on('click', function() {
-		var duongdan_fix1 = duongdan.replace(/(\/systema\/).*/, "$1"+"ktbh/");
 		var mahd = $(this).siblings('#mahd').val();
 		var error ="";
 		if (mahd === "" || mahd.length < 12) {
@@ -563,7 +572,7 @@ $(function() {
 			}
 		}
 		else {
-			var duongdan_fix = duongdan.replace(/(\/systema\/).*/, "$1"+"ktbh/");
+			var duongdan_fix = duongdan+url_sub+"/ktbh/";
 			$.ajax({
 		        type: "POST",
 		        url: duongdan_fix,

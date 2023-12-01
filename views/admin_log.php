@@ -7,7 +7,7 @@
 	<script style="text/javascript" src="<?php echo urlv ?>jquery/admin.js"></script>
 	<script style="text/javascript" src="<?php echo urlv ?>lib/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
-<body>
+<body style="padding: 0 !important;">
 	<div class="bg-admin-log">
 		<?php if (isset($_SESSION['errlog'])) { ?>
 			<div class="errlog"><h2><?php echo $_SESSION['errlog']; unset($_SESSION['errlog']);?></h2></div>

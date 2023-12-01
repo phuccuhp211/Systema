@@ -270,12 +270,7 @@ class user_controller {
 		if ($sanpham[0]['price_sale'] != 0) $sanpham[0]['thanhtien'] = $sanpham[0]['price_sale'];
 		else $sanpham[0]['thanhtien'] = $sanpham[0]['price'];
 		
-		if (!isset($_SESSION['giohang'])) {
-			$_SESSION['giohang'] = [];
-			$_SESSION['totalp'] = 0;
-		}
-
-		else {
+		if (isset($_SESSION['giohang'])) {
 			if (count($_SESSION['giohang']) == 0)  array_push($_SESSION['giohang'], $sanpham[0]);
 			else {
 				$trunglap = false;
@@ -288,8 +283,15 @@ class user_controller {
 				}
 				if (!$trunglap) array_push($_SESSION['giohang'], $sanpham[0]);
 			}
+			$_SESSION['totalp'] += $sanpham[0]['thanhtien'];
 		}
-		$_SESSION['totalp'] += $sanpham[0]['thanhtien'];
+		else {
+			$_SESSION['giohang'] = [];
+			$_SESSION['totalp'] = 0;
+			
+			array_push($_SESSION['giohang'], $sanpham[0]);
+			$_SESSION['totalp'] += $sanpham[0]['thanhtien'];
+		}
 
 		echo "<pre>";
 		var_dump($_SESSION['giohang']);
@@ -574,6 +576,8 @@ class user_controller {
 		<div style=\"width: 700px; margin: 0 auto; border: solid 1px #ccc;\">
 
 			<h1 style=\"text-align: center; color: #745caf; margin: 20px 0;\">Hóa Đơn Điện Tử</h1>
+			<h3 style=\"margin: 30px 0 0 50px;\">Mã Hóa Đơn :	<strong>$mxn</strong></h3>
+			<h3 style=\"margin: 0 0 0 50px;\">Ngày Tạo HD :	<strong>$date</strong></h3>
 			<h3 style=\"margin: 0 0 0 50px;\">Kính gửi : <strong>$tenkh</strong></h3>
 			<h3 style=\"margin: 0 0 0 50px;\">Địa Chỉ :  <strong>$dckh</strong></h3>
 			<h4 style=\"text-align: center; margin: 20px 0;\"><strong>CHÚNG TÔI GỬI ĐẾN QUÝ KHÁCH HÀNG HÓA ĐƠN MUA HÀNG</strong></h4>
@@ -606,10 +610,7 @@ class user_controller {
 				</tr>
 			</table>
 
-			<h3 style=\"margin: 50px 0 0 50px;\">Mã Hóa Đơn :	<strong>$mxn</strong></h3>
-			<h3 style=\"margin: 0 0 0 50px;\">Ngày Tạo HD :	<strong>$date</strong></h3>
-
-			<h4 style=\"margin: 50px;\">Chân thành cám ơn quý khách hàng đã tin tưởng dùng lựa chọn tại cửa hàng của chúng tôi. Chúng tôi sẽ chuẩn bị đơn hàng nhanh nhất có thể cho quý khách hàng.</h4>
+			<h4 style=\"margin: 50px 0;\">Chân thành cám ơn quý khách hàng đã tin tưởng dùng lựa chọn tại cửa hàng của chúng tôi. Chúng tôi sẽ chuẩn bị đơn hàng nhanh nhất có thể cho quý khách hàng.</h4>
 		</div>";
 
 		$mail = new PHPMailer(true);

@@ -45,10 +45,18 @@ class admin_model {
 			if($ketqua[0]['submited'] == "0000-00-00") {
 				$sql = "UPDATE hoadon SET trangthai = '$stt', submited = '$date' WHERE id = $id";
 				iuddata($sql);
+				if ($stt == "Hoàn Thành") { 
+					$sql = "UPDATE accessed SET tt = tt + $ketqua[0]['thanhtien']";
+					iuddata($sql);
+				}
 			}
 			else {
 				$sql = "UPDATE hoadon SET trangthai = '$stt' WHERE id = $id";
 				iuddata($sql);
+				if ($stt == "Hoàn Thành") { 
+					$sql = "UPDATE accessed SET tt = tt + $ketqua[0]['thanhtien']";
+					iuddata($sql);
+				}
 			}
 		}
 		else if (isset($boloc)) {
@@ -144,12 +152,13 @@ class admin_model {
 		return $ketqua;
 	}
 	public function addcat($name, $phanloai, $duongdan = "") {
-		$sql = "INSERT INTO catalog VALUES('','$name','$duongdan')";
+		$sql = "INSERT INTO catalog VALUES('','$name','$phanloai','$duongdan')";
 		iuddata($sql);
 	}
 	public function fixcat($id,$name, $phanloai, $duongdan) {
 		$sql = "UPDATE catalog SET 
-			name = '$name', 
+			name = '$name',
+			loai = '$phanloai', 
 			img = '$duongdan'
 			WHERE id = $id";
 		iuddata($sql);
@@ -206,8 +215,8 @@ class admin_model {
 		iuddata($sql);
 	}
 	public function banus($id,$ban=null) {
-		if (isset($ban)) {
-			$sql = "UPDATE user SET ban = '$ban' WHERE id = $id";
+		if ($ban != null) {
+			$sql = "UPDATE user SET ban = $ban WHERE id = $id";
 			iuddata($sql);
 		}
 		else {

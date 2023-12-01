@@ -53,7 +53,7 @@
                             <a class="menu-chinh-li" href="<?php echo urlmd.'/vanchuyen/'?>">Vận Chuyển</a>
                             <a class="menu-chinh-li" href="<?php echo urlmd.'/lienhe/'?>">Liên Hệ</a>
                             <a class="menu-chinh-li" href="<?php echo urlmd.'/hotro/'?>">Hỗ Trợ</a>
-                            <a class="menu-chinh-li" href="<?php echo urlmd.'/ktbh/'?>">Kiểm Tra Bảo Hành</a>
+                            <a class="menu-chinh-li" href="<?php echo urlmd.'/ktbh/'?>">Tra Cứu Hóa Đơn</a>
                         </div>
                     </div>
                 </div>

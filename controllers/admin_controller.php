@@ -4,9 +4,12 @@ require_once 'models/admin_model.php';
 class admin_controller {
 	public function index() {
 		if (isset($_SESSION['adone'])) {
-			unset($_SESSION['adone']);
-    	}
-		require_once './views/admin_log.php';
+		    header('location: '.urlmd.'/manager/'); 
+		    exit();
+		}
+		else {
+		    require_once './views/admin_log.php';
+		}
 	}
 	public function adlogin() {
 		$amodel = new admin_model();
@@ -36,7 +39,7 @@ class admin_controller {
 		    header('location: '.urlmd.'/manager/'); 
 		    exit();
 		}
-		else if (isset($_SESSION['errlog'])) {
+		else {
 		    header('location: '.urlmd.'/admin/'); 
 		    exit();
 		}
@@ -251,7 +254,6 @@ class admin_controller {
 		$amodel = new admin_model();
 		$name = $_POST['name'];
 		$phanloai = $_POST['phanloai'];
-		$img = $_POST['img'];
 		$checkdm = $amodel->checkdm($name);
 
 		if ($name == "") $_SESSION['error_log'] .= "Không để trống tên danh mục<br>";
@@ -272,10 +274,10 @@ class admin_controller {
 
 			if (!isset($_SESSION['error_log'])) {
 				move_uploaded_file($_FILES["img"]["tmp_name"], $duongdan_2nd);
-				$amodel->addcat($name,$duongdan);
+				$amodel->addcat($name,$phanloai,$duongdan);
 			}
 		}
-		if (!isset($_SESSION['error_log'])) $amodel->addcat($name);
+		if (!isset($_SESSION['error_log'])) $amodel->addcat($name,$phanloai);
 			
 		header('Location: ' .urlmd. '/manager/qldm/');
 	    exit();
@@ -303,7 +305,7 @@ class admin_controller {
 
 			if (!isset($_SESSION['error_log'])) {
 				move_uploaded_file($_FILES["img"]["tmp_name"], $duongdan_2nd);
-				$amodel->fixcat($id,$name,$duongdan);
+				$amodel->fixcat($id,$name,$phanloai,$duongdan);
 			}
 			header('Location: ' .urlmd. '/manager/qldm/');
 		    exit();
@@ -312,7 +314,7 @@ class admin_controller {
 			$img_cu = $_POST['old_img'];
 			if (!isset($_SESSION['error_log'])) {
 				move_uploaded_file($_FILES["img"]["tmp_name"], $duongdan_2nd);
-				$amodel->fixcat($id,$name,$img_cu);
+				$amodel->fixcat($id,$name,$phanloai,$img_cu);
 			}
 			header('Location: ' .urlmd. '/manager/qldm/');
 		    exit();
@@ -415,7 +417,7 @@ class admin_controller {
 	public function banus() {
 		$amodel = new admin_model();
 		$idtk = $_POST['idtk'];
-		$user = $amodel->banus($idtk,null);
+		$user = $amodel->banus($idtk);
 		if ($user[0]['ban'] == 1) $amodel->banus($idtk,2);
 		if ($user[0]['ban'] == 2) $amodel->banus($idtk,1);
 	}
