@@ -10,12 +10,17 @@ require 'src/PHPMailer.php';
 require 'src/SMTP.php';
 
 class user_controller {
+	private $umodel;
+
+    public function __construct() {
+        $this->umodel = new user_model();
+    }
+
 	function header() {
-		$umodel = new user_model();
-		$phanloai = $umodel->fullpl();
-		$danhmuc = $umodel->fulldm();
+		$phanloai = $this->umodel->fullpl();
+		$danhmuc = $this->umodel->fulldm();
 		if(isset($_SESSION['udone'])) {
-			$nguoidung = $umodel->getuser($_SESSION['phiennguoidung']);
+			$nguoidung = $this->umodel->getuser($_SESSION['phiennguoidung']);
 			return [
             'phanloai' => $phanloai,
             'danhmuc' => $danhmuc,
@@ -113,10 +118,10 @@ class user_controller {
 
 	public function index() {
 		$umodel = new user_model();
-		$fullsp = $umodel->fullsp1();
-		$newsp = $umodel->spnew();
-		$hotsp = $umodel->sphot();
-		$umodel->upview_index();
+		$fullsp = $this->umodel->fullsp1();
+		$newsp = $this->umodel->spnew();
+		$hotsp = $this->umodel->sphot();
+		$this->umodel->upview_index();
 		$header = $this->header();
 		require_once './views/index.php';
 	}
@@ -125,7 +130,7 @@ class user_controller {
 		$header = $this->header();
 		if (isset($header['nguoidung'])) {
 			$umodel = new user_model();
-			$list_hd = $umodel->gethd($header['nguoidung'][0]['user']);
+			$list_hd = $this->umodel->gethd($header['nguoidung'][0]['user']);
 			require_once './views/config.php';
 		} 
 		else {
@@ -141,7 +146,7 @@ class user_controller {
 		$sdt = $_POST['sdt'];
 		$email = $_POST['email'];
 		$diachi = $_POST['diachi'];
-		$umodel->updatetk($id,$ho,$ten,$sdt,$email,$diachi);
+		$this->umodel->updatetk($id,$ho,$ten,$sdt,$email,$diachi);
 		$_SESSION['update_popup'] = "Cập nhật thành công !!!";		
 	}
 
@@ -155,7 +160,7 @@ class user_controller {
 		else if ($pass1 != $pass2) $_SESSION['dmk-popup'] = "Mật khẩu không trùng khớp";
 
 		if(!isset($_SESSION['dmk-popup'])) {
-			$umodel->doimatkhau($id,md5($pass2));
+			$this->umodel->doimatkhau($id,md5($pass2));
 			$_SESSION['update_popup'] = "Cập nhật thành công";
 		}
 
@@ -164,11 +169,13 @@ class user_controller {
 	}
 
 	public function quenmatkhau() {
+		$header = $this->header();
 		$umodel= new user_model();
 		require_once './views/quenmatkhau.php';
 	}
 
 	public function qmkvl() {
+		$header = $this->header();
 		$umodel = new user_model();
 		$tendn = $_POST['tendn'];
 
@@ -176,7 +183,7 @@ class user_controller {
 
 		if ($tendn == "" || $tendn == "rong") $_SESSION['qmkvl'] = "<h3 class=\"popup popup-do\">Điền tên tài khoản</h3>";
 		else {
-			$getuser = $umodel->checkuser();
+			$getuser = $this->umodel->checkuser();
 			foreach ($getuser as $value => $item) {
 				if ($tendn != $item['user']) {
 					$_SESSION['qmkvl'] = "<h3 class=\"popup popup-do\">Tài khoản không tồn tại</h3>";
@@ -244,7 +251,7 @@ class user_controller {
 	public function admk($id) {
 		if ($_SESSION['send_mail'] == true) {
 			$umodel = new user_model();
-			$umodel->doimatkhau($id,md5($_SESSION['rand_pass']));
+			$this->umodel->doimatkhau($id,md5($_SESSION['rand_pass']));
 			unset($_SESSION['rand_pass']);
 			unset($_SESSION['send_mail']);
 			$_SESSION['qmkvl'] = "<h3 class=\"popup popup-xanh\">Đổi Mật Khẩu Thành Công</h3>";
@@ -262,7 +269,7 @@ class user_controller {
 		$umodel = new user_model();
 		$id = $_POST['idsp'];
 
-		$sanpham = $umodel->spcart($id);
+		$sanpham = $this->umodel->spcart($id);
 
 		if (isset($_POST['slsp'])) $sanpham[0]['soluong'] = $_POST['slsp'];
 		else $sanpham[0]['soluong'] = 1;
@@ -312,8 +319,8 @@ class user_controller {
 
 	public function muangay($id) {
 		$umodel = new user_model();
-		$umodel->upview_nonin();
-		$sanpham = $umodel->spcart($id);
+		$this->umodel->upview_nonin();
+		$sanpham = $this->umodel->spcart($id);
 		$sanpham[0]['soluong'] = "1";
 		if ($sanpham[0]['price_sale'] != 0) $sanpham[0]['thanhtien'] = $sanpham[0]['price_sale'];
 		else $sanpham[0]['thanhtien'] = $sanpham[0]['price'];
@@ -366,7 +373,7 @@ class user_controller {
 			$mahd = $_POST['mahd'];
 			$umodel = new user_model();
 
-			$ketqua = $umodel->kthd($mahd);
+			$ketqua = $this->umodel->kthd($mahd);
 			if (!isset($ketqua[0])) echo "false";
 			else {
 				$date1 = date("d-m-Y", strtotime($ketqua[0]['submited']));
@@ -458,38 +465,38 @@ class user_controller {
 
 	public function getsp($loai_data=null,$data=null,$page=1) {
 		$umodel = new user_model();
-		$umodel->upview_nonin();
+		$this->umodel->upview_nonin();
 		$header = $this->header();
 		$base_url = urlmd;
 		
 		if($loai_data == "tatca") {
 			$bl = $this->boloc('sanpham/tatca');
-			$phantrang = $umodel->phantrang();
+			$phantrang = $this->umodel->phantrang();
 		}
 		else if($loai_data == "danhmuc") {
-			$tendanhmuc = $umodel->fulldm($data);
+			$tendanhmuc = $this->umodel->fulldm($data);
 			$bl = $this->boloc('sanpham/danhmuc',$data);
-			$phantrang = $umodel->phantrang($data);
+			$phantrang = $this->umodel->phantrang($data);
 		}
 		else if($loai_data == "timkiem") {
 			if (isset($_POST['tksp'])) $chuoitk = $_POST['tksp'];
 			if (isset($data)) $chuoitk = str_replace("_", " ", $data);
 			$bientam = str_replace(" ", "_", $chuoitk);
 			$bl = $this->boloc('sanpham/timkiem',$bientam);
-			$phantrang = $umodel->phantrang(null,$chuoitk);
+			$phantrang = $this->umodel->phantrang(null,$chuoitk);
 		}
 		else if($loai_data == "phanloai"){
-			$tenphanloai = $umodel->fullpl($data);
-			$phantrang = $umodel->phantrang(null,null,$data);
+			$tenphanloai = $this->umodel->fullpl($data);
+			$phantrang = $this->umodel->phantrang(null,null,$data);
 			$bl = $this->boloc('sanpham/phanloai',$data);
 		}
 
 		if(!isset($_POST['xacthuc2'])) {
 			if ($loai_data == "tatca") {
 				$data=$page;
-				$fullsp = $umodel->getsp('sanpham/'.$loai_data,null,$data,null);
+				$fullsp = $this->umodel->getsp('sanpham/'.$loai_data,null,$data,null);
 			}
-			else $fullsp = $umodel->getsp('sanpham/'.$loai_data,$data,$page,null);
+			else $fullsp = $this->umodel->getsp('sanpham/'.$loai_data,$data,$page,null);
 
 			if (isset($bientam)) $lpt = $this->phantrang('sanpham/'.$loai_data,$bientam,$phantrang[0]['pt']);
 			else $lpt = $this->phantrang('sanpham/'.$loai_data,$data,$phantrang[0]['pt']);
@@ -505,9 +512,9 @@ class user_controller {
 
 			if ($loai_data == "tatca") {
 				$data=$page;
-				$fullsp = $umodel->getsp($type,null,$data,$loai);
+				$fullsp = $this->umodel->getsp($type,null,$data,$loai);
 			}
-			else $fullsp = $umodel->getsp($type,$data,$page,$loai);
+			else $fullsp = $this->umodel->getsp($type,$data,$page,$loai);
 
 			$lpt = $this->phantrang($type,$data,$phantrang[0]['pt'],$loai);
 			$response = array('sanpham' => showsp2($fullsp), 'phantrang' => $lpt);
@@ -522,7 +529,7 @@ class user_controller {
 		$chitiet = $umodel -> chitietsp($id);
 		$splq = $umodel -> splq($chitiet[0]['id_cata']);
 		$thuonghieu = $umodel -> thuonghieu($chitiet[0]['id_brand']);
-		$dscmt = $umodel-> dscmt($id);
+		$dscmt = $this->umodel-> dscmt($id);
 		require_once './views/chitietsanpham.php';
 	}
 
@@ -532,7 +539,7 @@ class user_controller {
 		$id_sp = $_POST['idpd'];
 		$id_user = $_POST['idu'];
 		$date = $_POST['date'];
-		$umodel->addcmt($noidung,$id_sp,$id_user,$date);
+		$this->umodel->addcmt($noidung,$id_sp,$id_user,$date);
 	}
 
 	public function giohang() {
@@ -560,7 +567,7 @@ class user_controller {
 		$thanhtien = $_SESSION['totalp'];
 		$mxn = $_POST['mxn'];
 		$date = date("Y-m-d",time());
-		$umodel->hoadon($tenkh, $emailkh, $sdtkh, $dckh, $dssp, $thanhtien, $date, $mxn);
+		$this->umodel->hoadon($tenkh, $emailkh, $sdtkh, $dckh, $dssp, $thanhtien, $date, $mxn);
 	}
 
 	public function sendmail() {
@@ -643,7 +650,7 @@ class user_controller {
 		}
 		else {
 			$umodel = new user_model();
-			$userpass = $umodel->checkuser();
+			$userpass = $this->umodel->checkuser();
 			$uname = $_POST['user'];
 			$upass = $_POST['pass'];
 			$checkstep = 0;
@@ -685,9 +692,9 @@ class user_controller {
 
 	public function regis() {
 		$umodel = new user_model();
-		$userpass = $umodel->checkuser();
+		$userpass = $this->umodel->checkuser();
 		if(isset($_SESSION['udone'])) {
-			$nguoidung = $umodel->getuser($_SESSION['phiennguoidung']);
+			$nguoidung = $this->umodel->getuser($_SESSION['phiennguoidung']);
 		}
 		$uname = $_POST['user'];
 		$upass1 = $_POST['pass1'];
@@ -718,7 +725,7 @@ class user_controller {
 		}
 		else {
 			$_SESSION['udone2'] = "Đăng ký thành công";
-			$umodel->regis($uname,md5($upass2),$uho,$uten,$usdt,$umail,$udc);
+			$this->umodel->regis($uname,md5($upass2),$uho,$uten,$usdt,$umail,$udc);
 			header('Location: '.urlmd.'/'); 
 			exit();
 		}

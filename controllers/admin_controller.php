@@ -2,6 +2,12 @@
 require_once 'models/admin_model.php';
 
 class admin_controller {
+	private $amodel;
+
+    public function __construct() {
+        $this->amodel = new admin_model();
+    }
+
 	public function index() {
 		if (isset($_SESSION['adone'])) {
 		    header('location: '.urlmd.'/manager/'); 
@@ -12,8 +18,7 @@ class admin_controller {
 		}
 	}
 	public function adlogin() {
-		$amodel = new admin_model();
-		$userpass = $amodel->adlogin();
+		$userpass = $this->amodel->adlogin();
 		$aname = $_POST['u_admin'];
 		$apass = $_POST['p_admin'];
 		if ($aname == "") $_SESSION['errlog'] = "Vui lòng nhập tên tài khoản";
@@ -45,7 +50,6 @@ class admin_controller {
 		}
 	}
 	public function manager($request = "") {
-		$amodel = new admin_model();
 		if (!isset($_SESSION['adone'])) {
 			unset($_SESSION['errlog']);
 	        header('Location: ' .urlmd. '/admin/');
@@ -56,45 +60,45 @@ class admin_controller {
 	    	if ($request != "") {
 	    		unset($_SESSION['quanly']);
 	    		if ($request == "qldm") {
-	    			$danhmuc = $amodel->fulldm();
-	    			$phanloai = $amodel->pldm();
+	    			$danhmuc = $this->amodel->fulldm();
+	    			$phanloai = $this->amodel->pldm();
 	    			$_SESSION['qldm'] = true;
 	    			unset($_SESSION['qlus'], $_SESSION['qlsp'], $_SESSION['hddh'], $_SESSION['qlbl']);
 	    			require_once './views/manager.php';
 	    		}
 	    		if ($request == "qlus") {
-	    			$user = $amodel->fullus();
+	    			$user = $this->amodel->fullus();
 	    			$_SESSION['qlus'] = true;
 	    			unset($_SESSION['qldm'], $_SESSION['qlsp'], $_SESSION['hddh'], $_SESSION['qlbl']);
 	    			require_once './views/manager.php';
 	    		}
 	    		if ($request == "qlsp") {
-	    			$sanpham = $amodel->fullsp();
-	    			$danhmuc = $amodel->fulldm();
-	    			$tksp = $amodel->tksp();
-	    			$brand = $amodel->fullth();
+	    			$sanpham = $this->amodel->fullsp();
+	    			$danhmuc = $this->amodel->fulldm();
+	    			$tksp = $this->amodel->tksp();
+	    			$brand = $this->amodel->fullth();
 					$_SESSION['qlsp'] = true;
 					unset($_SESSION['qldm'], $_SESSION['qlus'], $_SESSION['hddh'], $_SESSION['qlbl']);
 		    		require_once './views/manager.php';
 	    		}
 	    		if ($request == "hddh") {
-	    			$hoadon = $amodel->shd();
+	    			$hoadon = $this->amodel->shd();
 					$_SESSION['hddh'] = true;
 					unset($_SESSION['qldm'], $_SESSION['qlus'], $_SESSION['qlsp'], $_SESSION['qlbl']);
 		    		require_once './views/manager.php';
 	    		}
 	    		if ($request == "qlbl") {
-	    			$binhluan = $amodel->dsbl();
+	    			$binhluan = $this->amodel->dsbl();
 	    			$_SESSION['qlbl'] = true;
 	    			unset($_SESSION['qldm'], $_SESSION['qlus'], $_SESSION['qlsp'], $_SESSION['hddh']);
 	    			require_once './views/manager.php';
 	    		}
 	    	}
 	    	else {
-	    		$thunhap = $amodel->thunhap();
-	    		$donhang = $amodel->donhang();
-	    		$member = $amodel->member();
-	    		$access = $amodel->access();
+	    		$thunhap = $this->amodel->thunhap();
+	    		$donhang = $this->amodel->donhang();
+	    		$member = $this->amodel->member();
+	    		$access = $this->amodel->access();
 				$_SESSION['quanly'] = true;
 				unset($_SESSION['qldm'], $_SESSION['qlus'], $_SESSION['hddh'], $_SESSION['qlbl'], $_SESSION['qlsp']);
 	    		require_once './views/manager.php';
@@ -102,12 +106,11 @@ class admin_controller {
     	}
 	}
 	public function hdup() {
-		$amodel = new admin_model();
 		if (isset($_POST['id'])) {
-			$amodel->hdup($_POST['id'],$_POST['stt'],null);
+			$this->amodel->hdup($_POST['id'],$_POST['stt'],null);
 		}
 		else if (isset($_POST['boloc'])) {
-			$hoadon = $amodel->hdup(null,null,$_POST['boloc']);
+			$hoadon = $this->amodel->hdup(null,null,$_POST['boloc']);
 
 			$show_hd = "";
 
@@ -158,7 +161,6 @@ class admin_controller {
 	/*-----------------------------------------*/
 	public function addpro() {
 		if(isset($_SESSION['error_log'])) unset($_SESSION['error_log']);
-		$amodel = new admin_model();
 		$name = $_POST['name'];
 		$price = $_POST['price'];
 		$sale = $_POST['sale'];
@@ -168,7 +170,7 @@ class admin_controller {
 		$brand = $_POST['brand'];
 		$info = $_POST['info'];
 		$infoct = $_POST['detail'];
-		$checksp = $amodel->checksp($name);
+		$checksp = $this->amodel->checksp($name);
 
 		if ($name == "") $_SESSION['error_log'] .= "Không để trống tên sản phẩm !<br>";
 		if (isset($checksp[0])) $_SESSION['error_log'] .= "sản phẩm đã tồn tại !<br>";
@@ -190,14 +192,13 @@ class admin_controller {
 
 		if (!isset($_SESSION['error_log'])) {
 			move_uploaded_file($_FILES["img"]["tmp_name"], $duongdan_2nd);
-			$amodel->addpro($name,$duongdan,$price,$sale,$salef,$salet,$catalog,$brand,$info,$infoct);
+			$this->amodel->addpro($name,$duongdan,$price,$sale,$salef,$salet,$catalog,$brand,$info,$infoct);
 		}
 		header('Location: ' .urlmd. '/manager/');
 	    exit();
 	}
 	public function fixpro($id) {
 		if(isset($_SESSION['error_log'])) unset($_SESSION['error_log']);
-		$amodel = new admin_model();
 		$name = $_POST['name'];
 		$price = $_POST['price'];
 		$sale = $_POST['sale'];
@@ -228,7 +229,7 @@ class admin_controller {
 
 			if (!isset($_SESSION['error_log'])) {
 				move_uploaded_file($_FILES["img"]["tmp_name"], $duongdan_2nd);
-				$amodel->fixpro($id,$name,$duongdan,$price,$sale,$salef,$salet,$catalog,$brand,$info,$infoct);
+				$this->amodel->fixpro($id,$name,$duongdan,$price,$sale,$salef,$salet,$catalog,$brand,$info,$infoct);
 			}
 			header('Location: ' .urlmd. '/manager/qlsp/');
 		    exit();
@@ -236,25 +237,23 @@ class admin_controller {
 		else {
 			$img_cu = $_POST['old_img'];
 			if (!isset($_SESSION['error_log'])) {
-				$amodel->fixpro($id,$name,$img_cu,$price,$sale,$salef,$salet,$catalog,$brand,$info,$infoct);
+				$this->amodel->fixpro($id,$name,$img_cu,$price,$sale,$salef,$salet,$catalog,$brand,$info,$infoct);
 			}
 			header('Location: ' .urlmd. '/manager/qlsp/');
 		    exit();
 		}
 	}
 	public function delpro($id) {
-		$amodel = new admin_model();
-		$amodel->delpro($id);
+		$this->amodel->delpro($id);
 		header('Location: ' .urlmd. '/manager/');
 	    exit();
 	}
 	/*-----------------------------------------*/
 	public function addcat() {
 		if(isset($_SESSION['error_log'])) unset($_SESSION['error_log']);
-		$amodel = new admin_model();
 		$name = $_POST['name'];
 		$phanloai = $_POST['phanloai'];
-		$checkdm = $amodel->checkdm($name);
+		$checkdm = $this->amodel->checkdm($name);
 
 		if ($name == "") $_SESSION['error_log'] .= "Không để trống tên danh mục<br>";
 		if (isset($checkdm[0])) $_SESSION['error_log'] .= "Danh mục đã tồn tại<br>";
@@ -274,17 +273,16 @@ class admin_controller {
 
 			if (!isset($_SESSION['error_log'])) {
 				move_uploaded_file($_FILES["img"]["tmp_name"], $duongdan_2nd);
-				$amodel->addcat($name,$phanloai,$duongdan);
+				$this->amodel->addcat($name,$phanloai,$duongdan);
 			}
 		}
-		if (!isset($_SESSION['error_log'])) $amodel->addcat($name,$phanloai);
+		if (!isset($_SESSION['error_log'])) $this->amodel->addcat($name,$phanloai);
 			
 		header('Location: ' .urlmd. '/manager/qldm/');
 	    exit();
 	}
 	public function fixcat($id) {
 		if(isset($_SESSION['error_log'])) unset($_SESSION['error_log']);
-		$amodel = new admin_model();
 		$name = $_POST['name'];
 		$phanloai = $_POST['phanloai'];
 		$img = $_POST['img'];
@@ -305,7 +303,7 @@ class admin_controller {
 
 			if (!isset($_SESSION['error_log'])) {
 				move_uploaded_file($_FILES["img"]["tmp_name"], $duongdan_2nd);
-				$amodel->fixcat($id,$name,$phanloai,$duongdan);
+				$this->amodel->fixcat($id,$name,$phanloai,$duongdan);
 			}
 			header('Location: ' .urlmd. '/manager/qldm/');
 		    exit();
@@ -314,57 +312,52 @@ class admin_controller {
 			$img_cu = $_POST['old_img'];
 			if (!isset($_SESSION['error_log'])) {
 				move_uploaded_file($_FILES["img"]["tmp_name"], $duongdan_2nd);
-				$amodel->fixcat($id,$name,$phanloai,$img_cu);
+				$this->amodel->fixcat($id,$name,$phanloai,$img_cu);
 			}
 			header('Location: ' .urlmd. '/manager/qldm/');
 		    exit();
 		}
 	}
 	public function delcat($id) {
-		$amodel = new admin_model();
-		$amodel->delcat($id);
+		$this->amodel->delcat($id);
 		header('Location: ' .urlmd. '/manager/qldm/');
 	    exit();
 	}
 	/*-----------------------------------------*/
 	public function addpl() {
 		if(isset($_SESSION['error_log'])) unset($_SESSION['error_log']);
-		$amodel = new admin_model();
 		$name = $_POST['name'];
-		$checkpl = $amodel->checkpl($name);
+		$checkpl = $this->amodel->checkpl($name);
 
 		if ($name == "") $_SESSION['error_log'] .= "Không để trống tên phân loại<br>";
 		if (isset($checkpl[0])) $_SESSION['error_log'] .= "\"Phân loại\" này đã tồn tại<br>";
 
-		if (!isset($_SESSION['error_log'])) $amodel->addpl($name);
+		if (!isset($_SESSION['error_log'])) $this->amodel->addpl($name);
 			
 		header('Location: ' .urlmd. '/manager/qldm/');
 	    exit();
 	}
 	public function fixpl($id) {
 		if(isset($_SESSION['error_log'])) unset($_SESSION['error_log']);
-		$amodel = new admin_model();
 		$name = $_POST['name'];
-		$checkpl = $amodel->checkpl($name);
+		$checkpl = $this->amodel->checkpl($name);
 
 		if ($name == "") $_SESSION['error_log'] .= "Không để trống tên phân loại<br>";
 		if (isset($checkpl[0])) $_SESSION['error_log'] .= "\"Phân loại\" này đã tồn tại<br>";
 
-		if (!isset($_SESSION['error_log'])) $amodel->fixpl($id,$name);
+		if (!isset($_SESSION['error_log'])) $this->amodel->fixpl($id,$name);
 			
 		header('Location: ' .urlmd. '/manager/qldm/');
 	    exit();
 	}
 	public function delpl($id) {
-		$amodel = new admin_model();
-		$amodel->delpl($id);
+		$this->amodel->delpl($id);
 		header('Location: ' .urlmd. '/manager/qldm/');
 	    exit();
 	}
 	/*-----------------------------------------*/
 	public function addus() {
 		if(isset($_SESSION['error_log'])) unset($_SESSION['error_log']);
-		$amodel = new admin_model();
 
 		$name = $_POST['name'];
 		$ho = $_POST['ho'];
@@ -374,20 +367,19 @@ class admin_controller {
 		$email = $_POST['email'];
 		$diachi = $_POST['diachi'];
 		$role = $_POST['role'];
-		$checkus = $amodel->checkus($name);
+		$checkus = $this->amodel->checkus($name);
 
 		if ($ho==""||$ten==""||$email==""||$phone==""||$diachi=="") $_SESSION['error_log'] = "Vui lòng điền đầy đủ thông tin";
 		else if ($name == "") $_SESSION['error_log'] .= "Không để trống tên người dùng<br>";
 		else if ($pass == "") $_SESSION['error_log'] .= "Vui lòng nhập khẩu<br>";
 		else if (isset($checkus[0])) $_SESSION['error_log'] .= "Người dùng đã tồn tại<br>";
 
-		if (!isset($_SESSION['error_log'])) $amodel->addus($name,md5($pass),$ho,$ten,$phone,$email,$diachi,$role);
+		if (!isset($_SESSION['error_log'])) $this->amodel->addus($name,md5($pass),$ho,$ten,$phone,$email,$diachi,$role);
 		header('Location: ' .urlmd. '/manager/qlus/');
 	    exit();
 	}
 	public function fixus($id) {
 		if(isset($_SESSION['error_log'])) unset($_SESSION['error_log']);
-		$amodel = new admin_model();
 
 		$name = $_POST['name'];
 		$ho = $_POST['ho'];
@@ -397,40 +389,36 @@ class admin_controller {
 		$email = $_POST['email'];
 		$diachi = $_POST['diachi'];
 		$role = $_POST['role'];
-		$checkus = $amodel->checkus($name);
+		$checkus = $this->amodel->checkus($name);
 
 		if ($ho==""||$ten==""||$email==""||$phone==""||$diachi=="") $_SESSION['dndk_err'] = "Vui lòng điền đầy đủ thông tin";
 		else if ($name == "") $_SESSION['error_log'] .= "Không để trống tên người dùng<br>";
 		else if ($pass == "") $_SESSION['error_log'] .= "Vui lòng nhập khẩu<br>";
 		else if (isset($checkus[0])) $_SESSION['error_log'] .= "Người dùng đã tồn tại<br>";
 
-		if (!isset($_SESSION['error_log'])) $amodel->fixus($id,$name,md5($pass),$ho,$ten,$phone,$email,$diachi,$role);
+		if (!isset($_SESSION['error_log'])) $this->amodel->fixus($id,$name,md5($pass),$ho,$ten,$phone,$email,$diachi,$role);
 		header('Location: ' .urlmd. '/manager/qlus/');
 	    exit();
 	}
 	public function delus($id) {
-		$amodel = new admin_model();
-		$amodel->delus($id);
+		$this->amodel->delus($id);
 		header('Location: ' .urlmd. '/manager/qlus/');
 	    exit();
 	}
 	public function banus() {
-		$amodel = new admin_model();
 		$idtk = $_POST['idtk'];
-		$user = $amodel->banus($idtk);
-		if ($user[0]['ban'] == 1) $amodel->banus($idtk,2);
-		if ($user[0]['ban'] == 2) $amodel->banus($idtk,1);
+		$user = $this->amodel->banus($idtk);
+		if ($user[0]['ban'] == 1) $this->amodel->banus($idtk,2);
+		if ($user[0]['ban'] == 2) $this->amodel->banus($idtk,1);
 	}
 	/*-----------------------------------------*/
 	public function delbl($id) {
-		$amodel = new admin_model();
-		$amodel->delbl($id);
+		$this->amodel->delbl($id);
 		header('Location: ' .urlmd. '/manager/qlbl/');
 	    exit();
 	}
 	public function info_cmt() {
-		$amodel = new admin_model();
-		$data = $amodel->infobl($_POST['spcmt']);
+		$data = $this->amodel->infobl($_POST['spcmt']);
 		echo json_encode($data);
 	}
 	/*-----------------------------------------*/
