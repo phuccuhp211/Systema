@@ -68,7 +68,7 @@ class user_model {
 
 		if ($type == "sanpham/tatca") $sql = "SELECT * FROM product WHERE hidden = 0 $order LIMIT $vitri,9";
 		else if ($type == "sanpham/danhmuc") $sql = "SELECT * FROM product WHERE hidden = 0 AND  id_cata = $data $order LIMIT $vitri,9";
-		else if ($type == "sanpham/timkiem") $sql = "SELECT * FROM product WHERE hidden = 0 AND  name like '%$data%' $order LIMIT $vitri,9";
+		else if ($type == "sanpham/timkiem") $sql = "SELECT * FROM product WHERE hidden = 0 AND  name like \"%$data%\" $order LIMIT $vitri,9";
 		else if ($type == "sanpham/phanloai")$sql = "SELECT * FROM product WHERE hidden = 0 AND id IN (
 														SELECT sp.id FROM phanloai pl INNER JOIN catalog cat INNER JOIN product sp
 														ON pl.id = cat.loai AND sp.id_cata = cat.id

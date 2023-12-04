@@ -367,21 +367,36 @@ class user_controller {
 			$ketqua = $this->umodel->kthd($mahd);
 			if (!isset($ketqua[0])) echo "false";
 			else {
-				$date1 = date("d-m-Y", strtotime($ketqua[0]['submited']));
-				$date2 = new DateTime($ketqua[0]['submited']);
-				$date2->add(new DateInterval('P3Y'));
-				$date3 = $date2->format('d-m-Y');
+				$hd_cr = date("d-m-Y", strtotime($ketqua[0]['created']));
+
+				if ($ketqua[0]['submited'] != "0000-00-00" || !$ketqua[0]['submited']) {
+					$date1 = $hd_su = date("d-m-Y", strtotime($ketqua[0]['submited']));
+					$date2 = new DateTime($ketqua[0]['submited']);
+					$date2->add(new DateInterval('P3Y'));
+					$date3 = $date2->format('d-m-Y');
+					$ndbh = "<h5>Đơn hàng được bảo hành từ : <strong style=\"color:red;\">$date1</strong> đến <strong style=\"color:red;\">$date3</strong></h5>";
+				}
+				else {
+					$hd_su = "Đang chờ xác nhận";
+					$ndbh = "<h5>Đơn hàng đang chờ được xác nhận bởi quản trị viên</h5>";
+
+				}
+					
 
 				$list_sp = ""; $i = 1;
 				$dssp = json_decode($ketqua[0]['dssp'],true);
 				foreach ($dssp as $value => $item) {
+					if ($item['price_sale'] != 0) $dg = number_format($item['price_sale'],0,",",".");
+					else $dg = number_format($item['price'],0,",",".");
+					$tt = number_format($item['thanhtien'],0,",",".");
+
 					$list_sp .= "
 						<tr>
 							<td style=\"font-size: 16px; padding: 5px 0;text-align: center;\">".$i."</td>
 							<td style=\"font-size: 16px; padding: 5px 0 5px 10px\">".$item['name']."</td>
 							<td style=\"font-size: 16px; padding: 5px 0;text-align: center;\">".$item['soluong']."</td>
-							<td style=\"font-size: 16px; padding: 5px 0 5px 10px\">".number_format($item['price'],0,",",".")."</td>
-							<td style=\"font-size: 16px; padding: 5px 0 5px 10px\">".number_format($item['thanhtien'],0,",",".")."</td>
+							<td style=\"font-size: 16px; padding: 5px 0 5px 10px\">$dg</td>
+							<td style=\"font-size: 16px; padding: 5px 0 5px 10px\">$tt</td>
 						</tr>
 					";
 					$i++;
@@ -399,10 +414,10 @@ class user_controller {
 								</tr>
 								<tr>
 									<td style=\"padding: 5px 0;width:50%;\">Ngày Tạo Đơn : 
-										<strong style=\"color: #6246a8;\">".date("d-m-Y", strtotime($ketqua[0]['created']))."</strong>
+										<strong style=\"color: #6246a8;\">$hd_cr</strong>
 									</td>
 									<td style=\"padding: 5px 0;\">Ngày Xác Nhận Đơn : 
-										<strong style=\"color: #6246a8;\">".date("d-m-Y", strtotime($ketqua[0]['submited']))."</strong>
+										<strong style=\"color: #6246a8;\">$hd_su</strong>
 									</td>
 								</tr>
 							</table>
@@ -439,7 +454,7 @@ class user_controller {
 								<td colspan=\"2\" class=\"tc-dssp\"><strong>".number_format($ketqua[0]['thanhtien'],0,",",".")."</strong></td>
 							</tr>
 						</table>
-						<h5>Đơn hàng được bảo hành từ : <strong style=\"color:red;\">$date1</strong> đến <strong style=\"color:red;\">$date3</strong></h5>
+						$ndbh
 						<h6>Lưu ý : Bảo hành áp dụng cho toàn bộ sản phẩm có trong đơn hàng, khi đi bảo hành, quý khách vui lòng mang theo hộp (hoặc bao bì) của sản phẩm và kèm theo hóa đơn.</h6>
 					</div>
 				";
@@ -470,7 +485,8 @@ class user_controller {
 		}
 		else if($loai_data == "timkiem") {
 			if (isset($_POST['tksp'])) $chuoitk = $_POST['tksp'];
-			if (isset($data)) $chuoitk = str_replace("_", " ", $data);
+			else if (isset($data)) $chuoitk = str_replace("_", " ", $data);
+
 			$bientam = str_replace(" ", "_", $chuoitk);
 			$bl = $this->boloc('sanpham/timkiem',$bientam);
 			$phantrang = $this->umodel->phantrang(null,$chuoitk);
@@ -486,6 +502,7 @@ class user_controller {
 				$data=$page;
 				$fullsp = $this->umodel->getsp('sanpham/'.$loai_data,null,$data,null);
 			}
+			else if (isset($chuoitk)) $fullsp = $this->umodel->getsp('sanpham/'.$loai_data,$chuoitk,$page,null);
 			else $fullsp = $this->umodel->getsp('sanpham/'.$loai_data,$data,$page,null);
 
 			if (isset($bientam)) $lpt = $this->phantrang('sanpham/'.$loai_data,$bientam,$phantrang[0]['pt']);
