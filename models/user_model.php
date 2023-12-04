@@ -91,14 +91,14 @@ class user_model {
 		return $ketqua;
 	}
 	public function chitietsp($id) {
-		$sql = "SELECT * FROM product WHERE hidden = 0 WHERE id = $id";
+		$sql = "SELECT * FROM product WHERE id = $id AND hidden = 0";
 		$ketqua = getdata($sql);
 		$sql = "UPDATE product SET viewed = viewed + 1 WHERE id = $id";
 		iuddata($sql);
 		return $ketqua;
 	}
 	public function splq($idcata) {
-		$sql = "SELECT * FROM product WHERE hidden = 0 WHERE id_cata = $idcata LIMIT 4";
+		$sql = "SELECT * FROM product WHERE id_cata = $idcata AND hidden = 0 LIMIT 4";
 		$ketqua = getdata($sql);
 		return $ketqua;
 	}
@@ -127,7 +127,7 @@ class user_model {
 		return $ketqua;
 	}
 	public function spcart($id) {
-		$sql = "SELECT * FROM product WHERE hidden = 0 WHERE id = $id";
+		$sql = "SELECT * FROM product WHERE id = $id AND hidden = 0";
 		$ketqua = getdata($sql);
 		return $ketqua;
 	}
