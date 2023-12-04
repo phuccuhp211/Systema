@@ -89,50 +89,62 @@
 				<div class="box-table">
 					<div class="boloc">
 						<?php if (isset($_SESSION['qlsp'])) { ?>
-							<button class="btn-boloc" boloc="1">Tất Cả</button>
-							<button class="btn-boloc" boloc="2">Sản Phẩm Bán Chạy</button>
-							<button class="btn-boloc" boloc="3">Sản Phẩm Yêu Thích</button>
+							<button class="btn-boloc" data="sanpham" boloc="1">Tất Cả</button>
+							<button class="btn-boloc" data="sanpham" boloc="2">Sản Phẩm Bán Chạy</button>
+							<button class="btn-boloc" data="sanpham" boloc="3">Nhiều Lượt Xem</button>
+							<button class="btn-boloc" data="sanpham" boloc="4">Đang Sale</button>
+							<button class="btn-boloc" data="sanpham" boloc="5">Đã Ẩn</button>
 						<?php } ?>
 						<?php if (isset($_SESSION['qlus'])) { ?>
-							<button class="btn-boloc" boloc="1">Tất Cả</button>
-							<button class="btn-boloc" boloc="2">Tài khoản bị khóa</button>
-							<button class="btn-boloc" boloc="3">Tài khoản không khóa</button>
+							<button class="btn-boloc" data="taikhoan" boloc="1">Tất Cả</button>
+							<button class="btn-boloc" data="taikhoan" boloc="2">TK Bị khóa</button>
+							<button class="btn-boloc" data="taikhoan" boloc="3">TK Không khóa</button>
+							<button class="btn-boloc" data="taikhoan" boloc="4">TK User</button>
+							<button class="btn-boloc" data="taikhoan" boloc="5">TK Admin</button>
 						<?php } ?>
 						<?php if (isset($_SESSION['hddh'])) { ?>
-							<button class="btn-boloc" boloc="1">Tất Cả</button>
-							<button class="btn-boloc" boloc="2">Hóa đơn mới</button>
-							<button class="btn-boloc" boloc="3">Đang Chuẩn Bị</button>
-							<button class="btn-boloc" boloc="4">Hoàn Thành</button>
-							<button class="btn-boloc" boloc="5">Đã Hủy</button>
+							<button class="btn-boloc" data="hoadon" boloc="1">Tất Cả</button>
+							<button class="btn-boloc" data="hoadon" boloc="2">Hóa đơn mới</button>
+							<button class="btn-boloc" data="hoadon" boloc="3">Đang Chuẩn Bị</button>
+							<button class="btn-boloc" data="hoadon" boloc="4">Đang Giao</button>
+							<button class="btn-boloc" data="hoadon" boloc="5">Hoàn Thành</button>
+							<button class="btn-boloc" data="hoadon" boloc="6">Đã Hủy</button>
 						<?php } ?>
 					</div>
 					<table class="show-data">
 						<?php if (isset($_SESSION['qlsp'])) { ?>
 							<tr>
 								<th style="width: 50px;">ID</th>
-								<th style="width: 170px; padding: 0;">IMG</th>
+								<th style="width: 150px; padding: 0;">IMG</th>
 								<th style="width: 200px;">Tên</th>
 								<th style="width: auto;">Thông Tin</th>
-								<th style="width: 120px;">Giá</th>
-								<th style="width: 120px;">Sale</th>
+								<th style="width: 100px;">Giá</th>
+								<th style="width: 100px;">Sale</th>
 								<th style="width: 120px;">Thao Tác</th>
 							</tr>
 							<tr>
 								<td colspan="7" class="td-addsp"><button class="btn btn-primary btn-add them">Thêm sản phẩm +</button></td>
 							</tr>
 							<?php foreach ($sanpham as $value => $item) { ?>
-								<tr>
-									<td style="text-align: center;"><?php echo $item['id'] ?></td>
-									<td style="text-align: center;"><img src="<?php echo $item['img'] ?>" alt=""></td>
-									<td id="tensp"><?php echo $item['name'] ?></td>
-									<td id="in4sp" style="overflow-hidden"><?php echo $item['detail'] ?></td>
+								<tr class="sanpham">
+									<td rowspan="2" class="text-center"><?php echo $item['id'] ?></td>
+									<td rowspan="2" class="text-center"><img src="<?php echo $item['img'] ?>" alt=""></td>
+									<td rowspan="2" id="tensp"><?php echo $item['name'] ?></td>
+									<td rowspan="2" id="in4sp" style="overflow-hidden"><?php echo $item['detail'] ?></td>
 									<td id="min4sp" hidden><?php echo $item['mdetail'] ?></td>
-									<td id="giasp" style="text-align: center;"><?php echo number_format($item['price'],0,'','.') ?></td>
-									<td id="salesp" style="text-align: center;"><?php echo number_format($item['price_sale'],0,'','.') ?></td>
-									<td style="text-align: center;">
+									<td id="giasp" class="text-center"><?php echo number_format($item['price'],0,'','.') ?></td>
+									<td id="salesp" class="text-center"><?php echo number_format($item['price_sale'],0,'','.') ?></td>
+									<td rowspan="2" class="text-center">
 										<button class="btn btn-primary suaxoa sua suasp" data-idsp="<?php echo $item['id'] ?>"><i class="fa-solid fa-gear"></i></button>
 										<button class="btn btn-danger suaxoa xoa xoasp" data-idsp="<?php echo $item['id'] ?>"><i class="fa-solid fa-trash"></i></button>
+										<?php 
+											if($item['hidden'] == 0) echo"<button class=\"btn btn-warning suaxoa hidden hidsp\" data-idsp=\"".$item['id']."\"><i class=\"fa-solid fa-eye-slash\"></i></button>"; 
+											else echo"<button class=\"btn btn-success suaxoa hidden unhidsp\" data-idsp=\"".$item['id']."\"><i class=\"fa-solid fa-eye\"></i></button>"
+										?>
 									</td>
+								</tr>
+								<tr class="sanpham">
+									<td colspan="2">Đã bán : <?php echo $item['saled'] ?></td>
 								</tr>
 							<?php } ?>
 						<?php } ?>
@@ -174,14 +186,14 @@
 								<td colspan="7" class="td-adddm"><button class="btn btn-primary btn-add them">Thêm User +</button></td>
 							</tr>
 							<?php foreach ($user as $value => $item) { ?>
-								<tr>
-									<td style="text-align: center;"><?php echo $item['id'] ?></td>
+								<tr class="taikhoan">
+									<td class="text-center"><?php echo $item['id'] ?></td>
 									<td id="tenus"><?php echo $item['user'] ?></td>
 									<td><?php echo $item['ho']." ".$item['ten'] ?></td>
 									<td id="sdtus"><?php echo $item['sdt'] ?></td>
-									<td id="emailus" style="text-align: center;"><?php echo $item['email'] ?></td>
-									<td id="roleus" style="text-align: center;"><?php echo $item['role'] ?></td>
-									<td style="text-align: center;">
+									<td id="emailus" class="text-center"><?php echo $item['email'] ?></td>
+									<td id="roleus" class="text-center"><?php echo $item['role'] ?></td>
+									<td class="text-center">
 										<button class="btn btn-primary suaxoa sua suaus" data-idus="<?php echo $item['id'] ?>"><i class="fa-solid fa-gear"></i></button>
 										<button class="btn btn-danger suaxoa xoa xoaus" data-idus="<?php echo $item['id'] ?>"><i class="fa-solid fa-trash"></i></button>
 										<?php 

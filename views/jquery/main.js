@@ -290,7 +290,7 @@ $(function() {
 		var page = $(this).attr('page');
 		var phanloai = $(this).attr('type');
 
-		var duongdan_fix = duongdanduongdan+url_sub+`/${data_type}${data ? `=${data}` : ''}/page=${page}/`;
+		var duongdan_fix = duongdan+url_sub+`/${data_type}${data ? `=${data}` : ''}/page=${page}/`;
 
 		var requestData = { type: data_type };
 		

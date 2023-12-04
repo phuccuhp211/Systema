@@ -105,57 +105,157 @@ class admin_controller {
 	    	}
     	}
 	}
-	public function hdup() {
-		if (isset($_POST['id'])) {
-			$this->amodel->hdup($_POST['id'],$_POST['stt'],null);
-		}
-		else if (isset($_POST['boloc'])) {
-			$hoadon = $this->amodel->hdup(null,null,$_POST['boloc']);
+	public function adbl() {
+		$filter = $_POST['data'];
 
-			$show_hd = "";
+		if ($filter == "sanpham") {
+			if (isset($_POST['idsp'])) {
+				$prod = $this->amodel->ajax($_POST['idsp'],null,null,'prod');
+				if ($prod[0]['hidden'] == 0) $this->amodel->ajax($_POST['idsp'],1,null,'prod');
+				if ($prod[0]['hidden'] == 1) $this->amodel->ajax($_POST['idsp'],0,null,'prod');
+			}
+			else if (isset($_POST['boloc'])) {
+				$sanpham = $this->amodel->ajax(null,null,$_POST['boloc'],'prod');
 
-			foreach ($hoadon as $value => $item) {
-				$dssp = json_decode($item['dssp'],true);
-				$tc = number_format($item['thanhtien'],0,'','.');
-				if (is_array($dssp)) $rp = count($dssp);
-				else $rp = 0;
-				$show_hd .= "
-					<tr class=\"hoadon\">
-						<td rowspan=\"$rp\" class=\"text-center p-0 id-hd\">".$item['id']."</td>
-						<td rowspan=\"$rp\" class=\"text-start\">".$item['name']."</td>
-						<td rowspan=\"$rp\" class=\"text-start\">
-							Email: ".$item['email']."<br>
-							SĐT: ".$item['sdt']."<br>
-							Đ/C: ".$item['dc']."
-						</td>
-						<td class=\"text-start\">SL: ".$dssp[0]['soluong']." | ".$dssp[0]['name']."</td>
-						<td rowspan=\"$rp\" class=\"text-center p-0\">$tc</td>
-						<td rowspan=\"$rp\" class=\"text-center stt-hd\">".$item['trangthai']."</td>
-						<td rowspan=\"$rp\" class=\"text-center\">
-							<select name=\"trangthai\" class=\"hd-stt\" id=\"hd-stt\">
-								<option value=\"Chuẩn Bị\">Chuẩn Bị</option>
-								<option value=\"Đang Giao\">Đang Giao</option>
-								<option value=\"Hoàn Thành\">Hoàn Thành</option>
-								<option value=\"Hủy\">Hủy</option>
-							</select>
-							<button class=\"btn btn-success d-block mt-1 mx-auto hd-update\" id=\"hd-update\">Cập Nhật</button>
-						</td>
-					</tr>
-				";
-				for ($i = 1; $i < $rp ; ++$i) {
-					$show_hd .="
-						<tr class=\"hoadon\">
-							<td style=\"text-align: left;\">SL: ".$dssp[$i]['soluong']." | ".$dssp[$i]['name']."</td>
+				$show_sp = "";
+
+				foreach ($sanpham as $value => $item) {
+					$button ="";
+					if($item['hidden'] == 0) {
+						$button = "<button class=\"btn btn-warning suaxoa hidden hidsp\" data-idsp=\"".$item['id']."\"><i class=\"fa-solid fa-eye-slash\"></i></button>";
+					} 
+					else {
+						$button = "<button class=\"btn btn-success suaxoa hidden unhidsp\" data-idsp=\"".$item['id']."\"><i class=\"fa-solid fa-eye\"></i></button>";
+					}
+					$show_sp .= "
+						<tr class=\"sanpham\">
+							<td rowspan=\"2\" class=\"text-center\">".$item['id']."</td>
+							<td rowspan=\"2\" class=\"text-center\"><img src=\"".$item['img']."\" alt=\"\"></td>
+							<td rowspan=\"2\" id=\"tensp\">".$item['name']."</td>
+							<td rowspan=\"2\" id=\"in4sp\" style=\"overflow-hidden\">".$item['detail']."</td>
+							<td id=\"min4sp\" hidden>".$item['mdetail']."</td>
+							<td id=\"giasp\" class=\"text-center\">".number_format($item['price'],0,'','.')."</td>
+							<td id=\"salesp\" class=\"text-center\">".number_format($item['price_sale'],0,'','.')."</td>
+							<td rowspan=\"2\" class=\"text-center\">
+								<button class=\"btn btn-primary suaxoa sua suasp\" data-idsp=\"".$item['id']."\"><i class=\"fa-solid fa-gear\"></i></button>
+								<button class=\"btn btn-danger suaxoa xoa xoasp\" data-idsp=\"".$item['id']."\"><i class=\"fa-solid fa-trash\"></i></button>
+								$button
+							</td>
+						</tr>
+						<tr class=\"sanpham\">
+							<td colspan=\"2\">Đã bán : ".$item['saled']."</td>
 						</tr>
 					";
 				}
-			}
 
-			echo $show_hd;
+				echo $show_sp;
+			}
 		}
-		else {
-			header('Location: ' .urlmd. '/manager/hddh/');
-		    exit();
+		else if ($filter == "taikhoan") {
+			if (isset($_POST['idtk'])) {
+				$user = $this->amodel->ajax($_POST['idtk'],null,null,'user');
+				if ($user[0]['ban'] == 1) $this->amodel->ajax($_POST['idtk'],2,null,'user');
+				if ($user[0]['ban'] == 2) $this->amodel->ajax($_POST['idtk'],1,null,'user');
+			}
+			else if (isset($_POST['boloc'])) {
+				$taikhoan = $this->amodel->ajax(null,null,$_POST['boloc'],'user');
+
+				$show_tk = "";
+				$nut = "";
+
+				foreach ($taikhoan as $value => $item) {
+					if($item['ban'] == 1) {
+						$nut = "
+							<button class=\"btn btn-warning suaxoa ban banus\" data-idus=\"".$item['id']."\">
+								<i class=\"fa-solid fa-ban\"></i>
+							</button>";
+					}
+					else {
+						$nut = "
+							<button class=\"btn btn-success suaxoa ban unbanus\" data-idus=\"".$item['id']."\">
+								<i class=\"fa-solid fa-check\"></i>
+							</button>";
+					}
+
+					$show_tk .= "
+						<tr class=\"taikhoan\">
+							<td class=\"text-center\">".$item['id']."</td>
+							<td id=\"tenus\">".$item['user']."</td>
+							<td>".$item['ho']." ".$item['ten']."</td>
+							<td id=\"sdtus\">".$item['sdt']."</td>
+							<td id=\"emailus\" class=\"text-center\">".$item['email']."</td>
+							<td id=\"roleus\" class=\"text-center\">".$item['role']."</td>
+							<td class=\"text-center\">
+								<button class=\"btn btn-primary suaxoa sua suaus\" data-idus=\"".$item['id']."\">
+									<i class=\"fa-solid fa-gear\"></i>
+								</button>
+								<button class=\"btn btn-danger suaxoa xoa xoaus\" data-idus=\"".$item['id']."\">
+									<i class=\"fa-solid fa-trash\"></i>
+								</button>
+								$nut
+							</td>
+						</tr>
+					";
+				}
+
+				echo $show_tk;
+			}
+		}
+		else if ($filter == "hoadon") {
+			if (isset($_POST['id'])) {
+				$this->amodel->ajax($_POST['id'],$_POST['stt'],null,'invo');
+				if ($_POST['stt'] == "Hoàn Thành") {
+					$hoadon = $this->amodel->ajax($_POST['id'],null,null,'invo');
+					$dssp = json_decode($hoadon[0]['dssp'], true);
+					foreach ($dssp as $value => $item) {
+						$this->amodel->upsaled($item['id'],$item['soluong']);
+					}
+				}
+			}
+			else if (isset($_POST['boloc'])) {
+				$hoadon = $this->amodel->ajax(null,null,$_POST['boloc'],'invo');
+
+				$show_hd = "";
+
+				foreach ($hoadon as $value => $item) {
+					$dssp = json_decode($item['dssp'],true);
+					$tc = number_format($item['thanhtien'],0,'','.');
+					if (is_array($dssp)) $rp = count($dssp);
+					else $rp = 0;
+					$show_hd .= "
+						<tr class=\"hoadon\">
+							<td rowspan=\"$rp\" class=\"text-center p-0 id-hd\">".$item['id']."</td>
+							<td rowspan=\"$rp\" class=\"text-start\">".$item['name']."</td>
+							<td rowspan=\"$rp\" class=\"text-start\">
+								Email: ".$item['email']."<br>
+								SĐT: ".$item['sdt']."<br>
+								Đ/C: ".$item['dc']."
+							</td>
+							<td class=\"text-start\">SL: ".$dssp[0]['soluong']." | ".$dssp[0]['name']."</td>
+							<td rowspan=\"$rp\" class=\"text-center p-0\">$tc</td>
+							<td rowspan=\"$rp\" class=\"text-center stt-hd\">".$item['trangthai']."</td>
+							<td rowspan=\"$rp\" class=\"text-center\">
+								<select name=\"trangthai\" class=\"hd-stt\" id=\"hd-stt\">
+									<option value=\"Chuẩn Bị\">Chuẩn Bị</option>
+									<option value=\"Đang Giao\">Đang Giao</option>
+									<option value=\"Hoàn Thành\">Hoàn Thành</option>
+									<option value=\"Hủy\">Hủy</option>
+								</select>
+								<button class=\"btn btn-success d-block mt-1 mx-auto hd-update\" id=\"hd-update\">Cập Nhật</button>
+							</td>
+						</tr>
+					";
+					for ($i = 1; $i < $rp ; ++$i) {
+						$show_hd .="
+							<tr class=\"hoadon\">
+								<td style=\"text-align: left;\">SL: ".$dssp[$i]['soluong']." | ".$dssp[$i]['name']."</td>
+							</tr>
+						";
+					}
+				}
+
+				echo $show_hd;
+			}
 		}
 	}
 	/*-----------------------------------------*/
@@ -404,12 +504,6 @@ class admin_controller {
 		$this->amodel->delus($id);
 		header('Location: ' .urlmd. '/manager/qlus/');
 	    exit();
-	}
-	public function banus() {
-		$idtk = $_POST['idtk'];
-		$user = $this->amodel->banus($idtk);
-		if ($user[0]['ban'] == 1) $this->amodel->banus($idtk,2);
-		if ($user[0]['ban'] == 2) $this->amodel->banus($idtk,1);
 	}
 	/*-----------------------------------------*/
 	public function delbl($id) {

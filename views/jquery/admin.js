@@ -23,11 +23,11 @@ $(function() {
 	$('.bg-admin-log').height(ccmh);
 
 /*-------------------- BACK --------------------*/
-	$('.them').on('click', function() { $('.bg-add').removeClass('hide-bg-add'); })
-	$('.sua').on('click', function() { $('.bg-fix').removeClass('hide-bg-fix'); })
-	$('.xoa').on('click', function() { $('.bg-del').removeClass('hide-bg-del'); })
-	$('.qlai').on('click', function() { $('.bg-inf').addClass('hide-bg-inf'); })
-	$('.quaylai').on('click', function() {
+	$(document).on('click', '.them', function() { $('.bg-add').removeClass('hide-bg-add'); })
+	$(document).on('click', '.sua', function() { $('.bg-fix').removeClass('hide-bg-fix'); })
+	$(document).on('click', '.xoa', function() { $('.bg-del').removeClass('hide-bg-del'); })
+	$(document).on('click', '.qlai', function() { $('.bg-inf').addClass('hide-bg-inf'); })
+	$(document).on('click', '.quaylai', function() {
 		$('.bg-add').addClass('hide-bg-add');
 		$('.bg-fix').addClass('hide-bg-fix');
 		$('.bg-del').addClass('hide-bg-del');
@@ -35,7 +35,6 @@ $(function() {
 	})
 	$('.chitiet').on('click', function() {
 		var id_sp_cmt = $(this).data('idbl');
-		var duongdan = window.location.href;
 		var duongdan_fix = duongdan+url_sub+"/inf_cmt/";
 		$.ajax({
 			type: "POST",
@@ -64,7 +63,7 @@ $(function() {
 	var id_us_del = 0;
 	var id_bl_del = 0;
 
-	$('.suasp').on('click', function() {
+	$(document).on('click', '.suasp', function() {
 		id_sp_fix = $(this).data('idsp');
 		var duongdan_fix = duongdan+url_sub+"/fixpro/"+id_sp_fix+"/";
 		var ae_td = $(this).parent().siblings("td:has(img)");
@@ -88,13 +87,13 @@ $(function() {
 		$('#form_fix_pro').attr("action", duongdan_fix);
 		console.log(old_price);
 	})
-	$('.xoasp').on('click', function() {
+	$(document).on('click', '.xoasp', function() {
 		id_sp_del = $(this).data('idsp');
 		var duongdan_del = duongdan+url_sub+"/delpro/"+id_sp_del+"/";
 		$('#acp-del').attr("href", duongdan_del);
 		console.log(id_sp_del);
 	})
-	$('.suadm').on('click', function() {
+	$(document).on('click', '.suadm', function() {
 		id_dm_fix = $(this).data('iddm');
 		var duongdan_fix = duongdan+url_sub+"/fixcat/"+id_dm_fix+"/";
 		var ae_td = $(this).parent().siblings("td:has(img)");
@@ -109,13 +108,13 @@ $(function() {
 
 		$('#form_fix_cat').attr("action", duongdan_fix);
 	})
-	$('.xoadm').on('click', function() {
+	$(document).on('click', '.xoadm', function() {
 		id_dm_del = $(this).data('iddm');
 		var duongdan_del = duongdan+url_sub+"/delcat/"+id_dm_del+"/";
 		$('#acp-del').attr("href", duongdan_del);
 		console.log(id_sp_del);
 	})
-	$('.suapl').on('click', function() {
+	$(document).on('click', '.suapl', function() {
 		id_pl_fix = $(this).data('idpl');
 		var duongdan_fix = duongdan+url_sub+"/fixpl/"+id_pl_fix+"/";
 
@@ -127,13 +126,13 @@ $(function() {
 
 		$('#form_fix_pl').attr("action", duongdan_fix);
 	})
-	$('.xoapl').on('click', function() {
+	$(document).on('click', '.xoapl', function() {
 		id_pl_del = $(this).data('idpl');
 		var duongdan_del = duongdan+url_sub+"/delpl/"+id_pl_del+"/";
 		$('#acp-del').attr("href", duongdan_del);
 		console.log(id_sp_del);
 	})
-	$('.suaus').on('click', function() {
+	$(document).on('click', '.suaus', function() {
 		id_us_fix = $(this).data('idus');
 		var duongdan_fix = duongdan+url_sub+"/fixus/"+id_us_fix+"/";
 
@@ -156,13 +155,14 @@ $(function() {
 
 		$('#form_fix_us').attr("action", duongdan_fix);
 	})
-	$('.xoaus').on('click', function() {
+	$(document).on('click', '.xoaus', function() {
 		id_us_del = $(this).data('idus');
 		var duongdan_del = duongdan+url_sub+"/delus/"+id_us_del+"/";
 		$('#acp-del').attr("href", duongdan_del);
 		console.log(id_sp_del);
 	})
-	$('.ban').on('click', function() {
+
+	$(document).on('click', '.ban', function() {
 		if ($(this).hasClass('banus')) {
 			$(this).find("i").removeClass('fa-ban').addClass('fa-check');
 			$(this).removeClass('btn-warning banus').addClass('btn-success unbanus');
@@ -179,11 +179,45 @@ $(function() {
 		}
 
 		var idtk = $(this).data('idus');
-		var duongdan_fix = duongdan+url_sub+"/banus/"+idtk+"/";
+		var duongdan_fix = duongdan+url_sub+"/adbl/";
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
-			data: { idtk: idtk },
+			data: { idtk: idtk, data: "taikhoan" },
+			success: function(response) {
+				console.log('thanh cong');
+			},
+			error: function() {
+				console.log("Có lỗi xảy ra.");
+			}
+		});
+
+		$('.popup-small').removeClass('hide-popup');
+		setTimeout(function() {$('.popup-small').addClass('hide-popup');},1000);
+	})
+
+	$(document).on('click', '.hidden', function() {
+		if ($(this).hasClass('hidsp')) {
+			$(this).find("i").removeClass('fa-eye-slash').addClass('fa-eye');
+			$(this).removeClass('btn-warning hidsp').addClass('btn-success unhidsp');
+			$('.popup-small').find("span").text("Đã Ẩn Sản Phẩm");
+			$('.popup-small').find("i").removeClass('fa-eye');
+			if(!$('.popup-small').find("i").hasClass('fa-eye-slash')) $('.popup-small').find("i").addClass('fa-eye-slash');
+		}
+		else {
+			$(this).find("i").removeClass('fa-eye').addClass('fa-eye-slash');
+			$(this).removeClass('btn-success unhidsp').addClass('btn-warning hidsp');
+			$('.popup-small').find("span").text("Đã Hiện Sản Phẩm");
+			$('.popup-small').find("i").removeClass('fa-eye-slash');
+			if(!$('.popup-small').find("i").hasClass('fa-eye')) $('.popup-small').find("i").addClass('fa-eye');
+		}
+
+		var idsp = $(this).data('idsp');
+		var duongdan_fix = duongdan+url_sub+"/adbl/";
+		$.ajax({
+			type: "POST",
+			url: duongdan_fix,
+			data: { idsp: idsp, data: "sanpham" },
 			success: function(response) {
 				console.log('thanh cong');
 			},
@@ -199,14 +233,14 @@ $(function() {
 	$(document).on('click', '.hd-update', function() {
 		var trangthai = $(this).siblings("select").val();
 		var id = $(this).parent().siblings(".id-hd").text();
-		var duongdan_fix = duongdan+url_sub+"/hdup/";
+		var duongdan_fix = duongdan+url_sub+"/adbl/";
 
 		$(this).parent().siblings(".stt-hd").text(trangthai);
 		console.log(trangthai+" "+id);
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
-			data: {id: id, stt: trangthai},
+			data: {id: id, stt: trangthai, data: "hoadon"},
 			success: function(response) {
 
 			},
@@ -217,13 +251,14 @@ $(function() {
 	})
 	$('.boloc').on('click', '.btn-boloc', function() {
 		var boloc = $(this).attr("boloc");
-		var duongdan_fix = duongdan+url_sub+"/hdup/";
+		var data_bl = $(this).attr("data");
+		var duongdan_fix = duongdan+url_sub+"/adbl/";
 		$.ajax({
 			type: "POST",
 			url: duongdan_fix,
-			data: {boloc: boloc},
+			data: {boloc: boloc, data: data_bl},
 			success: function(data) {
-				$('.show-data').find('.hoadon').remove();
+				$('.show-data').find('.'+data_bl).remove();
 				$('.show-data').append(data);
 			},
 			error: function() {

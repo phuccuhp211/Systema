@@ -37,37 +37,85 @@ class admin_model {
 		$ketqua = getdata($sql);
 		return $ketqua;
 	}
-	public function hdup($id=null, $stt=null, $boloc=null) {
-		if (isset($id)) {
-			$date = date("Y-m-d",time());
-			$sql = "SELECT * FROM hoadon WHERE id = $id";
-			$ketqua = getdata($sql);
-			if($ketqua[0]['submited'] == "0000-00-00") {
-				$sql = "UPDATE hoadon SET trangthai = '$stt', submited = '$date' WHERE id = $id";
+	public function ajax($id=null, $data=null, $filter=null, $type=null) {
+		if ($type == "prod") {
+			if (isset($data)) {
+				$sql = "UPDATE product SET hidden = '$data' WHERE id = $id";
 				iuddata($sql);
-				if ($stt == "Hoàn Thành") { 
-					$sql = "UPDATE accessed SET tt = tt + $ketqua[0]['thanhtien']";
-					iuddata($sql);
-				}
 			}
-			else {
-				$sql = "UPDATE hoadon SET trangthai = '$stt' WHERE id = $id";
-				iuddata($sql);
-				if ($stt == "Hoàn Thành") { 
-					$sql = "UPDATE accessed SET tt = tt + $ketqua[0]['thanhtien']";
-					iuddata($sql);
-				}
+			else if (isset($id)) {
+				$sql = "SELECT * FROM product WHERE id = $id";
+				$ketqua = getdata($sql);
+				return $ketqua;
+			}
+			else if (isset($filter)) {
+				if ($filter == 1) $sql = "SELECT * FROM product ORDER BY id DESC";
+				else if ($filter == 2) $sql = "SELECT * FROM product ORDER BY saled DESC";
+				else if ($filter == 3) $sql = "SELECT * FROM product ORDER BY viewed DESC";
+				else if ($filter == 4) $sql = "SELECT * FROM product WHERE price_sale > 0 ORDER BY id DESC";
+				else if ($filter == 5) $sql = "SELECT * FROM product WHERE hidden = 1 ORDER BY id DESC";
+				$ketqua = getdata($sql);
+				return $ketqua;
 			}
 		}
-		else if (isset($boloc)) {
-			if ($boloc == 1) $sql = "SELECT * FROM hoadon ORDER BY id DESC";
-			else if ($boloc == 2) $sql = "SELECT * FROM hoadon WHERE trangthai = 'Chưa Xong' OR trangthai = 'Chờ Xác Nhận' ORDER BY id DESC";
-			else if ($boloc == 3) $sql = "SELECT * FROM hoadon WHERE trangthai = 'Chuẩn Bị' ORDER BY id DESC";
-			else if ($boloc == 4) $sql = "SELECT * FROM hoadon WHERE trangthai = 'Hoàn Thành' ORDER BY id DESC";
-			else if ($boloc == 5) $sql = "SELECT * FROM hoadon WHERE trangthai = 'Đã Hủy' ORDER BY id DESC";
-			$ketqua = getdata($sql);
-			return $ketqua;
+		else if ($type == "user") {
+			if (isset($data)) {
+				$sql = "UPDATE user SET ban = $data WHERE id = $id";
+				iuddata($sql);
+			}
+			else if (isset($id)) {
+				$sql = "SELECT * FROM user WHERE id = $id";
+				$ketqua = getdata($sql);
+				return $ketqua;
+			}
+			else if (isset($filter)) {
+				if ($filter == 1) $sql = "SELECT * FROM user ORDER BY id DESC";
+				else if ($filter == 2) $sql = "SELECT * FROM user WHERE ban = 2 ORDER BY id DESC";
+				else if ($filter == 3) $sql = "SELECT * FROM user WHERE ban = 1 ORDER BY id DESC";
+				else if ($filter == 4) $sql = "SELECT * FROM user WHERE role = 1 ORDER BY id DESC";
+				else if ($filter == 5) $sql = "SELECT * FROM user WHERE role = 0 ORDER BY id DESC";
+				$ketqua = getdata($sql);
+				return $ketqua;
+			}
 		}
+		else if ($type == "invo") {
+			if (isset($id) && isset($data)) {
+				$date = date("Y-m-d",time());
+				$sql = "SELECT * FROM hoadon WHERE id = $id";
+				$ketqua = getdata($sql);
+				if($ketqua[0]['submited'] == "0000-00-00") {
+					$sql = "UPDATE hoadon SET trangthai = '$data', submited = '$date' WHERE id = $id";
+					iuddata($sql);
+				}
+				else {
+					$sql = "UPDATE hoadon SET trangthai = '$data' WHERE id = $id";
+					iuddata($sql);
+					if ($data == "Hoàn Thành") { 
+						$sql = "UPDATE accessed SET tt = tt + ".$ketqua[0]['thanhtien'];
+						iuddata($sql);
+					}
+				}
+			}
+			else if (isset($id)) {
+				$sql = "SELECT * FROM hoadon WHERE id = $id";
+				$ketqua = getdata($sql);
+				return $ketqua;
+			}
+			else if (isset($filter)) {
+				if ($filter == 1) $sql = "SELECT * FROM hoadon ORDER BY id DESC";
+				else if ($filter == 2) $sql = "SELECT * FROM hoadon WHERE trangthai = 'Chưa Xong' OR trangthai = 'Chờ Xác Nhận' ORDER BY id DESC";
+				else if ($filter == 3) $sql = "SELECT * FROM hoadon WHERE trangthai = 'Chuẩn Bị' ORDER BY id DESC";
+				else if ($filter == 4) $sql = "SELECT * FROM hoadon WHERE trangthai = 'Đang Giao' ORDER BY id DESC";
+				else if ($filter == 5) $sql = "SELECT * FROM hoadon WHERE trangthai = 'Hoàn Thành' ORDER BY id DESC";
+				else if ($filter == 6) $sql = "SELECT * FROM hoadon WHERE trangthai = 'Đã Hủy' ORDER BY id DESC";
+				$ketqua = getdata($sql);
+				return $ketqua;
+			}
+		}
+	}
+	public function upsaled($id,$soluong) {
+		$sql = "UPDATE product SET saled = saled + $soluong WHERE id = $id";
+		iuddata($sql);
 	}
 	/*-----------------------------------------*/
 	public function thunhap() {
@@ -123,7 +171,7 @@ class admin_model {
 		return $ketqua;
 	}
 	public function addpro($name,$duongdan,$price,$sale,$salef,$salet,$catalog,$brand,$info,$infoct) {
-		$sql = "INSERT INTO product VALUES('','$name','$duongdan','$info','$infoct','','$catalog','$brand','$price','$sale','$salef','$salet','')";
+		$sql = "INSERT INTO product VALUES('','$name','$duongdan','$info','$infoct','','$catalog','$brand','$price','$sale','$salef','$salet','','','')";
 		iuddata($sql);
 	}
 	public function fixpro($id,$name,$duongdan,$price,$sale,$salef,$salet,$catalog,$brand,$info,$infoct) {
@@ -213,17 +261,6 @@ class admin_model {
 	public function delus($id) {
 		$sql = "DELETE FROM user WHERE id = $id";
 		iuddata($sql);
-	}
-	public function banus($id,$ban=null) {
-		if ($ban != null) {
-			$sql = "UPDATE user SET ban = $ban WHERE id = $id";
-			iuddata($sql);
-		}
-		else {
-			$sql = "SELECT * FROM user WHERE id = $id";
-			$ketqua = getdata($sql);
-			return $ketqua;
-		}
 	}
 	/*-----------------------------------------*/
 	public function dsbl() {

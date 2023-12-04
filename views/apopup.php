@@ -147,6 +147,10 @@
 				<button class="btn btn-danger quaylai" type="submit">Quay Lại</button>
 			</div>
 		</div>
+		<div class="popup-small hide-popup">
+			<i class="fa-solid fa-eye-slash"></i>
+			<span>Đã Ẩn Sản Phẩm</span>
+		</div>
 	<?php } ?>
 	<?php if (isset($_SESSION['qldm'])) { ?>
 		<div class="bg-add hide-bg-add">

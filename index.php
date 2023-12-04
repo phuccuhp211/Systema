@@ -26,7 +26,7 @@
         bdt.'/dangxuat/' => 'admin_controller@dangxuat',
         bdt.'/manager/' => 'admin_controller@manager',
         bdt.'/manager/([a-zA-Z0-9._-]+)/' => 'admin_controller@manager',
-        bdt.'/hdup/' => 'admin_controller@hdup',
+        bdt.'/adbl/' => 'admin_controller@adbl',
         bdt.'/addpro/' => 'admin_controller@addpro',
         bdt.'/fixpro/([0-9]+)/' => 'admin_controller@fixpro',
         bdt.'/delpro/([0-9]+)/' => 'admin_controller@delpro',
@@ -39,7 +39,6 @@
         bdt.'/addus/' => 'admin_controller@addus',
         bdt.'/fixus/([0-9]+)/' => 'admin_controller@fixus',
         bdt.'/delus/([0-9]+)/' => 'admin_controller@delus',
-        bdt.'/banus/([0-9]+)/' => 'admin_controller@banus',
         bdt.'/delbl/([0-9]+)/' => 'admin_controller@delbl',
         bdt.'/inf_cmt/' => 'admin_controller@info_cmt',
         /*-----------------------------------------------*/

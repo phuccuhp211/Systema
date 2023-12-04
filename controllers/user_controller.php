@@ -117,7 +117,6 @@ class user_controller {
 	}
 
 	public function index() {
-		$umodel = new user_model();
 		$fullsp = $this->umodel->fullsp1();
 		$newsp = $this->umodel->spnew();
 		$hotsp = $this->umodel->sphot();
@@ -129,7 +128,6 @@ class user_controller {
 	public function config() {
 		$header = $this->header();
 		if (isset($header['nguoidung'])) {
-			$umodel = new user_model();
 			$list_hd = $this->umodel->gethd($header['nguoidung'][0]['user']);
 			require_once './views/config.php';
 		} 
@@ -140,7 +138,6 @@ class user_controller {
 	}
 
 	public function updatetk($id) {
-		$umodel = new user_model();
 		$ho = $_POST['ho'];
 		$ten = $_POST['ten'];
 		$sdt = $_POST['sdt'];
@@ -151,7 +148,6 @@ class user_controller {
 	}
 
 	public function doimatkhau() {
-		$umodel = new user_model();
 		$id = $_POST['id'];
 		$pass1 = $_POST['pass1'];
 		$pass2 = $_POST['pass2'];
@@ -176,7 +172,6 @@ class user_controller {
 
 	public function qmkvl() {
 		$header = $this->header();
-		$umodel = new user_model();
 		$tendn = $_POST['tendn'];
 
 		$_SESSION['send_mail'] = true;
@@ -250,7 +245,6 @@ class user_controller {
 
 	public function admk($id) {
 		if ($_SESSION['send_mail'] == true) {
-			$umodel = new user_model();
 			$this->umodel->doimatkhau($id,md5($_SESSION['rand_pass']));
 			unset($_SESSION['rand_pass']);
 			unset($_SESSION['send_mail']);
@@ -266,7 +260,6 @@ class user_controller {
 	}
 
 	public function addcart() {
-		$umodel = new user_model();
 		$id = $_POST['idsp'];
 
 		$sanpham = $this->umodel->spcart($id);
@@ -318,7 +311,6 @@ class user_controller {
 	}
 
 	public function muangay($id) {
-		$umodel = new user_model();
 		$this->umodel->upview_nonin();
 		$sanpham = $this->umodel->spcart($id);
 		$sanpham[0]['soluong'] = "1";
@@ -371,7 +363,6 @@ class user_controller {
 	public function ktbh() {
 		if (isset($_POST['mahd'])) {
 			$mahd = $_POST['mahd'];
-			$umodel = new user_model();
 
 			$ketqua = $this->umodel->kthd($mahd);
 			if (!isset($ketqua[0])) echo "false";
@@ -464,7 +455,6 @@ class user_controller {
 	}
 
 	public function getsp($loai_data=null,$data=null,$page=1) {
-		$umodel = new user_model();
 		$this->umodel->upview_nonin();
 		$header = $this->header();
 		$base_url = urlmd;
@@ -558,7 +548,6 @@ class user_controller {
 	}
 
 	public function hoadon() {
-		$umodel = new user_model();
 		$tenkh = $_POST['tenkh'];
 		$emailkh = $_POST['emailkh'];
 		$sdtkh = $_POST['sdtkh'];
@@ -649,7 +638,6 @@ class user_controller {
 		    exit();
 		}
 		else {
-			$umodel = new user_model();
 			$userpass = $this->umodel->checkuser();
 			$uname = $_POST['user'];
 			$upass = $_POST['pass'];
@@ -691,7 +679,6 @@ class user_controller {
 	}
 
 	public function regis() {
-		$umodel = new user_model();
 		$userpass = $this->umodel->checkuser();
 		if(isset($_SESSION['udone'])) {
 			$nguoidung = $this->umodel->getuser($_SESSION['phiennguoidung']);
