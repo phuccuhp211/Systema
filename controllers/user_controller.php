@@ -263,6 +263,8 @@ class user_controller {
 		$id = $_POST['idsp'];
 
 		$sanpham = $this->umodel->spcart($id);
+		unset($sanpham[0]['mdetail']);
+
 
 		if (isset($_POST['slsp'])) $sanpham[0]['soluong'] = $_POST['slsp'];
 		else $sanpham[0]['soluong'] = 1;
@@ -313,6 +315,8 @@ class user_controller {
 	public function muangay($id) {
 		$this->umodel->upview_nonin();
 		$sanpham = $this->umodel->spcart($id);
+		unset($sanpham[0]['detail']);
+
 		$sanpham[0]['soluong'] = "1";
 		if ($sanpham[0]['price_sale'] != 0) $sanpham[0]['thanhtien'] = $sanpham[0]['price_sale'];
 		else $sanpham[0]['thanhtien'] = $sanpham[0]['price'];
@@ -320,6 +324,8 @@ class user_controller {
 		if (!isset($_SESSION['giohang'])) {
 			$_SESSION['giohang'] = [];
 			$_SESSION['totalp'] = 0;
+			array_push($_SESSION['giohang'], $sanpham[0]);
+			$_SESSION['totalp'] += $sanpham[0]['thanhtien'];
 		}
 		else {
 			if (count($_SESSION['giohang']) == 0) {

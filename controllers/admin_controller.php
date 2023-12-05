@@ -292,7 +292,7 @@ class admin_controller {
 
 		if (!isset($_SESSION['error_log'])) {
 			move_uploaded_file($_FILES["img"]["tmp_name"], $duongdan_2nd);
-			$this->amodel->addpro($name,$duongdan,$price,$sale,$salef,$salet,$catalog,$brand,$info,$infoct);
+			$this->amodel->addpro($name,$duongdan,$price,$sale,$salef,$salet,$catalog,$brand,$info,htmlspecialchars($infoct));
 		}
 		header('Location: ' .urlmd. '/manager/');
 	    exit();
@@ -329,7 +329,7 @@ class admin_controller {
 
 			if (!isset($_SESSION['error_log'])) {
 				move_uploaded_file($_FILES["img"]["tmp_name"], $duongdan_2nd);
-				$this->amodel->fixpro($id,$name,$duongdan,$price,$sale,$salef,$salet,$catalog,$brand,$info,$infoct);
+				$this->amodel->fixpro($id,$name,$duongdan,$price,$sale,$salef,$salet,$catalog,$brand,$info,htmlspecialchars($infoct));
 			}
 			header('Location: ' .urlmd. '/manager/qlsp/');
 		    exit();
@@ -337,7 +337,7 @@ class admin_controller {
 		else {
 			$img_cu = $_POST['old_img'];
 			if (!isset($_SESSION['error_log'])) {
-				$this->amodel->fixpro($id,$name,$img_cu,$price,$sale,$salef,$salet,$catalog,$brand,$info,$infoct);
+				$this->amodel->fixpro($id,$name,$img_cu,$price,$sale,$salef,$salet,$catalog,$brand,$info,htmlspecialchars($infoct));
 			}
 			header('Location: ' .urlmd. '/manager/qlsp/');
 		    exit();

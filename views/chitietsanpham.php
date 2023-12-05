@@ -44,7 +44,7 @@
                     <div class="col-12 khungttct-sp">
                         <h2>THÔNG TIN CHI TIẾT</h2>
                         <div class="ttct-sp">
-                            <?php echo $chitiet[0]['mdetail'] ?>
+                            <?php echo htmlspecialchars_decode($chitiet[0]['mdetail']) ?>
                             <button class="more-less">Xem thêm</button>                         
                         </div>      
                     </div>
