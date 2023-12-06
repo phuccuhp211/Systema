@@ -23,6 +23,7 @@
 		<div class="row">
 			<div class="col-4"><a class="btn w-100 btn-secondary text-white" href="<?php echo urlmd ?>/manager/qlbl/">Quản Lý Bình Luận</a></div>
 			<div class="col-4"><a class="btn w-100 btn-dark text-white" href="<?php echo urlmd ?>/manager/hddh/">Hóa Đơn Đặt Hàng</a></div>
+			<div class="col-4"><a class="btn w-100 btn-dark text-white" href="<?php echo urlmd ?>/manager/magg/">Mã Giảm Giá</a></div>
 		</div>
 	</div>
 

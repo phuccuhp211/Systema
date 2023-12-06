@@ -63,35 +63,35 @@ class admin_controller {
 	    			$danhmuc = $this->amodel->fulldm();
 	    			$phanloai = $this->amodel->pldm();
 	    			$_SESSION['qldm'] = true;
-	    			unset($_SESSION['qlus'], $_SESSION['qlsp'], $_SESSION['hddh'], $_SESSION['qlbl']);
-	    			require_once './views/manager.php';
+	    			unset($_SESSION['qlus'], $_SESSION['qlsp'], $_SESSION['hddh'], $_SESSION['qlbl'], $_SESSION['magg']);
 	    		}
-	    		if ($request == "qlus") {
+	    		else if ($request == "qlus") {
 	    			$user = $this->amodel->fullus();
 	    			$_SESSION['qlus'] = true;
-	    			unset($_SESSION['qldm'], $_SESSION['qlsp'], $_SESSION['hddh'], $_SESSION['qlbl']);
-	    			require_once './views/manager.php';
+	    			unset($_SESSION['qldm'], $_SESSION['qlsp'], $_SESSION['hddh'], $_SESSION['qlbl'], $_SESSION['magg']);
 	    		}
-	    		if ($request == "qlsp") {
+	    		else if ($request == "qlsp") {
 	    			$sanpham = $this->amodel->fullsp();
 	    			$danhmuc = $this->amodel->fulldm();
 	    			$tksp = $this->amodel->tksp();
 	    			$brand = $this->amodel->fullth();
 					$_SESSION['qlsp'] = true;
-					unset($_SESSION['qldm'], $_SESSION['qlus'], $_SESSION['hddh'], $_SESSION['qlbl']);
-		    		require_once './views/manager.php';
+					unset($_SESSION['qldm'], $_SESSION['qlus'], $_SESSION['hddh'], $_SESSION['qlbl'], $_SESSION['magg']);
 	    		}
-	    		if ($request == "hddh") {
+	    		else if ($request == "hddh") {
 	    			$hoadon = $this->amodel->shd();
 					$_SESSION['hddh'] = true;
-					unset($_SESSION['qldm'], $_SESSION['qlus'], $_SESSION['qlsp'], $_SESSION['qlbl']);
-		    		require_once './views/manager.php';
+					unset($_SESSION['qldm'], $_SESSION['qlus'], $_SESSION['qlsp'], $_SESSION['qlbl'], $_SESSION['magg']);
 	    		}
-	    		if ($request == "qlbl") {
+	    		else if ($request == "qlbl") {
 	    			$binhluan = $this->amodel->dsbl();
 	    			$_SESSION['qlbl'] = true;
-	    			unset($_SESSION['qldm'], $_SESSION['qlus'], $_SESSION['qlsp'], $_SESSION['hddh']);
-	    			require_once './views/manager.php';
+	    			unset($_SESSION['qldm'], $_SESSION['qlus'], $_SESSION['qlsp'], $_SESSION['hddh'], $_SESSION['magg']);
+	    		}
+	    		else if ($request == "magg") {
+	    			$mgg = $this->amodel->mgg();
+	    			$_SESSION['magg'] = true;
+	    			unset($_SESSION['qldm'], $_SESSION['qlus'], $_SESSION['qlsp'], $_SESSION['hddh'], $_SESSION['qlbl']);
 	    		}
 	    	}
 	    	else {
@@ -100,9 +100,9 @@ class admin_controller {
 	    		$member = $this->amodel->member();
 	    		$access = $this->amodel->access();
 				$_SESSION['quanly'] = true;
-				unset($_SESSION['qldm'], $_SESSION['qlus'], $_SESSION['hddh'], $_SESSION['qlbl'], $_SESSION['qlsp']);
-	    		require_once './views/manager.php';
+				unset($_SESSION['qldm'], $_SESSION['qlus'], $_SESSION['hddh'], $_SESSION['qlbl'], $_SESSION['qlsp'], $_SESSION['magg']);
 	    	}
+	    	require_once './views/manager.php';
     	}
 	}
 	public function adbl() {

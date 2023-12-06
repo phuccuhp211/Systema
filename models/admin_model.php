@@ -2,41 +2,22 @@
 require_once 'function.php';
 
 class admin_model {
-	public function adlogin() {
-		$sql = 'SELECT * FROM user WHERE role = 0';
-		$ketqua = getdata($sql);
-		return $ketqua;
-	}
-	public function fullsp() {
-		$sql = 'SELECT * FROM product ORDER BY id DESC';
-		$ketqua = getdata($sql);
-		return $ketqua;
-	}
-	public function fulldm() {
-		$sql = 'SELECT * FROM catalog';
-		$ketqua = getdata($sql);
-		return $ketqua;
-	}
-	public function pldm() {
-		$sql = 'SELECT * FROM phanloai';
-		$ketqua = getdata($sql);
-		return $ketqua;
-	}
-	public function fullus() {
-		$sql = 'SELECT * FROM user';
-		$ketqua = getdata($sql);
-		return $ketqua;
-	}
-	public function fullth() {
-		$sql = 'SELECT * FROM brand';
-		$ketqua = getdata($sql);
-		return $ketqua;
-	}
-	public function shd() {
-		$sql = "SELECT * FROM hoadon WHERE id > 0 ORDER BY id DESC";
-		$ketqua = getdata($sql);
-		return $ketqua;
-	}
+	public function adlogin() { return getdata('SELECT * FROM user WHERE role = 0'); }
+
+    public function fullsp() { return getdata('SELECT * FROM product ORDER BY id DESC'); }
+
+    public function fulldm() { return getdata('SELECT * FROM catalog'); }
+
+    public function pldm() { return getdata('SELECT * FROM phanloai'); }
+
+    public function fullus() { return getdata('SELECT * FROM user'); }
+
+    public function fullth() { return getdata('SELECT * FROM brand'); }
+
+    public function shd() { return getdata("SELECT * FROM hoadon WHERE id > 0 ORDER BY id DESC"); }
+
+	public function upsaled($id,$soluong) { iuddata("UPDATE product SET saled = saled + $soluong WHERE id = $id"); }
+
 	public function ajax($id=null, $data=null, $filter=null, $type=null) {
 		if ($type == "prod") {
 			if (isset($data)) {
@@ -112,10 +93,6 @@ class admin_model {
 				return $ketqua;
 			}
 		}
-	}
-	public function upsaled($id,$soluong) {
-		$sql = "UPDATE product SET saled = saled + $soluong WHERE id = $id";
-		iuddata($sql);
 	}
 	/*-----------------------------------------*/
 	public function thunhap() {
