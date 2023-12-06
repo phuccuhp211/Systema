@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2023 at 04:12 PM
+-- Generation Time: Dec 06, 2023 at 02:15 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -38,7 +38,7 @@ CREATE TABLE `accessed` (
 --
 
 INSERT INTO `accessed` (`trangchu`, `trangcon`, `tt`) VALUES
-(776, 1518, 193885500000);
+(834, 1561, 193885500000);
 
 -- --------------------------------------------------------
 
@@ -129,7 +129,9 @@ INSERT INTO `comments` (`id_cmt`, `noidung`, `id_pd`, `id_user`, `date`) VALUES
 (13, 'tôi phát điện cho cả nhà sài vẫn đủ, quá víp', 16, 24, '2023-11-24'),
 (14, 'Vip vai l', 28, 11, '2023-11-28'),
 (15, 'lỗ hổng bảo mật', 28, 11, '2023-11-28'),
-(16, '<script>alert(\"vui lòng điển đầy đủ thông tin khách hàng!\");</script>', 28, 11, '2023-11-28');
+(16, '<script>alert(\"vui lòng điển đầy đủ thông tin khách hàng!\");</script>', 28, 11, '2023-11-28'),
+(17, 'ngon bổ rẻ', 5, 7, '2023-12-05'),
+(18, 'chất lượng', 5, 7, '2023-12-05');
 
 -- --------------------------------------------------------
 
@@ -200,7 +202,11 @@ INSERT INTO `hoadon` (`id`, `name`, `sdt`, `email`, `dc`, `dssp`, `thanhtien`, `
 (52, 'Phúc Ngô', 935222871, 'phuclhhps35520@fpt.edu.vn', '214 QL22', '[{\"id\":21,\"name\":\"AMD Threadripper Pro 5995WX \",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/5995wx.webp\",\"detail\":\"u0110u00e2y lu00e0 CPU AMD\",\"mdetail\":\"\",\"postdate\":\"\",\"id_cata\":1,\"id_brand\":1,\"price\":165000000,\"price_sale\":0,\"from_date\":\"0000-00-00\",\"to_date\":\"0000-00-00\",\"viewed\":0,\"soluong\":4,\"thanhtien\":165000000}]', 660000000, 'Đang Giao', '2023-11-27', '2023-12-02', '052228734233'),
 (53, 'Phúc Ngô', 935222871, 'phuclhhps35520@fpt.edu.vn', '214 QL22', '[{\"id\":8,\"name\":\"CORE I9 10900\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/i9.jpg\",\"detail\":\"u0110u00e2y lu00e0 CPU Intel\",\"mdetail\":\"\",\"postdate\":\"\",\"id_cata\":1,\"id_brand\":5,\"price\":14000000,\"price_sale\":13500000,\"from_date\":\"0000-00-00\",\"to_date\":\"0000-00-00\",\"viewed\":0,\"soluong\":\"10\",\"thanhtien\":\"135000000\"}]', 135000000, 'Chuẩn Bị', '2023-11-27', '2023-12-02', '52228734932'),
 (54, 'thaytho', 123123123, 'phuclhhps35520@fpt.edu.vn', '214 QL 22', '[{\"id\":5,\"name\":\"CORE I3 10100\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/i3.jpg\",\"detail\":\"u0110u00e2y lu00e0 CPU Intel\",\"mdetail\":\"\",\"postdate\":\"\",\"id_cata\":1,\"id_brand\":5,\"price\":2500000,\"price_sale\":0,\"from_date\":null,\"to_date\":null,\"viewed\":3,\"soluong\":\"1\",\"thanhtien\":2500000}]', 2520000, 'Đang Giao', '2023-11-29', '2023-12-02', '123123182437'),
-(55, 'thaytho', 123123123, 'phuclhhps35520@fpt.edu.vn', '214 QL 22', '[{\"id\":2,\"name\":\"AMD R5 3600\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/r5.jpg\",\"detail\":\"u0110u00e2y lu00e0 CPU AMD\",\"mdetail\":\"\",\"postdate\":\"\",\"id_cata\":1,\"id_brand\":1,\"price\":6000000,\"price_sale\":5750000,\"from_date\":null,\"to_date\":null,\"viewed\":2,\"soluong\":1,\"thanhtien\":5750000},{\"id\":4,\"name\":\"AMD R9 3900\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/r9.jpg\",\"detail\":\"u0110u00e2y lu00e0 CPU AMD\",\"mdetail\":\"\",\"postdate\":\"\",\"id_cata\":1,\"id_brand\":1,\"price\":15000000,\"price_sale\":0,\"from_date\":null,\"to_date\":null,\"viewed\":2,\"soluong\":\"2\",\"thanhtien\":\"30000000\"},{\"id\":9,\"name\":\"AMD RX 6900XT\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/6900.jpg\",\"detail\":\"u0110u00e2y lu00e0 GPU AMD\",\"mdetail\":\"\",\"postdate\":\"\",\"id_cata\":2,\"id_brand\":1,\"price\":25000000,\"price_sale\":0,\"from_date\":null,\"to_date\":null,\"viewed\":2,\"soluong\":1,\"thanhtien\":25000000}]', 60750000, 'Chuẩn Bị', '2023-11-29', '2023-12-02', '123123182606');
+(55, 'thaytho', 123123123, 'phuclhhps35520@fpt.edu.vn', '214 QL 22', '[{\"id\":2,\"name\":\"AMD R5 3600\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/r5.jpg\",\"detail\":\"u0110u00e2y lu00e0 CPU AMD\",\"mdetail\":\"\",\"postdate\":\"\",\"id_cata\":1,\"id_brand\":1,\"price\":6000000,\"price_sale\":5750000,\"from_date\":null,\"to_date\":null,\"viewed\":2,\"soluong\":1,\"thanhtien\":5750000},{\"id\":4,\"name\":\"AMD R9 3900\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/r9.jpg\",\"detail\":\"u0110u00e2y lu00e0 CPU AMD\",\"mdetail\":\"\",\"postdate\":\"\",\"id_cata\":1,\"id_brand\":1,\"price\":15000000,\"price_sale\":0,\"from_date\":null,\"to_date\":null,\"viewed\":2,\"soluong\":\"2\",\"thanhtien\":\"30000000\"},{\"id\":9,\"name\":\"AMD RX 6900XT\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/6900.jpg\",\"detail\":\"u0110u00e2y lu00e0 GPU AMD\",\"mdetail\":\"\",\"postdate\":\"\",\"id_cata\":2,\"id_brand\":1,\"price\":25000000,\"price_sale\":0,\"from_date\":null,\"to_date\":null,\"viewed\":2,\"soluong\":1,\"thanhtien\":25000000}]', 60750000, 'Chuẩn Bị', '2023-11-29', '2023-12-02', '123123182606'),
+(59, 'qưeqwe', 935222871, 'phuclhhps35520@fpt.edu.vn', '214 QL22', '[{\"id\":30,\"name\":\"Corsair 1000D\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/case1.jpg\",\"detail\":\"u0110u00e2y lu00e0 case mu00e1y tu00ednh\",\"mdetail\":\"\",\"postdate\":\"\",\"id_cata\":10,\"id_brand\":7,\"price\":12200000,\"price_sale\":0,\"from_date\":\"0000-00-00\",\"to_date\":\"0000-00-00\",\"viewed\":1,\"hidden\":0,\"saled\":0,\"soluong\":2,\"thanhtien\":12200000},{\"id\":29,\"name\":\"Alienware AW5520QF\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/manhinh2.jpg\",\"detail\":\"u0110u00e2y lu00e0 mu00e0n hu00ecnh\",\"mdetail\":\"\",\"postdate\":\"\",\"id_cata\":7,\"id_brand\":10,\"price\":90000000,\"price_sale\":0,\"from_date\":\"0000-00-00\",\"to_date\":\"0000-00-00\",\"viewed\":1,\"hidden\":0,\"saled\":3,\"soluong\":1,\"thanhtien\":90000000},{\"id\":28,\"name\":\"LG UltraGearu2122 OLED 45u201d 45GR95QE-B\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/manhinh1.webp\",\"detail\":\"u0110u00e2y lu00e0 mu00e0n hu00ecnh\",\"mdetail\":\"\",\"postdate\":\"\",\"id_cata\":7,\"id_brand\":9,\"price\":37500000,\"price_sale\":0,\"from_date\":\"0000-00-00\",\"to_date\":\"0000-00-00\",\"viewed\":6,\"hidden\":0,\"saled\":0,\"soluong\":1,\"thanhtien\":37500000}]', 151900000, 'Chờ Xác Nhận', '2023-12-05', '0000-00-00', '222871211520');
+INSERT INTO `hoadon` (`id`, `name`, `sdt`, `email`, `dc`, `dssp`, `thanhtien`, `trangthai`, `created`, `submited`, `SHD`) VALUES
+(60, 'qưeqwe', 935222871, 'phuclhhps35520@fpt.edu.vn', '214 QL22', '[{\"id\":31,\"name\":\"COSMOS C700M Limited Edition\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/case2.webp\",\"postdate\":\"\",\"id_cata\":10,\"id_brand\":11,\"price\":25000000,\"price_sale\":0,\"from_date\":\"0000-00-00\",\"to_date\":\"0000-00-00\",\"viewed\":85,\"hidden\":0,\"saled\":1,\"soluong\":\"1\",\"thanhtien\":25000000}]', 25000000, 'Chờ Xác Nhận', '2023-12-05', '0000-00-00', '222871213128'),
+(61, 'qưeqwe', 935222871, 'phuclhhps35520@fpt.edu.vn', '214 QL22', '[{\"id\":31,\"name\":\"COSMOS C700M Limited Edition\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/case2.webp\",\"detail\":\"u0110u00e2y lu00e0 case mu00e1y tu00ednh\",\"postdate\":\"\",\"id_cata\":10,\"id_brand\":11,\"price\":25000000,\"price_sale\":0,\"from_date\":\"0000-00-00\",\"to_date\":\"0000-00-00\",\"viewed\":90,\"hidden\":0,\"saled\":1,\"soluong\":1,\"thanhtien\":25000000},{\"id\":30,\"name\":\"Corsair 1000D\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/case1.jpg\",\"detail\":\"u0110u00e2y lu00e0 case mu00e1y tu00ednh\",\"postdate\":\"\",\"id_cata\":10,\"id_brand\":7,\"price\":12200000,\"price_sale\":0,\"from_date\":\"0000-00-00\",\"to_date\":\"0000-00-00\",\"viewed\":2,\"hidden\":0,\"saled\":0,\"soluong\":1,\"thanhtien\":12200000},{\"id\":29,\"name\":\"Alienware AW5520QF\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/manhinh2.jpg\",\"detail\":\"u0110u00e2y lu00e0 mu00e0n hu00ecnh\",\"postdate\":\"\",\"id_cata\":7,\"id_brand\":10,\"price\":90000000,\"price_sale\":0,\"from_date\":\"0000-00-00\",\"to_date\":\"0000-00-00\",\"viewed\":1,\"hidden\":0,\"saled\":3,\"soluong\":1,\"thanhtien\":90000000},{\"id\":28,\"name\":\"LG UltraGearu2122 OLED 45u201d 45GR95QE-B\",\"img\":\"http://localhost/PHP1/BTL2/LAB6/views/data/manhinh1.webp\",\"detail\":\"u0110u00e2y lu00e0 mu00e0n hu00ecnh\",\"postdate\":\"\",\"id_cata\":7,\"id_brand\":9,\"price\":37500000,\"price_sale\":0,\"from_date\":\"0000-00-00\",\"to_date\":\"0000-00-00\",\"viewed\":6,\"hidden\":0,\"saled\":0,\"soluong\":3,\"thanhtien\":37500000}]', 239700000, 'Đang Giao', '2023-12-05', '2023-12-06', '222871214322');
 
 -- --------------------------------------------------------
 
@@ -254,11 +260,11 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `img`, `detail`, `mdetail`, `postdate`, `id_cata`, `id_brand`, `price`, `price_sale`, `from_date`, `to_date`, `viewed`, `hidden`, `saled`) VALUES
-(1, 'AMD R3 3100', 'http://localhost/PHP1/BTL2/LAB6/views/data/r3.jpg', 'Đây là CPU AMD', '', '', 1, 1, 3000000, 2500000, NULL, NULL, 8, 0, 0),
+(1, 'AMD R3 3100', 'http://localhost/PHP1/BTL2/LAB6/views/data/r3.jpg', 'Đây là CPU AMD', '', '', 1, 1, 3000000, 2500000, NULL, NULL, 118, 0, 0),
 (2, 'AMD R5 3600', 'http://localhost/PHP1/BTL2/LAB6/views/data/r5.jpg', 'Đây là CPU AMD', '', '', 1, 1, 6000000, 5750000, NULL, NULL, 3, 0, 0),
 (3, 'AMD R7 3800', 'http://localhost/PHP1/BTL2/LAB6/views/data/r7.jpg', 'Đây là CPU AMD', '', '', 1, 1, 9000000, 0, NULL, NULL, 1, 0, 0),
 (4, 'AMD R9 3900', 'http://localhost/PHP1/BTL2/LAB6/views/data/r9.jpg', 'Đây là CPU AMD', '', '', 1, 1, 15000000, 0, NULL, NULL, 2, 0, 0),
-(5, 'CORE I3 10100', 'http://localhost/PHP1/BTL2/LAB6/views/data/i3.jpg', 'Đây là CPU Intel', '', '', 1, 5, 2500000, 0, NULL, NULL, 3, 0, 0),
+(5, 'CORE I3 10100', 'http://localhost/PHP1/BTL2/LAB6/views/data/i3.jpg', 'Đây là CPU Intel', '', '', 1, 5, 2500000, 0, NULL, NULL, 23, 0, 0),
 (6, 'CORE I5 10400', 'http://localhost/PHP1/BTL2/LAB6/views/data/i5.jpg', 'Đây là CPU Intel', '', '', 1, 5, 4500000, 0, NULL, NULL, 0, 0, 0),
 (7, 'CORE I7 10700', 'http://localhost/PHP1/BTL2/LAB6/views/data/i7.jpg', 'Đây là CPU Intel', '', '', 1, 5, 8000000, 0, NULL, NULL, 1, 0, 0),
 (8, 'CORE I9 10900', 'http://localhost/PHP1/BTL2/LAB6/views/data/i9.jpg', 'Đây là CPU Intel', '', '', 1, 5, 14000000, 13500000, '0000-00-00', '0000-00-00', 0, 0, 0),
@@ -283,8 +289,51 @@ INSERT INTO `product` (`id`, `name`, `img`, `detail`, `mdetail`, `postdate`, `id
 (27, 'CORSAIR Vengeance RGB 64GB DDR5-7200', 'http://localhost/PHP1/BTL2/LAB6/views/data/ddr5.jpg', 'Đây là ram Corsair', '', '', 4, 7, 17000000, 0, '0000-00-00', '0000-00-00', 0, 0, 4),
 (28, 'LG UltraGear™ OLED 45” 45GR95QE-B', 'http://localhost/PHP1/BTL2/LAB6/views/data/manhinh1.webp', 'Đây là màn hình', '', '', 7, 9, 37500000, 0, '0000-00-00', '0000-00-00', 6, 0, 0),
 (29, 'Alienware AW5520QF', 'http://localhost/PHP1/BTL2/LAB6/views/data/manhinh2.jpg', 'Đây là màn hình', '', '', 7, 10, 90000000, 0, '0000-00-00', '0000-00-00', 1, 0, 3),
-(30, 'Corsair 1000D', 'http://localhost/PHP1/BTL2/LAB6/views/data/case1.jpg', 'Đây là case máy tính', '', '', 10, 7, 12200000, 0, '0000-00-00', '0000-00-00', 1, 0, 0),
-(31, 'COSMOS C700M Limited Edition', 'http://localhost/PHP1/BTL2/LAB6/views/data/case2.webp', 'Đây là case Corsair', '<h2><strong>Đ&aacute;nh gi&aacute; chi tiết&nbsp;case Cooler Master Cosmos C700M - 30th Anniversary Limited Edition</strong></h2>\n<p>Những sản phẩm từ Cooler Master lu&ocirc;n được người d&ugrave;ng tin chọn, điều n&agrave;y đến từ ng&ocirc;n ngữ thiết kế bắt mắt v&agrave; chất lượng ho&agrave;n thiện cao cấp, đặc biệt ch&iacute;nh về ph&acirc;n kh&uacute;c case m&aacute;y t&iacute;nh. Cosmos C700M vốn l&agrave; model đ&atilde; nhận được rất nhiều sự ch&uacute; &yacute; từ mọi người d&ugrave;ng v&agrave; nay, một phi&ecirc;n bản đặc biệt m&agrave; GEARVN sẽ mang tới cho c&aacute;c bạn,&nbsp;<strong>Cooler Master Cosmos C700M - 30th Anniversary Limited Edition</strong>&nbsp;!</p>\n<h3><strong>Thiết kế full nh&ocirc;m bắt mắt</strong></h3>\n<p>Giữ vững ngoại h&igrave;nh hầm hố v&agrave; ngầu l&ograve;i của phi&ecirc;n bản Cooler Master Cosmos C700M, phi&ecirc;n bản giới hạn kỉ niệm 30 năm được t&ocirc; th&ecirc;m m&agrave;u xanh v&agrave;o thanh quai x&aacute;ch ở tr&ecirc;n v&agrave; thanh dưới đ&oacute;ng vai tr&ograve; l&agrave; ch&acirc;n đế của case m&aacute;y t&iacute;nh tạo n&ecirc;n một phi&ecirc;n bản t&agrave;u vũ trụ sắc m&agrave;u hơn. To&agrave;n bộ những chi tiết tr&ecirc;n Cooler Master Cosmos C700M - 30th Anniversary Limited Edition đều được l&agrave;m từ nh&ocirc;m đem đến sự cứng c&aacute;p v&agrave; bền bỉ, tạo điều kiện cho khả năng ph&aacute;t t&aacute;n nhiệt dễ d&agrave;ng. Điểm nhấn của phi&ecirc;n bản l&agrave;&nbsp;đến từ huy hiệu kỉ niệm 30 năm d&agrave;nh cho phi&ecirc;n bản giới hạn n&agrave;y.</p>\n<p><img src=\"https://file.hstatic.net/1000026716/file/rvn-case-cooler-master-cosmos-c700m-30th-anniversary-limited-edition-7_6d86608a0bae4281aaf3cf9efbea47c1_1024x1024.png\" alt=\"GEARVN - Case Cooler Master&nbsp;Cosmos C700M - 30th Anniversary Limited Edition\"></p>\n<h3><strong>Kh&ocirc;ng gian rộng r&atilde;i d&agrave;nh cho tản nhiệt</strong></h3>\n<p>Case Cooler Master Cosmos C700M - 30th Anniversary Limited Edition cung cấp kh&ocirc;ng gian đủ để bạn c&oacute; thể lắp đặt l&ecirc;n đến 9 chiếc&nbsp;quạt tản nhiệt&nbsp;với k&iacute;ch thước 120/140mm kết hợp với đ&oacute; l&agrave; chiều rộng cho tản nhiệt CPU c&oacute; chiều cao tối đa 198mm. V&agrave; kh&ocirc;ng thể thiếu l&agrave; hệ thống&nbsp;tản nhiệt AIO, Cooler Master Cosmos C700M - 30th Anniversary Limited Edition hỗ trợ cho bạn lắp được radiator với k&iacute;ch thước l&ecirc;n đến 420mm. Từ đ&oacute;, bạn c&oacute; thể tạo n&ecirc;n một&nbsp;d&agrave;n PC&nbsp;mạnh mẽ với hiệu năng b&ugrave;ng nổ nhất c&oacute; thể.</p>\n<p><img src=\"https://file.hstatic.net/1000026716/file/rvn-case-cooler-master-cosmos-c700m-30th-anniversary-limited-edition-8_2a83f67a221c492f86601f6e34f4aed2.png\" alt=\"GEARVN - Case Cooler Master&nbsp;Cosmos C700M - 30th Anniversary Limited Edition\"></p>\n<h3><strong>Hệ thống I/O đa dạng</strong></h3>\n<p>Bạn mong muốn một chiếc case với mặt trước trang bị nhiều cổng USB nhất, vậy th&igrave; Cooler Master Cosmos C700M - 30th Anniversary Limited Edition sẽ mang đến cho bạn 4 cổng USB 3.0 Type-A ở ngay mặt trước, v&igrave; vậy c&oacute; thể dễ d&agrave;ng kết nối với c&aacute;c thiết bị ngoại vi như&nbsp;chuột m&aacute;y t&iacute;nh,&nbsp;b&agrave;n ph&iacute;m cơ&nbsp;v&agrave;&nbsp;tai nghe kh&ocirc;ng d&acirc;y. Ngo&agrave;i ra c&ograve;n c&oacute; cổng USB 3.1 Type-C để hỗ trợ bạn kết nối với c&aacute;c thiết bị kh&aacute;c hỗ trợ, combo jack audio 3.5mm kết nối cho những&nbsp;tai nghe gaming&nbsp;c&oacute; d&acirc;y.</p>\n<p><img src=\"https://file.hstatic.net/1000026716/file/rvn-case-cooler-master-cosmos-c700m-30th-anniversary-limited-edition-9_af6a3241f2ff440f983401e8700cd832.png\" alt=\"GEARVN - Case Cooler Master&nbsp;Cosmos C700M - 30th Anniversary Limited Edition\"></p>\n<p>Tr&ecirc;n mặt trước của Cooler Master Cosmos C700M - 30th Anniversary Limited Edition được trang bị th&ecirc;m những ph&iacute;m, bao gồm n&uacute;t nguồn, n&uacute;t điều chỉnh tốc độ quạt v&agrave; n&uacute;t điều chỉnh đ&egrave;n&nbsp;LED RGB.</p>', '', 10, 7, 25000000, 0, '0000-00-00', '0000-00-00', 45, 0, 1);
+(30, 'Corsair 1000D', 'http://localhost/PHP1/BTL2/LAB6/views/data/case1.jpg', 'Đây là case máy tính', '', '', 10, 7, 12200000, 0, '0000-00-00', '0000-00-00', 4, 0, 0),
+(31, 'COSMOS C700M Limited Edition', 'http://localhost/PHP1/BTL2/LAB6/views/data/case2.webp', 'Đây là case máy tính', '&lt;h2&gt;&lt;strong&gt;Đ&amp;aacute;nh gi&amp;aacute; chi tiết&amp;nbsp;case Cooler Master Cosmos C700M - 30th Anniversary Limited Edition&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;Những sản phẩm từ Cooler Master lu&amp;ocirc;n được người d&amp;ugrave;ng tin chọn, điều n&amp;agrave;y đến từ ng&amp;ocirc;n ngữ thiết kế bắt mắt v&amp;agrave; chất lượng ho&amp;agrave;n thiện cao cấp, đặc biệt ch&amp;iacute;nh về ph&amp;acirc;n kh&amp;uacute;c case m&amp;aacute;y t&amp;iacute;nh. Cosmos C700M vốn l&amp;agrave; model đ&amp;atilde; nhận được rất nhiều sự ch&amp;uacute; &amp;yacute; từ mọi người d&amp;ugrave;ng v&amp;agrave; nay, một phi&amp;ecirc;n bản đặc biệt m&amp;agrave; GEARVN sẽ mang tới cho c&amp;aacute;c bạn,&amp;nbsp;&lt;strong&gt;Cooler Master Cosmos C700M - 30th Anniversary Limited Edition&lt;/strong&gt;&amp;nbsp;!&lt;/p&gt;\n&lt;h3&gt;&lt;strong&gt;Thiết kế full nh&amp;ocirc;m bắt mắt&lt;/strong&gt;&lt;/h3&gt;\n&lt;p&gt;Giữ vững ngoại h&amp;igrave;nh hầm hố v&amp;agrave; ngầu l&amp;ograve;i của phi&amp;ecirc;n bản Cooler Master Cosmos C700M, phi&amp;ecirc;n bản giới hạn kỉ niệm 30 năm được t&amp;ocirc; th&amp;ecirc;m m&amp;agrave;u xanh v&amp;agrave;o thanh quai x&amp;aacute;ch ở tr&amp;ecirc;n v&amp;agrave; thanh dưới đ&amp;oacute;ng vai tr&amp;ograve; l&amp;agrave; ch&amp;acirc;n đế của&amp;nbsp;&lt;a href=&quot;https://gearvn.com/collections/case-thung-may-tinh&quot;&gt;case m&amp;aacute;y t&amp;iacute;nh&lt;/a&gt;&amp;nbsp;tạo n&amp;ecirc;n một phi&amp;ecirc;n bản t&amp;agrave;u vũ trụ sắc m&amp;agrave;u hơn. To&amp;agrave;n bộ những chi tiết tr&amp;ecirc;n Cooler Master Cosmos C700M - 30th Anniversary Limited Edition đều được l&amp;agrave;m từ nh&amp;ocirc;m đem đến sự cứng c&amp;aacute;p v&amp;agrave; bền bỉ, tạo điều kiện cho khả năng ph&amp;aacute;t t&amp;aacute;n nhiệt dễ d&amp;agrave;ng. Điểm nhấn của phi&amp;ecirc;n bản&amp;nbsp;&lt;a href=&quot;https://gearvn.com/collections/case-coolermaster&quot;&gt;case Cooler Master&lt;/a&gt;&amp;nbsp;sẽ đến từ huy hiệu kỉ niệm 30 năm d&amp;agrave;nh cho phi&amp;ecirc;n bản giới hạn n&amp;agrave;y.&lt;/p&gt;\n&lt;p&gt;&lt;img src=&quot;https://file.hstatic.net/1000026716/file/rvn-case-cooler-master-cosmos-c700m-30th-anniversary-limited-edition-7_6d86608a0bae4281aaf3cf9efbea47c1_1024x1024.png&quot; alt=&quot;GEARVN - Case Cooler Master&amp;nbsp;Cosmos C700M - 30th Anniversary Limited Edition&quot;&gt;&lt;/p&gt;\n&lt;h3&gt;&lt;strong&gt;Kh&amp;ocirc;ng gian rộng r&amp;atilde;i d&amp;agrave;nh cho tản nhiệt&lt;/strong&gt;&lt;/h3&gt;\n&lt;p&gt;Case Cooler Master Cosmos C700M - 30th Anniversary Limited Edition cung cấp kh&amp;ocirc;ng gian đủ để bạn c&amp;oacute; thể lắp đặt l&amp;ecirc;n đến 9 chiếc&amp;nbsp;&lt;a href=&quot;https://gearvn.com/collections/fan-rgb-tan-nhiet-pc&quot;&gt;quạt tản nhiệt&lt;/a&gt;&amp;nbsp;với k&amp;iacute;ch thước 120/140mm kết hợp với đ&amp;oacute; l&amp;agrave; chiều rộng cho tản nhiệt CPU c&amp;oacute; chiều cao tối đa 198mm. V&amp;agrave; kh&amp;ocirc;ng thể thiếu l&amp;agrave; hệ thống&amp;nbsp;&lt;a href=&quot;https://gearvn.com/collections/tan-nhiet-nuoc-240mm&quot;&gt;tản nhiệt AIO&lt;/a&gt;, Cooler Master Cosmos C700M - 30th Anniversary Limited Edition hỗ trợ cho bạn lắp được radiator với k&amp;iacute;ch thước l&amp;ecirc;n đến 420mm. Từ đ&amp;oacute;, bạn c&amp;oacute; thể tạo n&amp;ecirc;n một&amp;nbsp;&lt;a href=&quot;https://gearvn.com/pages/pc-gvn&quot;&gt;d&amp;agrave;n PC&lt;/a&gt;&amp;nbsp;mạnh mẽ với hiệu năng b&amp;ugrave;ng nổ nhất c&amp;oacute; thể.&lt;/p&gt;\n&lt;p&gt;&lt;img src=&quot;https://file.hstatic.net/1000026716/file/rvn-case-cooler-master-cosmos-c700m-30th-anniversary-limited-edition-8_2a83f67a221c492f86601f6e34f4aed2.png&quot; alt=&quot;GEARVN - Case Cooler Master&amp;nbsp;Cosmos C700M - 30th Anniversary Limited Edition&quot;&gt;&lt;/p&gt;\n&lt;h3&gt;&lt;strong&gt;Hệ thống I/O đa dạng&lt;/strong&gt;&lt;/h3&gt;\n&lt;p&gt;Bạn mong muốn một chiếc case với mặt trước trang bị nhiều cổng USB nhất, vậy th&amp;igrave; Cooler Master Cosmos C700M - 30th Anniversary Limited Edition sẽ mang đến cho bạn 4 cổng USB 3.0 Type-A ở ngay mặt trước, v&amp;igrave; vậy c&amp;oacute; thể dễ d&amp;agrave;ng kết nối với c&amp;aacute;c thiết bị ngoại vi như&amp;nbsp;&lt;a href=&quot;https://gearvn.com/pages/chuot-may-tinh&quot;&gt;chuột m&amp;aacute;y t&amp;iacute;nh&lt;/a&gt;,&amp;nbsp;&lt;a href=&quot;https://gearvn.com/pages/ban-phim-may-tinh&quot;&gt;b&amp;agrave;n ph&amp;iacute;m cơ&lt;/a&gt;&amp;nbsp;v&amp;agrave;&amp;nbsp;&lt;a href=&quot;https://gearvn.com/collections/tai-nghe-bluetooth-chinh-hang&quot;&gt;tai nghe kh&amp;ocirc;ng d&amp;acirc;y&lt;/a&gt;. Ngo&amp;agrave;i ra c&amp;ograve;n c&amp;oacute; cổng USB 3.1 Type-C để hỗ trợ bạn kết nối với c&amp;aacute;c thiết bị kh&amp;aacute;c hỗ trợ, combo jack audio 3.5mm kết nối cho những&amp;nbsp;&lt;a href=&quot;https://gearvn.com/collections/tai-nghe-tren-4-trieu&quot;&gt;tai nghe gaming&lt;/a&gt;&amp;nbsp;c&amp;oacute; d&amp;acirc;y.&lt;/p&gt;\n&lt;p&gt;&lt;img src=&quot;https://file.hstatic.net/1000026716/file/rvn-case-cooler-master-cosmos-c700m-30th-anniversary-limited-edition-9_af6a3241f2ff440f983401e8700cd832.png&quot; alt=&quot;GEARVN - Case Cooler Master&amp;nbsp;Cosmos C700M - 30th Anniversary Limited Edition&quot;&gt;&lt;/p&gt;\n&lt;p&gt;Tr&amp;ecirc;n mặt trước của Cooler Master Cosmos C700M - 30th Anniversary Limited Edition được trang bị th&amp;ecirc;m những ph&amp;iacute;m, bao gồm n&amp;uacute;t nguồn, n&amp;uacute;t điều chỉnh tốc độ quạt v&amp;agrave; n&amp;uacute;t điều chỉnh đ&amp;egrave;n&amp;nbsp;&lt;a href=&quot;https://gearvn.com/collections/fan-led-trang-tri&quot;&gt;LED RGB&lt;/a&gt;.&lt;/p&gt;', '', 10, 11, 25000000, 0, '0000-00-00', '0000-00-00', 120, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rating`
+--
+
+CREATE TABLE `rating` (
+  `id` int(11) NOT NULL,
+  `idsp` int(11) NOT NULL,
+  `stars` int(11) NOT NULL,
+  `turn` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `rating`
+--
+
+INSERT INTO `rating` (`id`, `idsp`, `stars`, `turn`) VALUES
+(1, 1, 9, 2),
+(2, 31, 5, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `turnrt`
+--
+
+CREATE TABLE `turnrt` (
+  `id` int(11) NOT NULL,
+  `idus` int(11) NOT NULL,
+  `idsp` int(11) NOT NULL,
+  `stars` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `turnrt`
+--
+
+INSERT INTO `turnrt` (`id`, `idus`, `idsp`, `stars`) VALUES
+(1, 7, 1, 4),
+(2, 7, 31, 5),
+(3, 8, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -382,6 +431,18 @@ ALTER TABLE `product`
   ADD KEY `id_brand` (`id_brand`);
 
 --
+-- Indexes for table `rating`
+--
+ALTER TABLE `rating`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `turnrt`
+--
+ALTER TABLE `turnrt`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -407,13 +468,13 @@ ALTER TABLE `catalog`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id_cmt` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_cmt` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `hoadon`
 --
 ALTER TABLE `hoadon`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `phanloai`
@@ -426,6 +487,18 @@ ALTER TABLE `phanloai`
 --
 ALTER TABLE `product`
   MODIFY `id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `rating`
+--
+ALTER TABLE `rating`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `turnrt`
+--
+ALTER TABLE `turnrt`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
