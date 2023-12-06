@@ -74,7 +74,8 @@
         bdt.'/sanpham/([a-zA-Z0-9._-]+)=([0-9]+)/page=([0-9]+)/' => 'user_controller@getsp',
         bdt.'/sanpham/([a-zA-Z0-9._-]+)=([0-9]+)/' => 'user_controller@getsp',
         bdt.'/sanpham/([a-zA-Z0-9._-]+)=([0-9]+)/page=([0-9]+)/' => 'user_controller@getsp',
-        bdt.'/ktbh/' => 'user_controller@ktbh'
+        bdt.'/ktbh/' => 'user_controller@ktbh',
+        bdt.'/rating/' => 'user_controller@rating'
     ];
 
     $currentPath = $_SERVER['REQUEST_URI'];

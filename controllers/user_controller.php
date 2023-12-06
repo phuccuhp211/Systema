@@ -475,6 +475,15 @@ class user_controller {
 		}
 	}
 
+	public function rating() {
+		if (isset($_SESSION['udone'])) {
+			$nguoidung = $this->umodel->getuser($_SESSION['phiennguoidung']);
+			$exist = $this->umodel->rating($nguoidung[0]['id'], $_POST['idsp']);
+			if (!isset($exist[0])) $this->umodel->rating($nguoidung[0]['id'], $_POST['idsp'], 'plus',$_POST['rate']);
+			else $this->umodel->rating($nguoidung[0]['id'], $_POST['idsp'], 'rert',$_POST['rate'], $exist[0]['stars']);
+		}
+	}
+
 	public function getsp($loai_data=null,$data=null,$page=1) {
 		$this->umodel->upview_nonin();
 		$header = $this->header();
@@ -536,13 +545,64 @@ class user_controller {
 	}
 
 	public function chitietsp($id) {
-		$umodel= new user_model();
 		$header = $this->header();
 
-		$chitiet = $umodel -> chitietsp($id);
-		$splq = $umodel -> splq($chitiet[0]['id_cata']);
-		$thuonghieu = $umodel -> thuonghieu($chitiet[0]['id_brand']);
-		$dscmt = $this->umodel-> dscmt($id);
+		$chitiet = $this->umodel->chitietsp($id);
+		$splq = $this->umodel->splq($chitiet[0]['id_cata']);
+		$thuonghieu = $this->umodel->thuonghieu($chitiet[0]['id_brand']);
+		$dscmt = $this->umodel->dscmt($id);
+
+		$rating = $this->umodel->getrate(null,$id);
+
+		if (isset($_SESSION['udone'])) {
+			$usrt = $this->umodel->getrate($header['nguoidung'][0]['id'], $id);
+			$chuoi_btn = "";
+			if(isset($usrt[0])) {
+	            $offset = $usrt[0]['stars'];
+	            $class_btn = "";
+	            $idsp = $chitiet[0]['id'];
+
+	            for ($i=1; $i <= 5; $i++) {
+	                if ($i == $offset) $class_btn = "select-star";
+	                else $class_btn = "";
+	                $chuoi_btn.= "<div class=\"btn-stars $class_btn\" data-rate=\"$i\" data-idsp=\"$idsp\">$i Sao</div>";
+	            }
+			}
+			else {
+				for ($i=1; $i <= 5; $i++) {
+	                $chuoi_btn.= "<div class=\"btn-stars\" data-rate=\"$i\" data-idsp=\"$id\">$i Sao</div>";
+	            }
+			}
+			$button_rt = "<div class=\"box-btn-stars\">$chuoi_btn</div>";
+		}
+		if (isset($rating[0])) {
+			$ss = $rating[0]['stars']/$rating[0]['turn'];
+			$chuoi_stars = "";
+            $num_star = floor($ss);
+            $class_star = "color-star";
+
+            for ($i=1; $i <= 5; $i++) {
+                if ($i > $num_star) $class_star = "";
+                $chuoi_stars.= "
+                <i class=\"fa-regular fa-star $class_star\"></i>
+                ";
+            }
+
+            $sps = "
+            	<div class=\"sum-stars\">
+                    <h2>$ss trên 5</h2>
+		            <h5>$chuoi_stars</h5>        
+                </div>
+            ";
+		}
+		else $sps = "
+            	<div class=\"sum-stars\">
+		            <h5 style=\"color: #ee4d2d;\">Sản phẩm chưa được đánh giá</h5>        
+                </div>
+            ";
+
+			
+
 		require_once './views/chitietsanpham.php';
 	}
 

@@ -27,6 +27,7 @@
                             <li>Xuất xứ: Chính hãng</li>
                             <li>Thương hiệu: <?php echo $thuonghieu[0]['name'] ?></li>
                         </ul>
+                        <span class="mieuta-sp">Đã Bán : <?php echo $chitiet[0]['saled'] ?></span><br>
                         <span class="mieuta-sp"><?php echo $chitiet[0]['detail'] ?></span>
                         <div class="gia-mua-sp">
                             <h2 class="gia-sp">Giá : <?php echo number_format($chitiet[0]['price'],0,'','.') ?></h2>
@@ -64,10 +65,10 @@
                     </div>
                 </div>
                 <?php if (!isset($_SESSION['udone'])) { ?>
-                    <div class="col-12 text-center">
-                        <div>
-                            <button class="ycdn-cmt">Vui lòng đăng nhập để bình luận & đánh giá</button>
-                        </div>
+                    <div class="col-8 text-center">
+                        
+                            <button class="ycdn-cmt">Vui lòng đăng nhập để Bình luận & Đánh giá</button>
+                        
                     </div>
                 <?php } else { ?>
                     <div class="col-8">
@@ -76,22 +77,13 @@
                             <button type="submit">Gửi</button>
                         </form>
                     </div>
-                    <div class="col-4">
-                        <div class="box-stars">
-                            <div class="box-btn-stars">
-                                <button class="btn-stars">1 Sao</button>
-                                <button class="btn-stars">2 Sao</button>
-                                <button class="btn-stars">3 Sao</button>
-                                <button class="btn-stars">4 Sao</button>
-                                <button class="btn-stars">5 Sao</button>
-                            </div>
-                            <div class="sum-stars">
-                                <h2>4.2 trên 5</h2>
-                                <h5><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></h5>
-                            </div>
-                        </div>
+                <?php } ?>
+                <div class="col-4">
+                    <div class="box-stars">
+                        <?php if(isset($button_rt)) echo $button_rt ?>
+                        <?php if(isset($sps)) echo $sps ?>
                     </div>
-                <?php } ?>                    
+                </div>                    
             </div>
             <div class="row">
                 <div class="col-12">

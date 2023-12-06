@@ -202,7 +202,7 @@ $(function() {
 		$('.ttgh').removeClass('ttgh-hide');
 		setTimeout(function() {
 	    	$('.ttgh').addClass('ttgh-hide');
-	  	}, 1000);
+	  	}, 750);
 	}
 	var xoasp = document.getElementsByName('xoasp');
   	for (var k=0; k<xoasp.length; k++) {
@@ -454,6 +454,30 @@ $(function() {
 	})
 	/* -------------------------- */
 
+
+
+	/* Chịu trách Rating */
+	$(document).on('click', '.btn-stars', function() {
+		$(this).addClass('select-star');
+		$(this).siblings('.btn-stars.select-star').removeClass('select-star');
+		let idsp = $(this).data('idsp');
+		let star = $(this).data('rate');
+
+		var duongdan_fix = duongdan+url_sub+"/rating/";
+
+		$.ajax({
+			type: "POST",
+			url: duongdan_fix,
+			data: { idsp: idsp, rate: star },
+			success: function(data) {
+				
+			},
+			error: function() {
+				console.log("Có lỗi xảy ra.");
+			}
+		});
+	})
+	/* -------------------------- */
 
 
 	var stt_ml = 0;

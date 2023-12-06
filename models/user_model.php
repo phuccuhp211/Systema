@@ -53,6 +53,45 @@ class user_model {
 		$ketqua = getdata($sql);
 		return $ketqua;
 	}
+	public function rating($idus=null, $idsp=null, $exist=null, $rate=null, $old_rt=null) {
+		if (!isset($exist)) {
+			$sql = "SELECT * FROM turnrt WHERE idus = $idus AND idsp = $idsp";
+			$ketqua = getdata($sql);
+			return $ketqua;
+		}
+		else if ($exist == "plus") {
+			$sql = "INSERT INTO turnrt VALUES('','$idus','$idsp','$rate')";
+			iuddata($sql);
+
+			$sql = "SELECT * FROM rating WHERE idsp = $idsp";
+			$ketqua = getdata($sql);
+
+			if (!isset($ketqua[0])) {
+				$sql = "INSERT INTO rating VALUES('','$idsp','$rate',1)";
+				iuddata($sql);
+			}
+			else {
+				$sql = "UPDATE rating SET stars = stars + $rate, turn = turn + 1 WHERE idsp = $idsp";
+				iuddata($sql);
+			}
+		}
+		else if ($exist == "rert") {
+			$sql = "UPDATE turnrt SET stars = $rate";
+			iuddata($sql);
+			$sql = "UPDATE rating SET stars = stars - $old_rt + $rate WHERE idsp = $idsp";
+			iuddata($sql);
+		}
+	}
+	public function getrate($idus=null, $idsp=null) {
+		if (isset($idus)) {
+			$sql = "SELECT * FROM turnrt WHERE idus = $idus AND idsp = $idsp";
+			return getdata($sql);
+		}
+		else {
+			$sql = "SELECT * FROM rating WHERE idsp = $idsp";
+			return getdata($sql);
+		}
+	}
 	public function getsp($type=null,$data=null,$page,$sapxep) {
 		$vitri = ($page*9)-9;
 		$order= "";

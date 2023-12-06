@@ -133,6 +133,7 @@
     border: none;
     width: 100%;
     font-size: 20px;
+    height: 100%;
 }
 
 .ycdn-cmt:hover {
@@ -279,10 +280,28 @@
     color: #ee4d2d;
 }
 
+.sum-stars h5 {
+    margin: 0;
+    line-height: 2;
+    width: 200px;
+    height: max-content;
+    text-align: center;
+}
+
 .box-btn-stars {
     display: flex;
     width: 100px;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: space-evenly;
+}
+
+.select-star {
+    background: #ffe4df;
+    color: red;
+    border-color: red;
+}
+
+.color-star {
+    color: #ee4d2d;
 }
