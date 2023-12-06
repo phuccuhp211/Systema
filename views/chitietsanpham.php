@@ -70,13 +70,30 @@
                         </div>
                     </div>
                 <?php } else { ?>
-                    <div class="col-12">
+                    <div class="col-8">
                         <form class="send-cmt">
                             <textarea id="noidung-cmt"></textarea>
                             <button type="submit">Gửi</button>
                         </form>
                     </div>
-                <?php } ?>
+                    <div class="col-4">
+                        <div class="box-stars">
+                            <div class="box-btn-stars">
+                                <button class="btn-stars">1 Sao</button>
+                                <button class="btn-stars">2 Sao</button>
+                                <button class="btn-stars">3 Sao</button>
+                                <button class="btn-stars">4 Sao</button>
+                                <button class="btn-stars">5 Sao</button>
+                            </div>
+                            <div class="sum-stars">
+                                <h2>4.2 trên 5</h2>
+                                <h5><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i></h5>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>                    
+            </div>
+            <div class="row">
                 <div class="col-12">
                     <div class="list-cmt">
                         <?php if (isset($dscmt)) { foreach ($dscmt as $value => $item) { ?>
@@ -103,7 +120,6 @@
                         <?php }} ?>
                     </div>
                 </div>  
-                    
             </div><hr>
         </div>
     </div>

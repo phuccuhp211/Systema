@@ -237,3 +237,52 @@
     border: 1px solid #745caf;
     border-radius: 7px;
 }
+
+.btn-stars {
+    border: 1px solid gray;
+    background: white;
+    color: gray;
+    font-size: 18px;
+    display: block;
+    padding: 5px;
+    line-height: 18px;
+    width: 100%;
+}
+
+.btn-stars:hover {
+    color: red;
+    border-color: #ee4d2d;
+    background: #ffc0b4;
+}
+
+.box-stars {
+    height: 100%;
+    background: #fffbf8;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+.box-stars > * {
+    height: 100%;
+}
+
+.sum-stars {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sum-stars h2 {
+    color: #ee4d2d;
+}
+
+.box-btn-stars {
+    display: flex;
+    width: 100px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
