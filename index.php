@@ -41,6 +41,9 @@
         bdt.'/delus/([0-9]+)/' => 'admin_controller@delus',
         bdt.'/delbl/([0-9]+)/' => 'admin_controller@delbl',
         bdt.'/inf_cmt/' => 'admin_controller@info_cmt',
+        bdt.'/addgg/' => 'admin_controller@addgg',
+        bdt.'/fixgg/([0-9]+)/' => 'admin_controller@fixgg',
+        bdt.'/delgg/([0-9]+)/' => 'admin_controller@delgg',
         /*-----------------------------------------------*/
         bdt.'/' => 'user_controller@index',
         bdt.'/config/' => 'user_controller@config',
@@ -75,6 +78,7 @@
         bdt.'/sanpham/([a-zA-Z0-9._-]+)=([0-9]+)/' => 'user_controller@getsp',
         bdt.'/sanpham/([a-zA-Z0-9._-]+)=([0-9]+)/page=([0-9]+)/' => 'user_controller@getsp',
         bdt.'/ktbh/' => 'user_controller@ktbh',
+        bdt.'/applymgg/' => 'user_controller@applymgg',
         bdt.'/rating/' => 'user_controller@rating'
     ];
 

@@ -160,6 +160,14 @@ class user_model {
 		$ketqua = getdata($sql);
 		return $ketqua;
 	}
+	public function checkmgg($mgg) {
+		$sql = "SELECT * FROM voucher WHERE name = '$mgg'";
+		return getdata($sql);
+	}
+	public function divineMGG($name) {
+		$sql = "UPDATE voucher SET remaining = remaining - 1 WHERE name = '$name'";
+		iuddata($sql);
+	}
 	public function getuser($name) {
 		$sql = "SELECT * FROM user where user = '$name'";
 		$ketqua = getdata($sql);
@@ -189,8 +197,8 @@ class user_model {
 		$sql="UPDATE user SET pass = '$pass'WHERE id = $id";
 		iuddata($sql);
 	}
-	public function hoadon($ten,$email,$sdt,$dc,$dssp,$thanhtien,$date,$mxn) {
-		$sql = "INSERT INTO hoadon VALUES('','$ten','$sdt','$email','$dc','$dssp','$thanhtien','Chờ Xác Nhận','$date','','$mxn')";
+	public function hoadon($ten,$email,$sdt,$dc,$dssp,$thanhtien,$date,$mxn,$mgg,$thanhtien2) {
+		$sql = "INSERT INTO hoadon VALUES('','$ten','$sdt','$email','$dc','$dssp','$thanhtien','Chờ Xác Nhận','$date','','$mxn','$mgg','$thanhtien2')";
 		iuddata($sql);
 	}
 } ?>

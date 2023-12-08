@@ -217,7 +217,8 @@
 							</tr>
 							<?php foreach ($hoadon as $value => $item) { 
 								$dssp = json_decode($item['dssp'],true);
-								$tc = number_format($item['thanhtien'],0,'','.');
+								if ($item['thanhtien2'] != 0) $tc = number_format($item['thanhtien2'],0,'','.')."<br><span style=\"font-size: 10px; color: red;\">".$item['mgg']."</span>";
+								else $tc = number_format($item['thanhtien'],0,'','.');
 								if (is_array($dssp)) $rp = count($dssp);
 								else $rp = 0;
 							?>
@@ -264,6 +265,38 @@
 									<td><?php echo $item['cmts'] ?></td>
 									<td><?php echo $item['users'] ?></td>
 									<td><button class="btn btn-success chitiet chitietbl" data-idbl="<?php echo $item['id'] ?>">Chi tiết</button></td>
+								</tr>
+							<?php } ?>
+						<?php } ?>
+						<?php if (isset($_SESSION['magg'])) { ?>
+							<tr>
+								<th style="width: 40px;">ID</th>
+								<th style="width: auto;">Tên Mã</th>
+								<th style="width: 100px;">S.Lượng</th>
+								<th style="width: 100px;">Còn Lại</th>
+								<th style="width: 125px;">Từ Ngày</th>
+								<th style="width: 125px;">Đến Ngày</th>
+								<th style="width: 100px;">% Giảm</th>
+								<th style="width: 120px;">Thao Tác</th>
+							</tr>
+							<tr>
+								<td colspan="8" class="td-adddm"><button class="btn btn-primary btn-add them">Thêm MGG +</button></td>
+							</tr>
+							<?php foreach ($mgg as $value => $item) { ?>
+								<tr class="voucher">
+									<td><?php echo $item['id'] ?></td>
+									<td id="tengg"><?php echo $item['name'] ?></td>
+									<td id="maxgg"><?php echo $item['max'] ?></td>
+									<td id="remgg"><?php echo $item['remaining'] ?></td>
+									<td hidden id="fdgg"><?php echo $item['f_date'] ?></td>
+									<td hidden id="tdgg"><?php echo $item['t_date'] ?></td>
+									<td><?php echo date("d-m-Y",strtotime($item['f_date'])) ?></td>
+									<td><?php echo date("d-m-Y",strtotime($item['t_date'])) ?></td>
+									<td id="ptgg"><?php echo $item['percent'] ?></td>
+									<td>
+										<button class="btn btn-primary suaxoa sua suagg" data-idgg="<?php echo $item['id'] ?>"><i class="fa-solid fa-gear"></i></button>
+										<button class="btn btn-danger suaxoa xoa xoagg" data-idgg="<?php echo $item['id'] ?>"><i class="fa-solid fa-trash"></i></button>
+									</td>
 								</tr>
 							<?php } ?>
 						<?php } ?>

@@ -62,6 +62,8 @@ $(function() {
 	var id_us_fix = 0;
 	var id_us_del = 0;
 	var id_bl_del = 0;
+	var id_gg_fix = 0;
+	var id_gg_del = 0;
 
 	$(document).on('click', '.suasp', function() {
 		id_sp_fix = $(this).data('idsp');
@@ -161,7 +163,32 @@ $(function() {
 		$('#acp-del').attr("href", duongdan_del);
 		console.log(id_sp_del);
 	})
+	$(document).on('click', '.suagg', function() {
+		id_gg_fix = $(this).data('idgg');
+		var duongdan_fix = duongdan+url_sub+"/fixgg/"+id_gg_fix+"/";
 
+		var old_ten = $(this).parent().siblings("#tengg").text();
+		var old_max = $(this).parent().siblings("#maxgg").text();
+		var old_fgg = $(this).parent().siblings("#fdgg").text();
+		var old_tgg = $(this).parent().siblings("#tdgg").text();
+		var old_ptg = $(this).parent().siblings("#ptgg").text();
+
+		$('#fix_name_gg').val(old_ten);
+		$('#soluong').val(old_max);
+		$('#fix_fd_gg').val(old_fgg);
+		$('#fix_td_gg').val(old_tgg);
+		$('#fix_pt_gg').val(old_ptg);
+
+		$('#form_fix_gg').attr("action", duongdan_fix);
+	})
+	$(document).on('click', '.xoagg', function() {
+		id_gg_del = $(this).data('idgg');
+		var duongdan_del = duongdan+url_sub+"/delgg/"+id_gg_del+"/";
+		$('#acp-del').attr("href", duongdan_del);
+		console.log(id_sp_del);
+	})
+
+	/*-------------------- BACK --------------------*/
 	$(document).on('click', '.ban', function() {
 		if ($(this).hasClass('banus')) {
 			$(this).find("i").removeClass('fa-ban').addClass('fa-check');
@@ -195,7 +222,6 @@ $(function() {
 		$('.popup-small').removeClass('hide-popup');
 		setTimeout(function() {$('.popup-small').addClass('hide-popup');},1000);
 	})
-
 	$(document).on('click', '.hidden', function() {
 		if ($(this).hasClass('hidsp')) {
 			$(this).find("i").removeClass('fa-eye-slash').addClass('fa-eye');
@@ -229,7 +255,6 @@ $(function() {
 		$('.popup-small').removeClass('hide-popup');
 		setTimeout(function() {$('.popup-small').addClass('hide-popup');},1000);
 	})
-
 	$(document).on('click', '.hd-update', function() {
 		var trangthai = $(this).siblings("select").val();
 		var id = $(this).parent().siblings(".id-hd").text();
@@ -273,6 +298,8 @@ $(function() {
 		$('#acp-del').attr("href", duongdan_del);
 		console.log(id_sp_del);
 	})
+	/*-------------------- BACK --------------------*/
+	
 
 	function show_cmt(data) {
 		var dulieu = JSON.parse(data);

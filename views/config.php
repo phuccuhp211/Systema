@@ -97,17 +97,20 @@
                                     ?>
                                         <table class="mb-5">
                                             <tr>
-                                                <th style="width: 20%;">Mã Hóa Đơn</th>
-                                                <th style="width: 20%;">Ngày Lập Hóa Đơn</th>
-                                                <th style="width: 20%;">Ngày Xác Nhận</th>
-                                                <th style="width: 20%;">Tổng Tiền</th>
-                                                <th style="width: 20%;">Trạng Thái</th>
+                                                <th style="width: 17.5%;">Mã Hóa Đơn</th>
+                                                <th style="width: 17.5%;">Ngày Lập Hóa Đơn</th>
+                                                <th style="width: 17.5%;">Ngày Xác Nhận</th>
+                                                <th style="width: 32.5%;">Tổng Tiền</th>
+                                                <th style="width: 15%;">Trạng Thái</th>
                                             </tr>
                                             <tr>
                                                 <td class="text-center"><?php echo $item['SHD']; ?></td>
                                                 <td class="text-center"><?php echo $item['created']; ?></td>
                                                 <td class="text-center"><?php echo $item['submited']; ?></td>
-                                                <td class="text-center" style="color: red;"><?php echo number_format($item['thanhtien'],0,",","."); ?></td>
+                                                <td class="text-center" style="color: red;"><?php 
+                                                    if ($item['thanhtien2'] != 0 ) echo "<span style=\"text-decoration: line-through; margin: 0 15px; color: gray;\">".number_format($item['thanhtien']+20000,0,",",".")."</span>".number_format($item['thanhtien2'],0,",",".");
+                                                    else echo number_format($item['thanhtien']+20000,0,",",".");
+                                                ?></td>
                                                 <td class="text-center"><?php echo $item['trangthai']; ?></td>
                                             </tr>
                                             <tr class="h-list-sp">

@@ -52,8 +52,6 @@ ol.carousel-indicators li::marker {
 
 .tongcong {
     color: #745caf;
-    font-size: 22px;
-    font-weight: 500;
 }
 
 .soluong {
@@ -496,4 +494,8 @@ button.nutsp:hover {
     width: 100%;
     z-index: 3;
     top: 0;
+}
+
+.voucher td {
+    text-align: center;
 }

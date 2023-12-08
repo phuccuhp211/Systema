@@ -456,7 +456,7 @@ $(function() {
 
 
 
-	/* Chịu trách Rating */
+	/* Chịu trách nhiệm Rating */
 	$(document).on('click', '.btn-stars', function() {
 		$(this).addClass('select-star');
 		$(this).siblings('.btn-stars.select-star').removeClass('select-star');
@@ -480,28 +480,8 @@ $(function() {
 	/* -------------------------- */
 
 
-	var stt_ml = 0;
-	var cc_tt = 0;
-	
-	if ($('.ttct-sp').height() > 499 ) {
-		cc_tt = $('.ttct-sp').height();
-		$('.ttct-sp').height(500);
-	}
 
-	$('.more-less').on('click', function() {
-		if (stt_ml == 0 ) {
-			$('.ttct-sp').height(cc_tt);
-			stt_ml = 1;
-			$('.more-less').text('Thu gọn');
-		}
-		else if (stt_ml == 1 ) {
-			$('.ttct-sp').height(500);
-			$('html, body').animate({scrollTop: $('.phan-tt-duoi').offset().top},500);
-			stt_ml = 0;
-			$('.more-less').text('Xem thêm');
-		}
-	})
-
+	/* Chịu trách nhiệm Thanh Toán */
 	$('.thanhtoansp').on('click', function() {
 		if ($('#tenkh').val() == "" ||
 			$('#emailkh').val() == "" ||
@@ -538,17 +518,32 @@ $(function() {
 			var mxn = String((sdtkh.substring(4, 10)))+gio2+phut2+giay2;
 			var time = d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
 
+			var data_trave = {
+				tenkh: tenkh,
+		        emailkh: emailkh,
+		        sdtkh: sdtkh,
+		        dckh: dckh,
+		        mxn: mxn,
+		        date:time,
+		        randomParam: randomParam
+			}
+
+			if ($('#stt-gg').attr("trangthai") == "true") {
+				data_trave.newtt = Number(($('#tongtien').text()).replace(/\./g, ""));
+				data_trave.magg = $('#magiamgia').val();
+			} 
+
 			$.ajax({
 				type: "POST",
 				method: "POST",
 				url: duongdan_fix1,
-				data: { tenkh: tenkh, emailkh: emailkh, sdtkh: sdtkh, dckh: dckh, mxn: mxn, date:time, randomParam: randomParam },
+				data: data_trave,
 				success: function(response) {
 					$.ajax({
 						type: "POST",
 						method: "POST",
 						url: duongdan_fix2,
-						data: { tenkh: tenkh, emailkh: emailkh, sdtkh: sdtkh, dckh: dckh, mxn: mxn, date:time, randomParam: randomParam },
+						data: data_trave,
 						success: function(response) {
 							window.location.href = duongdan_fix3;
 						},
@@ -563,7 +558,6 @@ $(function() {
 			});
 		}
 	})
-
 	$('#reset-session').on('click', function() {
 		var duongdan_fix = duongdan+url_sub+"/reset/";
 		var duongdan_fix2 = duongdan+url_sub+"/";
@@ -579,11 +573,74 @@ $(function() {
 			}
 		});
 	})
+	$('#apply-mgg').on('submit', function(event) {
+		event.preventDefault();
+
+		let mgg = $(this).find("input").val();
+		let giacu = $('#giagoc').text();
+		let tt = Number(giacu.replace(/\./g, ""))+20000;
+		let ttfn = giacu.replace(/\./g, "");
+		let duongdan_fix = duongdan+url_sub+"/applymgg/";
+
+		$.ajax({
+			type: "POST",
+	        url: duongdan_fix,
+	        dataType: 'json',
+			data: { mgg: mgg },
+			success: function(response) {
+				if (response != "false" && response != "out" && response != "not" && response != "exp") {
+					var dis = (Number(ttfn)*(100-Number(response.percent)))/100;
+					var gg = (Number(ttfn)*Number(response.percent))/100;
+					$('.giamgia').find('.p-gia').text("(-"+response.percent+"%) -"+gg.toLocaleString('vi-VN'));
+					$('.giamgia').removeClass('hide-gg');
+					$('#tongtien').text((dis+20000).toLocaleString('vi-VN'));
+					$('#stt-gg').attr("trangthai", "true");
+				}
+				else {
+					$('.giamgia').removeClass('hide-gg');
+					$('#tongtien').text(tt.toLocaleString('vi-VN'));
+					$('#stt-gg').attr("trangthai", "false");
+
+					if (response == "false") $('.giamgia').find('.p-gia').text("Mã không tồn tại");
+					else if (response == "out") $('.giamgia').find('.p-gia').text("Mã đã hết");
+					else if (response == "not") $('.giamgia').find('.p-gia').text("Mã chưa khả dụng");
+					else if (response == "exp") $('.giamgia').find('.p-gia').text("Đã hết hạn sử dụng");
+				}
+			},
+			error: function(xhr, status, error) {
+				console.log(xhr+" "+status+" "+error);
+			}
+		})
+	})
+	/* -------------------------- */
+
+
+	var stt_ml = 0;
+	var cc_tt = 0;
+	
+	if ($('.ttct-sp').height() > 499 ) {
+		cc_tt = $('.ttct-sp').height();
+		$('.ttct-sp').height(500);
+	}
+	$('.more-less').on('click', function() {
+		if (stt_ml == 0 ) {
+			$('.ttct-sp').height(cc_tt);
+			stt_ml = 1;
+			$('.more-less').text('Thu gọn');
+		}
+		else if (stt_ml == 1 ) {
+			$('.ttct-sp').height(500);
+			$('html, body').animate({scrollTop: $('.phan-tt-duoi').offset().top},500);
+			stt_ml = 0;
+			$('.more-less').text('Xem thêm');
+		}
+	})
+
+	
 
 	$('.popup').on('click', function() {
 		$('.popup').slideUp(1000);
 	})
-
 	$('.check-bh').on('click', function() {
 		var mahd = $(this).siblings('#mahd').val();
 		var error ="";

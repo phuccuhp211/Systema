@@ -357,6 +357,87 @@
 			<span>Đã Khóa Tài Khoản</span>
 		</div>
 	<?php } ?>
+	<?php if (isset($_SESSION['magg'])) { ?>
+		<div class="bg-add hide-bg-add">
+			<div class="addsp">
+				<form action="<?php echo urlmd ?>/addgg/" method="POST" enctype="multipart/form-data">
+					<div class="field-add">
+						<label>Nhập tên mã :</label>
+						<input type="text" name="name">
+					</div>
+					<div class="field-add">
+						<label>Nhập số lượng :</label>
+						<input type="number" name="soluong">
+					</div>
+					<div class="db-field-add">
+                        <div class="field-add">
+                            <label>Từ ngày :</label>
+                            <input type="date" name="fd">
+                        </div>
+                        <div class="field-add">
+                            <label>Đến ngày :</label>
+                            <input type="date" name="td">
+                        </div>        
+                    </div>
+                    <div class="field-add">
+						<label>Phần trăm giảm (%) :</label>
+						<input type="number" name="discount">
+					</div>
+					<div class="field-add">
+						<button class="btn btn-success" type="submit">Thêm MGG</button>
+					</div>
+				</form>
+				<div class="field-add" style="margin:0;">
+					<button class="btn btn-danger quaylai">Quay Lại</button>
+				</div>
+			</div>
+		</div>
+		<div class="bg-fix hide-bg-fix">
+			<div class="addsp">
+				<form action="" method="POST" enctype="multipart/form-data" id="form_fix_gg">
+					<div class="field-add">
+						<label>Nhập tên mã :</label>
+						<input type="text" name="name" id="fix_name_gg">
+					</div>
+					<div class="field-add">
+						<label>Nhập số lượng :</label>
+						<input type="text" name="soluong" id="soluong" disabled>
+					</div>
+					<div class="db-field-add">
+                        <div class="field-add">
+                            <label>Từ ngày :</label>
+                            <input type="date" name="fd" id="fix_fd_gg">
+                        </div>
+                        <div class="field-add">
+                            <label>Đến ngày :</label>
+                            <input type="date" name="td" id="fix_td_gg">
+                        </div>        
+                    </div>
+                    <div class="field-add">
+						<label>Phần trăm giảm (%) :</label>
+						<input type="text" name="discount" id="fix_pt_gg">
+					</div>
+					<div class="field-add">
+						<button class="btn btn-success" type="submit">Sửa MGG</button>
+					</div>
+				</form>
+				<div class="field-add" style="margin:0;">
+					<button class="btn btn-danger quaylai">Quay Lại</button>
+				</div>
+			</div>
+		</div>
+		<div class="bg-del hide-bg-del">
+			<div class="addsp">
+				<div class="field-add">
+					<h4 class="text-center">Bạn có chắc muốn xóa mã này ?</h4 class="text-center">
+				</div>
+				<div class="field-add">
+					<a href="" class="btn btn-success" id="acp-del" type="submit">Xóa</a>
+				</div>
+				<button class="btn btn-danger quaylai" type="submit">Quay Lại</button>
+			</div>
+		</div>
+	<?php } ?>
 	<?php if (isset($_SESSION['qlbl'])) { ?>
 		<div class="bg-del hide-bg-del">
 			<div class="addsp">

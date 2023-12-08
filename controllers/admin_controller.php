@@ -506,6 +506,49 @@ class admin_controller {
 	    exit();
 	}
 	/*-----------------------------------------*/
+	public function addgg() {
+		if(isset($_SESSION['error_log'])) unset($_SESSION['error_log']);
+
+		$name = $_POST['name'];
+		$soluong = $_POST['soluong'];
+		$fdate = $_POST['fd'];
+		$tdate = $_POST['td'];
+		$discount = $_POST['discount'];
+		
+		$checkus = $this->amodel->checkmgg($name);
+
+		if ($name==""||$soluong==""||$fdate==""||$tdate==""||$discount=="") $_SESSION['error_log'] = "Vui lòng điền đầy đủ thông tin";
+		else if (date('m-d-Y', strtotime($fdate)) >= date('m-d-Y', strtotime($tdate))) $_SESSION['error_log'] = "Thời hạn tối thiểu 1 ngày";
+		else if (isset($checkus[0])) $_SESSION['error_log'] = "Mã đã tồn tại";
+
+		if (!isset($_SESSION['error_log'])) $this->amodel->addmgg($name,$soluong,$soluong,$fdate,$tdate,$discount);
+		header('Location: ' .urlmd. '/manager/magg/');
+	    exit();
+	}
+	public function fixgg($id) {
+		if(isset($_SESSION['error_log'])) unset($_SESSION['error_log']);
+
+		$name = $_POST['name'];
+		$fdate = $_POST['fd'];
+		$tdate = $_POST['td'];
+		$discount = $_POST['discount'];
+
+		$checkus = $this->amodel->checkmgg($name);
+
+		if ($name==""||$fdate==""||$tdate==""||$discount=="") $_SESSION['error_log'] = "Vui lòng điền đầy đủ thông tin";
+		else if (date('m-d-Y', strtotime($fdate)) >= date('m-d-Y', strtotime($tdate))) $_SESSION['error_log'] = "Thời hạn tối thiểu 1 ngày";
+		else if (isset($checkus[1])) $_SESSION['error_log'] = "Mã đã tồn tại";
+
+		if (!isset($_SESSION['error_log'])) $this->amodel->fixmgg($id,$name,$fdate,$tdate,$discount);
+		header('Location: ' .urlmd. '/manager/magg/');
+	    exit();
+	}
+	public function delgg($id) {
+		$this->amodel->delmgg($id);
+		header('Location: ' .urlmd. '/manager/magg/');
+	    exit();
+	}
+	/*-----------------------------------------*/
 	public function delbl($id) {
 		$this->amodel->delbl($id);
 		header('Location: ' .urlmd. '/manager/qlbl/');

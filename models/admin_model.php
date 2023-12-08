@@ -16,6 +16,8 @@ class admin_model {
 
     public function shd() { return getdata("SELECT * FROM hoadon WHERE id > 0 ORDER BY id DESC"); }
 
+    public function mgg() { return getdata("SELECT * FROM voucher ORDER BY id DESC"); }
+
 	public function upsaled($id,$soluong) { iuddata("UPDATE product SET saled = saled + $soluong WHERE id = $id"); }
 
 	public function ajax($id=null, $data=null, $filter=null, $type=null) {
@@ -95,44 +97,10 @@ class admin_model {
 		}
 	}
 	/*-----------------------------------------*/
-	public function thunhap() {
-		$sql = "
-			SELECT SUM(thanhtien) as dutinh, tb.thunhap 
-			FROM hoadon INNER JOIN 
-			(SELECT SUM(thanhtien) as thunhap FROM hoadon WHERE trangthai = \"Hoàn Thành\") 
-			as tb
-		";
-		$ketqua = getdata($sql);
-		return $ketqua;
-	}
-	public function donhang() {
-		$sql = "
-			SELECT COUNT(id) as tonghd, tb.hdht 
-			FROM hoadon INNER JOIN 
-			(SELECT COUNT(id) as hdht FROM hoadon WHERE trangthai = \"Hoàn Thành\")
-			 as tb
-		";
-		$ketqua = getdata($sql);
-		return $ketqua;
-	}
-	public function member() {
-		$sql = "
-			SELECT COUNT(us.user) as ddk, cdk
-			FROM user us, (
-				SELECT COUNT(name) as cdk FROM (
-					SELECT name FROM hoadon WHERE name NOT IN (SELECT user FROM user) GROUP BY name
-				) as tb
-			) as tb
-			WHERE us.role = 1
-		";
-		$ketqua = getdata($sql);
-		return $ketqua;
-	}
-	public function access() {
-		$sql = "SELECT * FROM accessed";
-		$ketqua = getdata($sql);
-		return $ketqua;
-	}
+	public function thunhap() { return getdata("SELECT SUM(thanhtien) as dutinh, tb.thunhap FROM hoadon INNER JOIN (SELECT SUM(thanhtien) as thunhap FROM hoadon WHERE trangthai = \"Hoàn Thành\") as tb"); }
+	public function donhang() { return getdata("SELECT COUNT(id) as tonghd, tb.hdht FROM hoadon INNER JOIN (SELECT COUNT(id) as hdht FROM hoadon WHERE trangthai = \"Hoàn Thành\")as tb"); }
+	public function member() { return getdata("SELECT COUNT(us.user) as ddk, cdk FROM user us, (SELECT COUNT(name) as cdk FROM (SELECT name FROM hoadon WHERE name NOT IN (SELECT user FROM user) GROUP BY name) as tb) as tb WHERE us.role = 1"); }
+	public function access() { return getdata("SELECT * FROM accessed"); }
 	/*-----------------------------------------*/
 	public function tksp() {
 		$sql = "
@@ -237,6 +205,29 @@ class admin_model {
 	}
 	public function delus($id) {
 		$sql = "DELETE FROM user WHERE id = $id";
+		iuddata($sql);
+	}
+	/*-----------------------------------------*/
+	public function checkmgg($name) {
+		$sql = "SELECT * FROM voucher WHERE name = '$name'";
+		$ketqua = getdata($sql);
+		return $ketqua;
+	}
+	public function addmgg($name,$max,$remaining,$fd,$ft,$percent) {
+		$sql = "INSERT INTO voucher VALUES('','$name','$max','$remaining','$fd','$ft','$percent')";
+		iuddata($sql);
+	}
+	public function fixmgg($id,$name,$fd,$td,$percent) {
+		$sql = "UPDATE voucher SET 
+			name = '$name',
+			f_date = '$fd',
+			t_date = '$td',
+			percent = '$percent'
+			WHERE id = $id";
+		iuddata($sql);
+	}
+	public function delmgg($id) {
+		$sql = "DELETE FROM voucher WHERE id = $id";
 		iuddata($sql);
 	}
 	/*-----------------------------------------*/

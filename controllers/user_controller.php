@@ -385,10 +385,8 @@ class user_controller {
 				else {
 					$hd_su = "Đang chờ xác nhận";
 					$ndbh = "<h5>Đơn hàng đang chờ được xác nhận bởi quản trị viên</h5>";
-
 				}
 					
-
 				$list_sp = ""; $i = 1;
 				$dssp = json_decode($ketqua[0]['dssp'],true);
 				foreach ($dssp as $value => $item) {
@@ -406,6 +404,31 @@ class user_controller {
 						</tr>
 					";
 					$i++;
+				}
+
+				if ($ketqua[0]['thanhtien2'] != 0) {
+					$tongket = "
+							<tr>
+								<td colspan=\"3\" class=\"tc-dssp\"><strong>Tạm Tính :</strong></td>
+								<td colspan=\"2\" class=\"tc-dssp\"><strong>".number_format($ketqua[0]['thanhtien'],0,",",".")."</strong></td>
+							</tr>
+							<tr>
+								<td colspan=\"3\" class=\"tc-dssp\"><strong>Giá Giảm :</strong></td>
+								<td colspan=\"2\" class=\"tc-dssp\"><strong>".number_format(($ketqua[0]['thanhtien']-$ketqua[0]['thanhtien2']+20000),0,",",".")."</strong></td>
+							</tr>
+							<tr>
+								<td colspan=\"3\" class=\"tc-dssp\"><strong>Tổng Cộng :</strong></td>
+								<td colspan=\"2\" class=\"tc-dssp\"><strong>".number_format($ketqua[0]['thanhtien2'],0,",",".")."</strong></td>
+							</tr>
+					";
+				}
+				else {
+					$tongket = "
+							<tr>
+								<td colspan=\"3\" class=\"tc-dssp\"><strong>Tổng Cộng :</strong></td>
+								<td colspan=\"2\" class=\"tc-dssp\"><strong>".number_format($ketqua[0]['thanhtien']+20000,0,",",".")."</strong></td>
+							</tr>
+					";
 				}
 
 				$response = "
@@ -456,9 +479,13 @@ class user_controller {
 							</tr>
 							$list_sp
 							<tr>
-								<td colspan=\"3\" class=\"tc-dssp\"><strong>Tổng Cộng :</strong></td>
-								<td colspan=\"2\" class=\"tc-dssp\"><strong>".number_format($ketqua[0]['thanhtien'],0,",",".")."</strong></td>
+								<td style=\"font-size: 16px; padding: 5px 0;text-align: center;\">X</td>
+								<td style=\"font-size: 16px; padding: 5px 0 5px 10px\">Phí vận chuyển</td>
+								<td style=\"font-size: 16px; padding: 5px 0;text-align: center;\">X</td>
+								<td style=\"font-size: 16px; padding: 5px 0 5px 10px\">20.000</td>
+								<td style=\"font-size: 16px; padding: 5px 0 5px 10px\">20.000</td>
 							</tr>
+							$tongket
 						</table>
 						$ndbh
 						<h6>Lưu ý : Bảo hành áp dụng cho toàn bộ sản phẩm có trong đơn hàng, khi đi bảo hành, quý khách vui lòng mang theo hộp (hoặc bao bì) của sản phẩm và kèm theo hóa đơn.</h6>
@@ -482,6 +509,22 @@ class user_controller {
 			if (!isset($exist[0])) $this->umodel->rating($nguoidung[0]['id'], $_POST['idsp'], 'plus',$_POST['rate']);
 			else $this->umodel->rating($nguoidung[0]['id'], $_POST['idsp'], 'rert',$_POST['rate'], $exist[0]['stars']);
 		}
+	}
+
+	public function applymgg() {
+		$mgg = $_POST['mgg'];
+		$ketqua = $this->umodel->checkmgg($mgg);
+		if (isset($ketqua[0])) {
+			$now = new DateTime();
+	        $f_date = new DateTime($ketqua[0]['f_date']);
+	        $t_date = new DateTime($ketqua[0]['t_date']);
+
+			if ($ketqua[0]['remaining'] == 0) echo json_encode("out");
+        	else if ($f_date > $now) echo json_encode("not");
+        	else if ($t_date < $now) echo json_encode("exp");
+        	else echo json_encode($ketqua[0]);
+		}
+		else echo json_encode("false");
 	}
 
 	public function getsp($loai_data=null,$data=null,$page=1) {
@@ -639,7 +682,14 @@ class user_controller {
 		$thanhtien = $_SESSION['totalp'];
 		$mxn = $_POST['mxn'];
 		$date = date("Y-m-d",time());
-		$this->umodel->hoadon($tenkh, $emailkh, $sdtkh, $dckh, $dssp, $thanhtien, $date, $mxn);
+		$thanhtien2 = "";
+		$magg = "";
+
+		if (isset($_POST['newtt'])) {
+			$thanhtien2 = $_POST['newtt'];
+			$magg = $_POST['magg'];
+		}
+		$this->umodel->hoadon($tenkh, $emailkh, $sdtkh, $dckh, $dssp, $thanhtien, $date, $mxn,$magg,$thanhtien2);
 	}
 
 	public function sendmail() {
@@ -647,9 +697,37 @@ class user_controller {
 		$emailkh = $_POST['emailkh'];
 		$sdtkh = $_POST['sdtkh'];
 		$dckh = $_POST['dckh'];
-		$thanhtien = $_SESSION['totalp'];
 		$mxn = $_POST['mxn'];
 		$date = date("d - m - Y",time());
+
+		if (isset($_POST['newtt'])) {
+			$giagiam = $_SESSION['totalp'] - $_POST['newtt'] + 20000;
+			$thanhtien = $_POST['newtt'];
+			$tongket = "
+					<tr style=\"color: white; background: #927ec4;\">
+						<td style=\"border: 1px solid black; padding:3px; font-size: 20px; text-align: center;\" colspan=\"3\">Tạm Tính :</td>
+					    <td style=\"border: 1px solid black; padding:3px; font-size: 20px; text-align: center;\">". number_format($_SESSION['totalp'], 0, '', '.') ."</td>
+					</tr>
+					<tr style=\"color: white; background: #927ec4;\">
+						<td style=\"border: 1px solid black; padding:3px; font-size: 20px; text-align: center;\" colspan=\"3\">Giảm :</td>
+					    <td style=\"border: 1px solid black; padding:3px; font-size: 20px; text-align: center;\">". number_format($giagiam, 0, '', '.') ."</td>
+				    </tr>
+				    <tr style=\"color: white; background: #927ec4;\">
+					    <td style=\"border: 1px solid black; padding:3px; font-size: 20px; text-align: center;\" colspan=\"3\">Tổng Cộng :</td>
+					    <td style=\"border: 1px solid black; padding:3px; font-size: 20px; text-align: center;\">". number_format($thanhtien+20000, 0, '', '.') ."</td>
+					</tr>
+					";
+			$this->umodel->divineMGG($_POST['magg']);
+		}
+		else {
+			$thanhtien = $_SESSION['totalp'];
+			$tongket = "
+					<tr style=\"color: white; background: #927ec4;\">
+					    <td style=\"border: 1px solid black; padding:3px; font-size: 20px; text-align: center;\" colspan=\"3\">Tổng Cộng :</td>
+					    <td style=\"border: 1px solid black; padding:3px; font-size: 20px; text-align: center;\">". number_format($thanhtien+20000, 0, '', '.') ."</td>
+					</tr>
+					";
+		}
 
 		$noidung = "
 		<div style=\"width: 700px; margin: 0 auto; border: solid 1px #ccc;\">
@@ -683,10 +761,7 @@ class user_controller {
 				    <td style=\"padding: 3px; font-size: 15px; border: 1px solid black; width: 100px; text-align: center;\">X</td>
 				    <td style=\"padding: 3px 10px; font-size: 15px; border: 1px solid black; width: 150px; text-align: right;\">20.000</td>
 				</tr>
-				<tr style=\"color: white; background: #927ec4;\">
-				    <td style=\"border: 1px solid black; padding:3px; font-size: 20px; text-align: center;\" colspan=\"3\">Tổng Cộng :</td>
-				    <td style=\"border: 1px solid black; padding:3px; font-size: 20px; text-align: center;\">". number_format($_SESSION['totalp']+20000, 0, '', '.') ."</td>
-				</tr>
+				".$tongket."
 			</table>
 
 			<h4 style=\"margin: 50px 0;\">Chân thành cám ơn quý khách hàng đã tin tưởng dùng lựa chọn tại cửa hàng của chúng tôi. Chúng tôi sẽ chuẩn bị đơn hàng nhanh nhất có thể cho quý khách hàng.</h4>

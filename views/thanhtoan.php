@@ -85,22 +85,32 @@
                             <p class="p-sl-giohang">Số lượng : <?php echo $item['soluong'] ?></p>
                             <p class="p-gia-giohanh"><?php echo number_format($item['thanhtien'],0,'','.') ?> đ</p>
                         </div>
-                    </div><hr class="hr-mau">
+                    </div><hr class="hr">
                     <?php }} ?>
-
+                    <div class="box-mgg">
+                        <p>Sử dụng mã giảm giá :</p>
+                        <form id="apply-mgg">
+                            <input type="text" id="magiamgia">
+                            <button type="submit" class="btn btn-success">Áp Dụng</button>
+                        </form>
+                    </div><hr>
                     <div class="row thanhtoanh">
                         <div class="col-12">
                             <div>
                                 <p class="p-thanhtoan">tạm tính :</p>
-                                <p class="p-gia"><?php echo number_format($_SESSION['totalp'],0,'','.') ?> đ</p>
+                                <p class="p-gia" id="giagoc"><?php echo number_format($_SESSION['totalp'],0,'','.') ?></p>
+                            </div>
+                            <div class="giamgia hide-gg">
+                                <p class="p-thanhtoan" id="stt-gg" trangtrai="">ưu đãi :</p>
+                                <p class="p-gia tongcong"></p>
                             </div>
                             <div>
                                 <p class="p-thanhtoan">phí vận chuyển :</p>
-                                <p class="p-gia">20.000 đ</p>
+                                <p class="p-gia">20.000</p>
                             </div>
                             <div class="div-tongcong">
                                 <p class="p-thanhtoan">tổng cộng :</p>
-                                <p class="p-gia tongcong"><?php echo number_format($_SESSION['totalp']+20000,0,'','.') ?> đ</p>
+                                <p class="p-gia tongcong" id="tongtien"><?php echo number_format($_SESSION['totalp']+20000,0,'','.') ?></p>
                             </div>
                             <div>
                                 <button class="btn nutsp thanhtoansp" id="thanhtoansp">Hoàn Tất Thanh Toán</button>

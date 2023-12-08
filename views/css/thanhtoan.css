@@ -85,6 +85,16 @@
     text-align: center;
 }
 
+.giamgia {
+    height: max-content;
+}
+
+.hide-gg {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
 .thanhtoanh .div-tongcong {
     margin: 5% 0 0 0;
 }
@@ -240,4 +250,31 @@
 .p-sl-giohang {
     margin: 0;
     text-align: center;
+}
+
+.box-mgg {
+    background: #d8caf9;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+}
+
+.box-mgg form > input {
+    height: max-content;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    outline-color: #745caf;
+    padding: 7px;
+    display: block;
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+.box-mgg p {
+    margin: 0;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-size: 17px;
 }
