@@ -240,6 +240,7 @@
 }
 
 .btn-stars {
+    cursor: pointer;
     border: 1px solid gray;
     background: white;
     color: gray;
