@@ -43,7 +43,7 @@
                     }
                     else {
                         echo '
-                        <tr>
+                        <tr id="sanpham">
                             <td colspan="5" style="color: red; font-weight: bold; text-align : center;">Tổng tiền :</td>
                             <td colspan="2" style="color: red; font-weight: bold;" id="ttfn"></td>
                         </tr>';
@@ -52,7 +52,7 @@
             </table>
         </div>
         <?php if (isset($_SESSION['giohang']) && count($_SESSION['giohang']) != 0) { ?>
-            <div class="row" style="margin: 15px 0 0;"><div class="col-4 offset-4"><a href="<?php echo urlmd ?>/thanhtoan/" class="w-100 btn btn-success">Bắt Đầu Thanh Toán</a></div></div>
+            <div class="row" id="sanpham" style="margin: 15px 0 0;"><div class="col-4 offset-4"><a href="<?php echo urlmd ?>/thanhtoan/" class="w-100 btn btn-success">Bắt Đầu Thanh Toán</a></div></div>
         <?php } ?>
         <div class="row" style="margin: 15px 0 0;"><div class="col-4 offset-4"><button class="w-100 btn btn-danger delallcart">Xóa Giỏ Hàng</button></div></div>
     </div>

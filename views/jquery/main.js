@@ -245,11 +245,12 @@ $(function() {
 	    });
 	}
 	$('.delallcart').on('click', function() {
-		$(this).parent().parent().siblings("div:has(table)").find('td').remove();
+		$('[id="sanpham"]').each(function() {
+	        $(this).remove();
+	    });
 		var emtycart = `<tr id="emptycart"><th colspan="7">Bạn không có sản phẩm nào trong giỏ hàng</th></tr>`;
-		if(!$('#listcart').find('#emtycart')) {
-			$('#listcart').append(emtycart);	
-		}
+		$('#listcart').append(emtycart);	
+		
 
 		var duongdan_fix = duongdan+url_sub+"/delallcart/";
 
@@ -263,7 +264,6 @@ $(function() {
 				console.log("Có lỗi xảy ra.");
 			}
 		});
-		console.log('asdsd');
 	})
 	/* --------------------------- */
 
