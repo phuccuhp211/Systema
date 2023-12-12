@@ -14,7 +14,7 @@
         exit;
     }
 
-    define('bdt', '/DA1/systema');
+    define('bdt', '');
     define('urlmd', 'http://localhost'.bdt);
     define('urlc', urlmd.'/controllers/');
     define('urlm', urlmd.'/models/');

@@ -3,7 +3,7 @@ $(function() {
 	var chieucao_cu = 0;
 	//var duongdan = window.location.href;
 	var duongdan = window.location.origin;
-	var url_sub = "/DA1/systema";
+	var url_sub = "";
 	//var duongdan_fix = duongdan.replace(/(\/systema\/).*/, "$1"+"ktbh/");
 
 	$(document).ready(function () {
@@ -120,6 +120,26 @@ $(function() {
 			data: { idsp: idsp, slsp: sl },
 			success: function(response) {
 				console.log('thanh cong');
+			},
+			error: function() {
+				console.log("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.");
+			}
+		});
+	})
+	$('#sp-tt').on('click', '.buy', function(event) {
+		event.preventDefault();
+		var idsp = $(this).data('idsp');
+		var sl = $('.ctsp-sl').val();
+
+		var duongdan_fix1 = duongdan+url_sub+"/muangay/"+idsp+"/";
+		var duongdan_fix2 = duongdan+url_sub+"/thanhtoan/";
+
+		$.ajax({
+			type: "POST",
+			url: duongdan_fix1,
+			data: { slsp: sl },
+			success: function(response) {
+				window.location.href = duongdan_fix2;
 			},
 			error: function() {
 				console.log("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.");

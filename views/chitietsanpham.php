@@ -34,7 +34,7 @@
                             <div style="margin: 15px 0;">
                                 <label for="">Số Lượng : </label><input type="number" min="1" value="1" class="ctsp-sl">
                             </div>
-                            <a href="<?php echo urlmd ?>/muangay/<?php echo $chitiet[0]['id'] ?>/" class="nut-muasp buy">Mua Ngay</a>
+                            <a href="#" data-idsp="<?php echo $chitiet[0]['id'] ?>" class="nut-muasp buy">Mua Ngay</a>
                             <button class="nut-muasp add addcart" id="uidsp" style="margin: 15px 0 0;" data-idsp="<?php echo $chitiet[0]['id'] ?>">Thêm Giỏ Hàng</button>
                         </div>
                     </div>  

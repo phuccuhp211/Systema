@@ -3,7 +3,7 @@ $(function() {
 	var cdmh = $(window).width();
 	//var duongdan = window.location.href;
 	var duongdan = window.location.origin;
-	var url_sub = "/DA1/systema"; 
+	var url_sub = ""; 
 	//var duongdan_fix = duongdan.replace(/(\/systema\/).*/, "$1"+"ktbh/");
 
 	tinymce.init({

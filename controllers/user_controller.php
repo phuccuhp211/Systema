@@ -278,7 +278,7 @@ class user_controller {
 				$trunglap = false;
 				foreach ($_SESSION['giohang'] as $value => $item) {
 					if ($item['id'] == $id ) { 
-						$_SESSION['giohang'][$value]['soluong'] += 1;
+						$_SESSION['giohang'][$value]['soluong'] += $sanpham[0]['soluong'];
 						$trunglap = true;
 						break;
 					}
@@ -317,7 +317,9 @@ class user_controller {
 		$sanpham = $this->umodel->spcart($id);
 		unset($sanpham[0]['detail']);
 
-		$sanpham[0]['soluong'] = "1";
+		if (isset($_POST['slsp'])) $sanpham[0]['soluong'] = $_POST['slsp'];
+		else $sanpham[0]['soluong'] = 1;
+		
 		if ($sanpham[0]['price_sale'] != 0) $sanpham[0]['thanhtien'] = $sanpham[0]['price_sale'];
 		else $sanpham[0]['thanhtien'] = $sanpham[0]['price'];
 		
@@ -335,7 +337,7 @@ class user_controller {
 				$trunglap = false;
 				foreach ($_SESSION['giohang'] as $value => $item) {
 					if ($item['id'] == $id ) { 
-						$_SESSION['giohang'][$value]['soluong'] += 1;
+						$_SESSION['giohang'][$value]['soluong'] += $sanpham[0]['soluong'];
 						$trunglap = true;
 						break;
 					}
@@ -345,7 +347,7 @@ class user_controller {
 			$_SESSION['totalp'] += $sanpham[0]['thanhtien'];
 		}
 
-		header("Location: ".urlmd."/thanhtoan/");
+		if (!isset($_POST['slsp'])) header("Location: ".urlmd."/thanhtoan/");
 	}
 
 	public function updatecart() {
