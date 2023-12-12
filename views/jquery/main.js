@@ -637,6 +637,9 @@ $(function() {
 	/* -------------------------- */
 
 
+
+	$('.sendmxn').on('click',function() { $('.thongbao-thanhtoan').removeClass('hide-tbtt'); })
+
 	var stt_ml = 0;
 	var cc_tt = 0;
 	
