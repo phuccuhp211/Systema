@@ -551,7 +551,9 @@ $(function() {
 			if ($('#stt-gg').attr("trangthai") == "true") {
 				data_trave.newtt = Number(($('#tongtien').text()).replace(/\./g, ""));
 				data_trave.magg = $('#magiamgia').val();
-			} 
+			}
+
+			$('.thongbao-thanhtoan').removeClass('hide-tbtt');
 
 			$.ajax({
 				type: "POST",

@@ -10,6 +10,12 @@
 	<?php include 'include/header.php' ?>
     <?php include 'include/modal.php' ?>
 
+    <div class="thongbao-thanhtoan hide-tbtt">
+        <div class="box-noidung">
+            <h2>...Đang Xử Lý...</h2>
+        </div>
+    </div>
+
     <div class="container">
         <h2 class="ttgh-top">thông tin giỏ hàng</h2>          
         <div class="row">
