@@ -30,7 +30,10 @@
                         <span class="mieuta-sp">Đã Bán : <?php echo $chitiet[0]['saled'] ?></span><br>
                         <span class="mieuta-sp"><?php echo $chitiet[0]['detail'] ?></span>
                         <div class="gia-mua-sp">
-                            <h2 class="gia-sp">Giá : <?php echo number_format($chitiet[0]['price'],0,'','.') ?></h2>
+                            <?php 
+                            if ($chitiet[0]['price_sale'] == 0) echo "<h2 class=\"gia-sp\">Giá : ".number_format($chitiet[0]['price'],0,'','.')."</h2>";
+                            else echo "<h2 class=\"gia-sp\">Giá : ".number_format($chitiet[0]['price_sale'],0,'','.')."</h2>";
+                            ?>
                             <div style="margin: 15px 0;">
                                 <label for="">Số Lượng : </label><input type="number" min="1" value="1" class="ctsp-sl">
                             </div>

@@ -269,8 +269,8 @@ class user_controller {
 		if (isset($_POST['slsp'])) $sanpham[0]['soluong'] = $_POST['slsp'];
 		else $sanpham[0]['soluong'] = 1;
 		
-		if ($sanpham[0]['price_sale'] != 0) $sanpham[0]['thanhtien'] = $sanpham[0]['price_sale'];
-		else $sanpham[0]['thanhtien'] = $sanpham[0]['price'];
+		if ($sanpham[0]['price_sale'] != 0) $sanpham[0]['thanhtien'] = $sanpham[0]['price_sale'] * $sanpham[0]['soluong'];
+		else $sanpham[0]['thanhtien'] = $sanpham[0]['price'] * $sanpham[0]['soluong'];
 		
 		if (isset($_SESSION['giohang'])) {
 			if (count($_SESSION['giohang']) == 0)  array_push($_SESSION['giohang'], $sanpham[0]);
@@ -320,8 +320,8 @@ class user_controller {
 		if (isset($_POST['slsp'])) $sanpham[0]['soluong'] = $_POST['slsp'];
 		else $sanpham[0]['soluong'] = 1;
 		
-		if ($sanpham[0]['price_sale'] != 0) $sanpham[0]['thanhtien'] = $sanpham[0]['price_sale'];
-		else $sanpham[0]['thanhtien'] = $sanpham[0]['price'];
+		if ($sanpham[0]['price_sale'] != 0) $sanpham[0]['thanhtien'] = $sanpham[0]['price_sale'] * $sanpham[0]['soluong'];
+		else $sanpham[0]['thanhtien'] = $sanpham[0]['price'] * $sanpham[0]['soluong'];
 		
 		if (!isset($_SESSION['giohang'])) {
 			$_SESSION['giohang'] = [];
