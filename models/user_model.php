@@ -179,7 +179,7 @@ class user_model {
 		return $ketqua;
 	}
 	public function regis($name,$pass,$ho,$ten,$sdt,$email,$diachi) {
-		$sql = "INSERT INTO user VALUES ('','$name','$pass','$ho','$ten','$sdt','$email','$diachi','1','','')";
+		$sql = "INSERT INTO user VALUES ('','$name','$pass','$ho','$ten','$sdt','$email','$diachi','1','','1')";
 		iuddata($sql);
 	}
 	public function updatetk($id,$ho,$ten,$sdt,$email,$diachi){

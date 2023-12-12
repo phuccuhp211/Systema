@@ -315,7 +315,7 @@ class user_controller {
 	public function muangay($id) {
 		$this->umodel->upview_nonin();
 		$sanpham = $this->umodel->spcart($id);
-		unset($sanpham[0]['detail']);
+		unset($sanpham[0]['mdetail']);
 
 		if (isset($_POST['slsp'])) $sanpham[0]['soluong'] = $_POST['slsp'];
 		else $sanpham[0]['soluong'] = 1;
