@@ -12,7 +12,7 @@ require 'src/SMTP.php';
 class user_controller {
 	private $umodel;
 
-    public function __construct() {
+    function __construct() {
         $this->umodel = new user_model();
     }
 

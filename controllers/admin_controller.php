@@ -4,7 +4,7 @@ require_once 'models/admin_model.php';
 class admin_controller {
 	private $amodel;
 
-    public function __construct() {
+    function __construct() {
         $this->amodel = new admin_model();
     }
 
